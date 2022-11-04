@@ -23,6 +23,11 @@ public class CharacterControl : MonoBehaviour
         {
             _abilityMove.ProcessInput(context.ReadValue<Vector2>());
         }
+
+        if (_abilityJump != null)
+        {
+            _abilityJump.SetMoveInput(context.ReadValue<Vector2>());
+        }
     }
     
     public void Jump(InputAction.CallbackContext context)
