@@ -40,7 +40,7 @@ public class CameraTracking : MonoBehaviour
         camera = GetComponent<Camera>();
         posZ = transform.position.z;
         transform.position = new Vector3(trackingObject.position.x, trackingObject.position.y, posZ);
-        centerOffset = new Vector3();
+        centerOffset = new Vector2();
     }
 
     void FixedUpdate()
@@ -50,20 +50,19 @@ public class CameraTracking : MonoBehaviour
             case CameraEnum.Tracking:
                 float posX = trackingObject.position.x;
                 float posY = trackingObject.position.y;
-                if (trackingObject.GetComponent<Rigidbody>())
+                if (trackingObject.GetComponent<Rigidbody2D>())
                 {
-                    centerOffset.x += velocityMultX * trackingObject.GetComponent<Rigidbody>().velocity.x;
+                    centerOffset.x += velocityMultX * trackingObject.GetComponent<Rigidbody2D>().velocity.x;
                     centerOffset.x = maxOffsetY < Math.Abs(centerOffset.x)
                         ? (centerOffset.x > 0 ? maxOffsetY : -maxOffsetX)
                         : centerOffset.x;
                     posX += centerOffset.x;
-                    centerOffset.y += velocityMultY * trackingObject.GetComponent<Rigidbody>().velocity.y;
+                    centerOffset.y += velocityMultY * trackingObject.GetComponent<Rigidbody2D>().velocity.y;
                     centerOffset.y = maxOffsetY < Math.Abs(centerOffset.y)
                         ? (centerOffset.y > 0 ? maxOffsetY : -maxOffsetY)
                         : centerOffset.y;
                     posY += centerOffset.y;
                 }
-
                 transform.position = new Vector3(posX, posY, posZ);
                 break;
             case CameraEnum.Moving: //Плавное перемещение к новому обьекту
@@ -71,7 +70,7 @@ public class CameraTracking : MonoBehaviour
                 {
                     cameraCondition = CameraEnum.Tracking;
                     transform.position = trackingObject.position;
-                    directionToObject = Vector3.zero;
+                    directionToObject = Vector2.zero;
                 }
                 else
                     transform.position += directionToObject;
@@ -85,7 +84,7 @@ public class CameraTracking : MonoBehaviour
     {
         this.trackingObject = trackingObject;
         directionToObject = (trackingObject.position - transform.position).normalized;
-        centerOffset = Vector3.zero;
+        centerOffset = Vector2.zero;
         cameraCondition = CameraEnum.Moving;
     }
 
