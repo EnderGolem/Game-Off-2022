@@ -10,21 +10,34 @@ public class AbilityMove : CharacterAbility<Vector2>
    /// </summary>
    protected Vector2 curInputDir = Vector2.zero;
    protected Rigidbody2D rigidbody;
+   [Tooltip("Скорость до которой персонаж может разогнаться при беге")]
    [SerializeField]
    protected float runMaxSpeed; //Target speed we want the player to reach.
+   [Tooltip("Скорость разгона персонажа")]
    [SerializeField]
    protected float runAcceleration; //The speed at which our player accelerates to max speed, can be set to runMaxSpeed for instant acceleration down to 0 for none at all
    
    protected float runAccelAmount; //The actual force (multiplied with speedDiff) applied to the player.
+   [Tooltip("Скорость остановки персонажа. При низком значении можно получить эффект скольжения по льду.")]
    [SerializeField]
    protected float runDecceleration; //The speed at which our player decelerates from their current speed, can be set to runMaxSpeed for instant deceleration down to 0 for none at all
    protected float runDeccelAmount; //Actual force (multiplied with speedDiff) applied to the player .
    [Space(5)]
+   [Tooltip("Скорость разгона персонажа, когда он в воздухе")]
    [SerializeField]
    [Range(0f, 1)] protected float accelInAir; //Multipliers applied to acceleration rate when airborne.
+   [Tooltip("Скорость остановки персонажа, когда он в воздухе")]
    [SerializeField]
    [Range(0f, 1)] protected float deccelInAir;
    [Space(5)]
+   [Tooltip("Модификатор ускорения персонажа, когда он находится близко к верхней точке прыжка")]
+   public float jumpHangAccelerationMult; 
+   [Tooltip("Модификатор максимальной скорости персонажа, когда он находится близко к верхней точке прыжка")]
+   public float jumpHangMaxSpeedMult;
+   [Tooltip("Как близко к нулю должна быть скорость персонажа, чтобы считалось, что он находится в верхней точке")]
+   public float jumpHangTimeThreshold;
+   [Tooltip("Если игрок двигается е меняя направления выше своей максимальной скорости, то с включенным этим параметром" +
+            "он скорость сбрасывать не будет")]
    public bool doConserveMomentum = true;
    protected override void PreInitialize()
    {
@@ -61,14 +74,15 @@ public class AbilityMove : CharacterAbility<Vector2>
 			accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? runAccelAmount * accelInAir : runDeccelAmount * deccelInAir;
 		#endregion
 
-		/*#region Add Bonus Jump Apex Acceleration
+		#region Add Bonus Jump Apex Acceleration
 		//Increase are acceleration and maxSpeed when at the apex of their jump, makes the jump feel a bit more bouncy, responsive and natural
-		if ((IsJumping || IsWallJumping || _isJumpFalling) && Mathf.Abs(RB.velocity.y) < Data.jumpHangTimeThreshold)
+		if ((owner.MovementState.CurrentState == CharacterMovementsStates.Jumping
+			|| owner.MovementState.CurrentState == CharacterMovementsStates.JumpFalling) && Mathf.Abs(rigidbody.velocity.y) < jumpHangTimeThreshold)
 		{
-			accelRate *= Data.jumpHangAccelerationMult;
-			targetSpeed *= Data.jumpHangMaxSpeedMult;
+			accelRate *= jumpHangAccelerationMult;
+			targetSpeed *= jumpHangMaxSpeedMult;
 		}
-		#endregion*/
+		#endregion
 
 		#region Conserve Momentum
 		//We won't slow the player down if they are moving in their desired direction but at a greater speed than their maxSpeed
@@ -87,6 +101,16 @@ public class AbilityMove : CharacterAbility<Vector2>
 		float movement = speedDif * accelRate;
 		//Convert this to a vector and apply to rigidbody
 		rigidbody.AddForce(movement * Vector2.right, ForceMode2D.Force);
+
+		if (owner.MovementState.CurrentState == CharacterMovementsStates.Idle && Mathf.Abs(targetSpeed) > 0)
+		{
+			owner.MovementState.ChangeState(CharacterMovementsStates.Walking);
+		}
+		
+		if (owner.MovementState.CurrentState == CharacterMovementsStates.Walking && Mathf.Abs(targetSpeed) == 0)
+		{
+			owner.MovementState.ChangeState(CharacterMovementsStates.Idle);
+		}
 
 		/*
 		 * For those interested here is what AddForce() will do

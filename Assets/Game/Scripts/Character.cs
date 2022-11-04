@@ -19,7 +19,6 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     public bool IsOnGround
     {
         get => Time.time - LastOnGroundTime < coyoteTime;
-        private set => IsOnGround = value;
     }
     /// <summary>
     /// Базовая сила гравитации рассчитанная из характеристик прыжка
@@ -28,13 +27,15 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     public float gravityScale { get; private set; }
 
     public float LastOnGroundTime { get; private set; }
-    [Tooltip("Время спустя которое после физического отрыва от земли персонаж перестает считать стоящим на земле")]
+    [Tooltip("Время спустя которое после физического отрыва от земли персонаж перестает считаться стоящим на земле," +
+             "что позволяет ему прыгать уже сойдя с платформы")]
     [SerializeField] 
     [Range(0.01f, 0.5f)]
     protected float coyoteTime = 0.1f;
     [Header("Checks")] 
+    [Tooltip("Точка в которой проходит проверка на столкновение с землей")]
     [SerializeField] private Transform _groundCheckPoint;
-    //Size of groundCheck depends on the size of your character generally you want them slightly small than width (for ground) and height (for the wall check)
+    [Tooltip("Size of groundCheck depends on the size of your character generally you want them slightly small than width (for ground) and height (for the wall check)")]
     [SerializeField] private Vector2 _groundCheckSize = new Vector2(0.49f, 0.03f);
     
     [Header("Layers & Tags")]
@@ -66,6 +67,11 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         if (Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer) && !(MovementState.CurrentState == CharacterMovementsStates.Jumping)) //checks if set box overlaps with ground
         {
             LastOnGroundTime = Time.time; //if so sets the lastGrounded to coyoteTime
+            if ((MovementState.CurrentState == CharacterMovementsStates.Jumping
+                 || MovementState.CurrentState == CharacterMovementsStates.JumpFalling) && Mathf.Abs(RigidBody.velocity.y) < 0.1)
+            {
+                MovementState.ChangeState(CharacterMovementsStates.Idle);
+            }
         }
     }
 
@@ -89,8 +95,9 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         //Если мы только что прыгнули, то выставляем время так, чтобы не прыгнуть еще раз
         if (eventType.NewState == CharacterMovementsStates.Jumping)
         {
-            LastOnGroundTime = Time.time + coyoteTime;
+            LastOnGroundTime = Time.time - coyoteTime;
         }
+        Debug.Log(eventType.NewState);
     }
 
     private void OnEnable()
@@ -106,7 +113,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 
 public enum CharacterMovementsStates
 {
-    Idle, Walking, Jumping, Dashing
+    Idle, Walking, Jumping, Dashing, JumpFalling
 }
 
 public enum CharacterAttackingState

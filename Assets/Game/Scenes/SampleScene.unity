@@ -699,7 +699,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c7657a12862554842b344b64a82f5dc6, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 0
   m_CollisionDetection: 1
@@ -929,6 +929,9 @@ MonoBehaviour:
   runDecceleration: 2
   accelInAir: 0.5
   deccelInAir: 0.5
+  jumpHangAccelerationMult: 1.5
+  jumpHangMaxSpeedMult: 1.5
+  jumpHangTimeThreshold: 1.5
   doConserveMomentum: 1
 --- !u!114 &1725858654
 MonoBehaviour:
@@ -943,14 +946,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpHeight: 5
-  jumpTimeToApex: 1
-  jumpForce: 10
-  jumpCutGravityMult: 2
-  jumpHangGravityMult: 0.54
-  jumpHangTimeThreshold: 0
-  jumpHangAccelerationMult: 0
-  jumpHangMaxSpeedMult: 0
+  jumpTimeToApex: 0.5
+  jumpForce: 20
+  jumpCutGravityMult: 1.5
+  jumpHangGravityMult: 0.696
+  jumpHangTimeThreshold: 2
   jumpInputBufferTime: 0.225
+  fallGravityMult: 2.4
+  maxFallSpeed: 30
+  fastFallGravityMult: 5
+  maxFastFallSpeed: 50
 --- !u!1001 &1774792919
 PrefabInstance:
   m_ObjectHideFlags: 0
