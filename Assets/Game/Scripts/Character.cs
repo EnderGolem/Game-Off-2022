@@ -64,7 +64,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 
     protected void CheckGrounded()
     {
-        if (Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer) && !(MovementState.CurrentState == CharacterMovementsStates.Jumping)) //checks if set box overlaps with ground
+        if (Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer) /*&& !(MovementState.CurrentState == CharacterMovementsStates.Jumping)*/) //checks if set box overlaps with ground
         {
             LastOnGroundTime = Time.time; //if so sets the lastGrounded to coyoteTime
             if ((MovementState.CurrentState == CharacterMovementsStates.Jumping

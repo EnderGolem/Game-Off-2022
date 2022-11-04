@@ -36,6 +36,9 @@ public class AbilityJump : CharacterAbility<bool>
     //Seen in games such as Celeste, lets the player fall extra fast if they wish.
     [Tooltip("Максимальная скорость падения при зажатой клавише вниз")]
     public float maxFastFallSpeed; //Maximum fall speed(terminal velocity) of the player when performing a faster fall.
+    [Tooltip("Должен ли персонаж автоматически прыгать при нажатой клавише прыжка")]
+    [SerializeField]
+    protected bool jumpAlways;
     /// <summary>
     /// Последнее направление ввода
     /// </summary>
@@ -51,12 +54,13 @@ public class AbilityJump : CharacterAbility<bool>
     {
         base.PreInitialize();
         rigidbody = owner.RigidBody;
+        LastPressedJumpTime = -100000;
     }
 
     private void FixedUpdate()
     { 
         ///Проверяем не нажимали ли мы прыжок недавно
-        if ((Time.time - LastPressedJumpTime < jumpInputBufferTime || curInput) && CanJump())
+        if ((Time.time - LastPressedJumpTime < jumpInputBufferTime || (jumpAlways && curInput)) && CanJump())
         {
             Jump();
         }
