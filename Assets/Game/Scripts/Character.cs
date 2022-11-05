@@ -16,12 +16,18 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 
     public Rigidbody2D RigidBody { get; protected set; }
 
+    public PropertyManager PropertyManager { get; private set; }
+
     public bool IsOnGround
     {
         get => Time.time - LastOnGroundTime < coyoteTime;
     }
 
     public bool IsFacingRight { get; private set; } = true;
+
+    public bool IsAlive { get; private set; } = true;
+
+    public bool IsTired { get; set; }
 
     /// <summary>
     /// Базовая сила гравитации рассчитанная из характеристик прыжка
@@ -50,6 +56,11 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     private void Awake()
     {
         Debug.Log("Character");
+        PropertyManager = GetComponent<PropertyManager>();
+        if (PropertyManager == null)//гарантия того что объекты с компонентом health имеют PropertyManager
+        {
+            PropertyManager = gameObject.AddComponent<PropertyManager>();
+        }
         RigidBody = GetComponent<Rigidbody2D>();
         MovementState = new MMStateMachine<CharacterMovementsStates>(gameObject,true);
         AttackingState = new MMStateMachine<CharacterAttackingState>(gameObject, true);
@@ -135,6 +146,11 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     public virtual void SetMoveInput(Vector2 input)
     {
         curMoveInputDir = input;
+    }
+
+    public void Kill()
+    {
+        IsAlive = false;
     }
 
     public void OnMMEvent(MMStateChangeEvent<CharacterMovementsStates> eventType)
