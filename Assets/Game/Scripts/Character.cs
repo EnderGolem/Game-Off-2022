@@ -20,6 +20,9 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     {
         get => Time.time - LastOnGroundTime < coyoteTime;
     }
+
+    public bool IsFacingRight { get; private set; } = true;
+
     /// <summary>
     /// Базовая сила гравитации рассчитанная из характеристик прыжка
     /// </summary>
@@ -42,6 +45,8 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     [SerializeField] private LayerMask _groundLayer;
 
     public float CoyoteTime => coyoteTime;
+
+    protected Vector2 curMoveInputDir;
     private void Awake()
     {
         Debug.Log("Character");
@@ -60,6 +65,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     void Update()
     {
         CheckGrounded();
+        CheckFacing();
     }
 
     protected void CheckGrounded()
@@ -71,6 +77,17 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
                  || MovementState.CurrentState == CharacterMovementsStates.JumpFalling) && Mathf.Abs(RigidBody.velocity.y) < 0.1)
             {
                 MovementState.ChangeState(CharacterMovementsStates.Idle);
+            }
+        }
+    }
+
+    protected void CheckFacing()
+    {
+        if (curMoveInputDir.x != 0)
+        {
+            if ((curMoveInputDir.x > 0 && !IsFacingRight) || (curMoveInputDir.x < 0) && IsFacingRight)
+            {
+                Turn();
             }
         }
     }
@@ -89,6 +106,36 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     {
         RigidBody.gravityScale = scale;
     }
+    
+    public void Sleep(float duration)
+    {
+        //Method used so we don't need to call StartCoroutine everywhere
+        //nameof() notation means we don't need to input a string directly.
+        //Removes chance of spelling mistakes and will improve error messages if any
+        StartCoroutine(nameof(PerformSleep), duration);
+    }
+
+    public IEnumerator PerformSleep(float duration)
+    {
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(duration); //Must be Realtime since timeScale with be 0 
+        Time.timeScale = 1;
+    }
+    
+    public void Turn()
+    {
+        //stores scale and flips the player along the x axis, 
+        Vector3 scale = transform.localScale; 
+        scale.x *= -1;
+        transform.localScale = scale;
+
+        IsFacingRight = !IsFacingRight;
+    }
+    
+    public virtual void SetMoveInput(Vector2 input)
+    {
+        curMoveInputDir = input;
+    }
 
     public void OnMMEvent(MMStateChangeEvent<CharacterMovementsStates> eventType)
     {
@@ -97,7 +144,12 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         {
             LastOnGroundTime = Time.time - coyoteTime;
         }
-        Debug.Log(eventType.NewState);
+        else if (eventType.NewState == CharacterMovementsStates.Dashing)
+        {
+            LastOnGroundTime = Time.time - coyoteTime;
+        }
+
+        //Debug.Log(eventType.NewState);
     }
 
     private void OnEnable()
