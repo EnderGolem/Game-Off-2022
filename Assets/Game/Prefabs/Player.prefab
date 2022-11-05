@@ -1,5 +1,84 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4400931545326724525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 267052651853494059}
+  - component: {fileID: 1506179850611331165}
+  - component: {fileID: 743341502864594043}
+  m_Layer: 0
+  m_Name: MeleeAttackZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &267052651853494059
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4400931545326724525}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.03, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8434176433734082512}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1506179850611331165
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4400931545326724525}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &743341502864594043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4400931545326724525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08834d73ba6e4994482e81df0c00c5ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageTakenEveryTime: 0
+  DamageTakenDamageable: 0
+  DamageTakenNonDamageable: 0
+  startEffects:
+  - {fileID: 11400000, guid: 33e7cd555f47ca349ad22e1bbae14f32, type: 2}
+  knockBack: {x: 20, y: -30}
+  useAutoDisable: 0
+  autoDisableTime: 0
 --- !u!1 &8219393832730462698
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,6 +159,9 @@ GameObject:
   - component: {fileID: 8434176433734082516}
   - component: {fileID: 8434176433734082519}
   - component: {fileID: 8434176433734082518}
+  - component: {fileID: 1820773207412357671}
+  - component: {fileID: 4838321917928665142}
+  - component: {fileID: 4601172660484517315}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -101,6 +183,7 @@ Transform:
   m_Children:
   - {fileID: 8434176432686526706}
   - {fileID: 882419418110711753}
+  - {fileID: 267052651853494059}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -269,7 +352,19 @@ MonoBehaviour:
     m_ActionId: c4cb1d71-9941-4330-b073-651f15235dec
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8434176433734082515}
+        m_TargetAssemblyTypeName: CharacterControl, Assembly-CSharp
+        m_MethodName: Attack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 1d964852-9aca-4537-a088-0bc71016bcdb
     m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -394,6 +489,7 @@ MonoBehaviour:
   fastFallGravityMult: 5
   maxFastFallSpeed: 50
   jumpAlways: 0
+  enduranceCost: 25
 --- !u!114 &8434176433734082518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,3 +512,50 @@ MonoBehaviour:
   dashInputBufferTime: 0.15
   dashType: 2
   LayerWhileDashing: Dashing
+--- !u!114 &1820773207412357671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434176433734082524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce001ef12e4f91c4788e84bee4808115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageZone: {fileID: 1506179850611331165}
+  delayBeforeAttack: 0
+  activeDamageZoneTime: 0.2
+  delayAfterAttack: 0.3
+--- !u!114 &4838321917928665142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434176433734082524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c01587090b3d2e429f0765a33f73a6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseEndurance: 100
+  tirednessThreshold: 25
+  recoverSpeed: 20
+--- !u!114 &4601172660484517315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434176433734082524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d7a3c5c532abff419e87cf70f8b0ad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  initialHealth: 100
+  destroyOnDeath: 1
+  timeBeforeDestruction: 0

@@ -13,12 +13,14 @@ public class CharacterControl : MonoBehaviour
     private AbilityMove _abilityMove;
     private AbilityJump _abilityJump;
     private AbilityDash _abilityDash;
+    private MeleeAttack _meleeAttack;
     private void Awake()
     {
         _character = GetComponent<Character>();
         _abilityMove = GetComponent<AbilityMove>();
         _abilityJump = GetComponent<AbilityJump>();
         _abilityDash = GetComponent<AbilityDash>();
+        _meleeAttack = GetComponent<MeleeAttack>();
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -75,6 +77,18 @@ public class CharacterControl : MonoBehaviour
             }
         }
     }
-    
-    
+
+    public void Attack(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            _meleeAttack.ProcessInput(true);
+        }
+        else if (context.canceled)
+        {
+            _meleeAttack.ProcessInput(false);
+        }
+    }
+
+
 }

@@ -39,6 +39,9 @@ public class AbilityJump : CharacterAbility<bool>
     [Tooltip("Должен ли персонаж автоматически прыгать при нажатой клавише прыжка")]
     [SerializeField]
     protected bool jumpAlways;
+    [Tooltip("Количество выносливости, тратимой при прыжке")]
+    [SerializeField]
+    protected float enduranceCost;
     /// <summary>
     /// Последнее направление ввода
     /// </summary>
@@ -49,11 +52,14 @@ public class AbilityJump : CharacterAbility<bool>
     /// </summary>
     protected Vector2 curMoveInputDir;
     protected Rigidbody2D rigidbody;
+
+    protected ObjectProperty enduranceProperty;
     public float LastPressedJumpTime { get; private set; }
     protected override void PreInitialize()
     {
         base.PreInitialize();
         rigidbody = owner.RigidBody;
+        enduranceProperty = owner.PropertyManager.GetPropertyByName("Endurance");
         LastPressedJumpTime = -100000;
     }
 
@@ -114,6 +120,8 @@ public class AbilityJump : CharacterAbility<bool>
         {
             
             owner.MovementState.ChangeState(CharacterMovementsStates.Jumping);
+            
+            enduranceProperty?.ChangeCurValue(-enduranceCost);
             //Ensures we can't call Jump multiple times from one press
             LastPressedJumpTime = Time.time - owner.CoyoteTime;
 
@@ -132,7 +140,8 @@ public class AbilityJump : CharacterAbility<bool>
     protected bool CanJump()
     {
         return owner.IsOnGround && owner.MovementState.CurrentState != CharacterMovementsStates.Jumping
-                                && owner.MovementState.CurrentState != CharacterMovementsStates.Dashing;
+                                && owner.MovementState.CurrentState != CharacterMovementsStates.Dashing
+            && !owner.IsTired;
     }
 
     public override void ProcessInput(bool input)

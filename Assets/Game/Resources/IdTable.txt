@@ -1,0 +1,9 @@
+﻿Properties:
+1 - Health
+2 - Endurance
+
+
+
+
+Effects:
+1 - InstantDeath
