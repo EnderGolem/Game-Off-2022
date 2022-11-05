@@ -10,7 +10,7 @@ public class AbilityDash : CharacterAbility<bool>
     public int dashAmount;
     [Tooltip("Скорость персонажа при рывке")]
     public float dashSpeed;
-    [Tooltip("Время на которое время останавливается при использовании рывка." +
+    [Tooltip("Время на которое время останавливается при использовании рывка, когда кнопка использования уже нажата, а сам рывок еще не совершен." +
              "Рекомендую устанавливать на крайне маленькое значение, чтобы замедление было почти не заметно" +
              "Но при этом игрок бы успел выбрать направление рывка")]
     public float dashSleepTime; //Duration for which the game freezes when we press dash but before we read directional input and apply a force
