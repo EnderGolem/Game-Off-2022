@@ -17,13 +17,13 @@ public class CameraTracking : MonoBehaviour
     public Transform trackingObject;
 
     [Header("Axis OX")] [Tooltip("На сколько умножается ускорение обьекта по оси OX")]
-    public float velocityMultX = 0;
+    public float velocityMultX = 1;
 
     [Tooltip("Максимальное смещение по оси OX")]
     public float maxOffsetX = 1;
 
     [Header("Axis OY")] [Tooltip("На сколько умножается ускорение обьекта по оси OY")]
-    public float velocityMultY = 0;
+    public float velocityMultY = 1;
 
     [Tooltip("Максимальное смещение по оси OY")]
     public float maxOffsetY = 1;
@@ -43,7 +43,7 @@ public class CameraTracking : MonoBehaviour
         centerOffset = new Vector2();
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         switch (cameraCondition)
         {
@@ -53,8 +53,8 @@ public class CameraTracking : MonoBehaviour
                 if (trackingObject.GetComponent<Rigidbody2D>())
                 {
                     centerOffset.x += velocityMultX * trackingObject.GetComponent<Rigidbody2D>().velocity.x;
-                    centerOffset.x = maxOffsetY < Math.Abs(centerOffset.x)
-                        ? (centerOffset.x > 0 ? maxOffsetY : -maxOffsetX)
+                    centerOffset.x = maxOffsetX < Math.Abs(centerOffset.x)
+                        ? (centerOffset.x > 0 ? maxOffsetX : -maxOffsetX)
                         : centerOffset.x;
                     posX += centerOffset.x;
                     centerOffset.y += velocityMultY * trackingObject.GetComponent<Rigidbody2D>().velocity.y;
@@ -75,8 +75,6 @@ public class CameraTracking : MonoBehaviour
                 else
                     transform.position += directionToObject;
                 break;
-            default:
-                throw new ArgumentOutOfRangeException();
         }
     }
 
