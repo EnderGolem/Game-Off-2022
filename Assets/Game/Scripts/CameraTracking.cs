@@ -15,7 +15,8 @@ public class CameraTracking : MonoBehaviour
     }
 
     public Transform trackingObject;
-
+    [Tooltip("На сколько плавно движется камера")]
+    public float smoothSpeed = 0.125f;
     [Header("Axis OX")] [Tooltip("На сколько умножается ускорение обьекта по оси OX")]
     public float velocityMultX = 1;
 
@@ -63,7 +64,9 @@ public class CameraTracking : MonoBehaviour
                         : centerOffset.y;
                     posY += centerOffset.y;
                 }
-                transform.position = new Vector3(posX, posY, posZ);
+
+                var smoothedPosition =  Vector3.Lerp(transform.position, new Vector3(posX, posY, posZ), smoothSpeed);
+                transform.position = smoothedPosition;
                 break;
             case CameraEnum.Moving: //Плавное перемещение к новому обьекту
                 if (Vector3.Distance(transform.position, trackingObject.position) < speedToObject)
