@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: InstantDeath
   m_EditorClassIdentifier: 
   id: 1
-  duration: 2
+  duration: 0
   chance: 1
-  maxStackCount: 10
+  maxStackCount: 2
   nature: 0
   impacts:
   - targetId: 1
-    type: 2
-    defaultValue: -1
+    type: 0
+    defaultValue: 10000
     propertyId: -1

@@ -15,6 +15,9 @@ public class EffectOnTouch : MonoBehaviour
     [Tooltip("Эффекты, которые будут заложены изначально, не зависят от характеристик")]
     [SerializeField]
     protected EffectDescription[] startEffects;
+    [Tooltip("Толчок придаваемый объекту при соприкосновении")]
+    [SerializeField]
+    protected Vector2 knockBack;
     
     [Tooltip("Должен ли объект быть автоматически отключен через некоторое время после Awake")]
     [SerializeField] protected bool useAutoDisable = false;
@@ -23,6 +26,8 @@ public class EffectOnTouch : MonoBehaviour
     private List<PropertyManager> collidableObjects; 
     
     protected List<Effect> _effects;
+    
+    
     public void AddEffect(Effect ef)
     {
         _effects.Add(ef);
@@ -37,7 +42,7 @@ public class EffectOnTouch : MonoBehaviour
             {
                 AddEffect(new Effect(startEffects[i]));
             }
-            Debug.Log(gameObject.name + "effects count: "+startEffects.Length);
+            //Debug.Log(gameObject.name + "effects count: "+startEffects.Length);
         }
  
         if (useAutoDisable)
@@ -48,10 +53,14 @@ public class EffectOnTouch : MonoBehaviour
 
     protected void OnCollideWithDamageable(PropertyManager propertyManager)
     {
+        
         for (int i = 0; i < _effects.Count; i++)
         {
             propertyManager.AddEffect(_effects[i]);
         }
+
+        var body = propertyManager.GetComponent<Rigidbody2D>();
+        body?.AddForce((body.transform.position - transform.position).normalized*knockBack,ForceMode2D.Impulse);
     }
 
     protected void OnCollideWithNonDamageable(Collider2D collider)
