@@ -17,7 +17,7 @@ public class CameraTracking : MonoBehaviour
     public Transform trackingObject;
     [Tooltip("На сколько плавно движется камера")]
     public float smoothSpeed = 0.125f;
-    [Header("Axis OX")] [Tooltip("На сколько скорость камеры по ОСИ OY зависит от скорости обьекта")]
+    [Header("Axis OX")] [Tooltip("На сколько скорость камеры по ОСИ OX зависит от скорости обьекта")]
     public float velocityMultX = 1;
 
     [Tooltip("Максимальное смещение по оси OX")]
