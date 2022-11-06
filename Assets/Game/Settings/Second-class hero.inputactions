@@ -51,9 +51,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Fire2",
+                    "name": "GetDown",
                     "type": "Button",
-                    "id": "c7646d05-c6fe-4be9-bf54-bbf3399ab433",
+                    "id": "1089a03f-fcea-4e91-a74f-5cefa0235182",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -305,12 +305,12 @@
                 },
                 {
                     "name": "",
-                    "id": "b907b72f-636e-40c1-a0f8-e87a97a7e148",
-                    "path": "<Mouse>/rightButton",
+                    "id": "39775b45-bca3-4683-b184-fff72c315ef7",
+                    "path": "<Keyboard>/alt",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Fire2",
+                    "action": "GetDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 8434176433734082516}
   - component: {fileID: 8434176433734082519}
   - component: {fileID: 8434176433734082518}
+  - component: {fileID: 8416140105714621726}
   - component: {fileID: 1820773207412357671}
   - component: {fileID: 4838321917928665142}
   - component: {fileID: 4601172660484517315}
@@ -491,21 +492,9 @@ MonoBehaviour:
     m_ActionId: 18dc793d-f4fd-4318-a436-1f9fe2d3ed17
     m_ActionName: Player/Dash[/Keyboard/leftShift]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8434176433734082515}
-        m_TargetAssemblyTypeName: CharacterControl, Assembly-CSharp
-        m_MethodName: SecondaryAttack
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: c7646d05-c6fe-4be9-bf54-bbf3399ab433
-    m_ActionName: Player/Fire2[/Mouse/rightButton]
+      m_Calls: []
+    m_ActionId: 1089a03f-fcea-4e91-a74f-5cefa0235182
+    m_ActionName: Player/GetDown[/Keyboard/alt]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -579,6 +568,21 @@ MonoBehaviour:
   dashInputBufferTime: 0.15
   dashType: 2
   LayerWhileDashing: Dashing
+--- !u!114 &8416140105714621726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434176433734082524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ad7c863b4a3ac14c8963379e605d423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  getdownInputBufferTime: 0.15
+  getdownAlways: 0
+  enduranceCost: 0
 --- !u!114 &1820773207412357671
 MonoBehaviour:
   m_ObjectHideFlags: 0
