@@ -15,6 +15,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     public Animator _animator { get; protected set; }
 
     public Rigidbody2D RigidBody { get; protected set; }
+    private CircleCollider2D _Collider;
 
     public PropertyManager PropertyManager { get; private set; }
 
@@ -65,6 +66,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         RigidBody = GetComponent<Rigidbody2D>();
         MovementState = new MMStateMachine<CharacterMovementsStates>(gameObject,true);
         AttackingState = new MMStateMachine<CharacterAttackingState>(gameObject, true);
+        _Collider = GetComponent<CircleCollider2D>();
     }
 
     // Start is called before the first frame update
@@ -83,6 +85,11 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     public bool StayOnPLatform()
     {
         return Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _platformLayer);
+    }
+    //Возвращает true если коллайдер игрока все еще соприкасается с платформой
+    public bool BodyInPLatform()
+    {
+        return Physics2D.OverlapCircle((Vector2)transform.position+_Collider.offset, _Collider.radius, _platformLayer);
     }
     protected void CheckGrounded()
     {

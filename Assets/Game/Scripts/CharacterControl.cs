@@ -13,6 +13,7 @@ public class CharacterControl : MonoBehaviour
     private AbilityMove _abilityMove;
     private AbilityJump _abilityJump;
     private AbilityDash _abilityDash;
+    private AbilityGetDown _abilityGetDown;
     private MeleeAttack _meleeAttack;
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class CharacterControl : MonoBehaviour
         _abilityMove = GetComponent<AbilityMove>();
         _abilityJump = GetComponent<AbilityJump>();
         _abilityDash = GetComponent<AbilityDash>();
+        _abilityGetDown = GetComponent<AbilityGetDown>();
         _meleeAttack = GetComponent<MeleeAttack>();
     }
 
@@ -39,15 +41,18 @@ public class CharacterControl : MonoBehaviour
         {
             _abilityJump.SetMoveInput(context.ReadValue<Vector2>());
         }
-        
         if (_abilityDash != null)
         {
             _abilityDash.SetMoveInput(context.ReadValue<Vector2>());
         }
-        
-        
+
+        if (_abilityGetDown != null)
+        {
+            _abilityGetDown.SetMoveInput(context.ReadValue<Vector2>());
+        }
+
     }
-    
+
     public void Jump(InputAction.CallbackContext context)
     {
         if (_abilityJump != null)
@@ -74,6 +79,20 @@ public class CharacterControl : MonoBehaviour
             else if(context.phase == InputActionPhase.Canceled)
             {
                 _abilityDash.ProcessInput(false);
+            }
+        }
+    }
+    public void GetDown(InputAction.CallbackContext context)
+    {
+        if (_abilityGetDown != null)
+        {
+            if (context.phase == InputActionPhase.Started)
+            {
+                _abilityGetDown.ProcessInput(true);
+            }
+            else if (context.phase == InputActionPhase.Canceled)
+            {
+                _abilityGetDown.ProcessInput(false);
             }
         }
     }
