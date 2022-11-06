@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &631548411677293593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8130458793347639460}
+  m_Layer: 0
+  m_Name: ProjStartPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8130458793347639460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 631548411677293593}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.04, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8434176433734082512}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4400931545326724525
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,11 +105,12 @@ MonoBehaviour:
   DamageTakenEveryTime: 0
   DamageTakenDamageable: 0
   DamageTakenNonDamageable: 0
-  startEffects:
-  - {fileID: 11400000, guid: 33e7cd555f47ca349ad22e1bbae14f32, type: 2}
+  startEffects: []
   knockBack: {x: 20, y: -30}
   useAutoDisable: 0
   autoDisableTime: 0
+  ignoreOwnerCollision: 0
+  knockbackDirDefinition: 0
 --- !u!1 &8219393832730462698
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,6 +194,7 @@ GameObject:
   - component: {fileID: 1820773207412357671}
   - component: {fileID: 4838321917928665142}
   - component: {fileID: 4601172660484517315}
+  - component: {fileID: 6757614623177310575}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -184,6 +217,7 @@ Transform:
   - {fileID: 8434176432686526706}
   - {fileID: 882419418110711753}
   - {fileID: 267052651853494059}
+  - {fileID: 8130458793347639460}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -294,6 +328,11 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  _platformLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  objectsToTurn:
+  - {fileID: 8130458793347639460}
 --- !u!114 &8434176433734082515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +387,19 @@ MonoBehaviour:
     m_ActionId: 2a88f3c8-bda4-4d93-ad00-fcf56cd0f9db
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8434176433734082515}
+        m_TargetAssemblyTypeName: CharacterControl, Assembly-CSharp
+        m_MethodName: Look
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c4cb1d71-9941-4330-b073-651f15235dec
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
@@ -439,6 +490,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 18dc793d-f4fd-4318-a436-1f9fe2d3ed17
     m_ActionName: Player/Dash[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8434176433734082515}
+        m_TargetAssemblyTypeName: CharacterControl, Assembly-CSharp
+        m_MethodName: SecondaryAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c7646d05-c6fe-4be9-bf54-bbf3399ab433
+    m_ActionName: Player/Fire2[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -528,6 +595,9 @@ MonoBehaviour:
   delayBeforeAttack: 0
   activeDamageZoneTime: 0.2
   delayAfterAttack: 0.3
+  baseDamage: 2
+  attackEffects:
+  - {fileID: 11400000, guid: de9d88e45a44181448792b71ade4e445, type: 2}
 --- !u!114 &4838321917928665142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,7 +625,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d7a3c5c532abff419e87cf70f8b0ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  initialHealth: 100
+  maxHealth: 10
+  initialHealth: 10
   destroyOnDeath: 1
   timeBeforeDestruction: 0
+--- !u!114 &6757614623177310575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434176433734082524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 151dee20951a4bb4cbfa82b2f26b8a6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 188732072717986314, guid: de13bd4f1fec80546b269dca3be806cc, type: 3}
+  projStartPos: {fileID: 8130458793347639460}
+  spawnAngleOffset: 30
+  delayBeforeAttack: 0
+  delayAfterAttack: 0.3
+  baseDamage: 0
+  attackEffects:
+  - {fileID: 11400000, guid: 60e37015eeb934e46805e0552551a9a0, type: 2}
+  UseBalliscticToTarget: 0
+  UseCursorToAimBallistic: 0
