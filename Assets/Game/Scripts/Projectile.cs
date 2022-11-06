@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
         
     }
 
-    public bool CalculateAngleToHitDesignatedPosition(Vector2 targetPosition,Vector2 startPosition, out float CalculatedAngle)
+    public bool CalculateAngleToHitDesignatedPosition(Vector2 targetPosition,Vector2 startPosition, out float CalculatedAngle,bool useDirectFire = true)
     {
         if (rigidBody == null)
         {
@@ -66,7 +66,15 @@ public class Projectile : MonoBehaviour
         }
         if(!float.IsNaN(angle2))
         {
-            CalculatedAngle = Mathf.Min(angle, angle2);
+            if (useDirectFire)
+            {
+                CalculatedAngle = Mathf.Min(angle, angle2);
+            }
+            else
+            {
+                CalculatedAngle = Mathf.Max(angle, angle2);
+            }
+
             return true;
         }
         
@@ -76,10 +84,10 @@ public class Projectile : MonoBehaviour
     /// <summary>
     /// устанавливает для снаряда такой угол старта, чтобы он попал по заданным координатам
     /// </summary>
-    public void SetAngleToPosition(Vector2 targetPosition)
+    public void SetAngleToPosition(Vector2 targetPosition, bool useDirectFire = true)
     {
         //Debug.Log(targetPosition);
-        var f = CalculateAngleToHitDesignatedPosition(targetPosition, transform.position,out float angle);
+        var f = CalculateAngleToHitDesignatedPosition(targetPosition, transform.position,out float angle, useDirectFire);
         if (f)
         {
             //Debug.Log(angle);

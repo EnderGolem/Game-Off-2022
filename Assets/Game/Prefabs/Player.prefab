@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 4838321917928665142}
   - component: {fileID: 4601172660484517315}
   - component: {fileID: 6757614623177310575}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,10 +328,10 @@ MonoBehaviour:
   _groundCheckSize: {x: 0.49, y: 0.03}
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 72
   _platformLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   objectsToTurn:
   - {fileID: 8130458793347639460}
 --- !u!114 &8434176433734082515
@@ -492,9 +492,37 @@ MonoBehaviour:
     m_ActionId: 18dc793d-f4fd-4318-a436-1f9fe2d3ed17
     m_ActionName: Player/Dash[/Keyboard/leftShift]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8434176433734082515}
+        m_TargetAssemblyTypeName: CharacterControl, Assembly-CSharp
+        m_MethodName: GetDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 1089a03f-fcea-4e91-a74f-5cefa0235182
     m_ActionName: Player/GetDown[/Keyboard/alt]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8434176433734082515}
+        m_TargetAssemblyTypeName: CharacterControl, Assembly-CSharp
+        m_MethodName: SecondaryAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bd1b50f8-d47a-40e1-b128-13f2fe636911
+    m_ActionName: Player/SecondaryFire[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
