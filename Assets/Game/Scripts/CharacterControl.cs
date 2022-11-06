@@ -15,6 +15,7 @@ public class CharacterControl : MonoBehaviour
     private AbilityDash _abilityDash;
     private AbilityGetDown _abilityGetDown;
     private MeleeAttack _meleeAttack;
+    private RangedAttack _rangedAttack;
     private void Awake()
     {
         _character = GetComponent<Character>();
@@ -23,6 +24,7 @@ public class CharacterControl : MonoBehaviour
         _abilityDash = GetComponent<AbilityDash>();
         _abilityGetDown = GetComponent<AbilityGetDown>();
         _meleeAttack = GetComponent<MeleeAttack>();
+        _rangedAttack = GetComponent<RangedAttack>();
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -99,15 +101,37 @@ public class CharacterControl : MonoBehaviour
 
     public void Attack(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (_meleeAttack != null)
         {
-            _meleeAttack.ProcessInput(true);
-        }
-        else if (context.canceled)
-        {
-            _meleeAttack.ProcessInput(false);
+            if (context.started)
+            {
+                _meleeAttack.ProcessInput(true);
+            }
+            else if (context.canceled)
+            {
+                _meleeAttack.ProcessInput(false);
+            }
         }
     }
 
+    public void SecondaryAttack(InputAction.CallbackContext context)
+    {
+        if (_rangedAttack != null)
+        {
+            if (context.started)
+            {
+                _rangedAttack.ProcessInput(true);
+            }
+            else if (context.canceled)
+            {
+                _rangedAttack.ProcessInput(false);
+            }
+        }
+    }
+
+    public void Look(InputAction.CallbackContext context)
+    {
+       
+    }
 
 }
