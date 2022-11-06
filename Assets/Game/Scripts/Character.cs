@@ -49,6 +49,8 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     
     [Header("Layers & Tags")]
     [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private LayerMask _platformLayer;
+
     [Tooltip("Список объектов, которые нужно поворачивать вместе с персонажем")]
     [SerializeField]
     protected Transform[] objectsToTurn;
@@ -81,10 +83,14 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         CheckGrounded();
         CheckFacing();
     }
-
+    //Возвращает true, если игрок стоит на платформе. В отличие от других поверхностей, с платформ можно спрыгивать
+    public bool StayOnPLatform()
+    {
+        return Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _platformLayer);
+    }
     protected void CheckGrounded()
     {
-        if (Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer) /*&& !(MovementState.CurrentState == CharacterMovementsStates.Jumping)*/) //checks if set box overlaps with ground
+        if (Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer|_platformLayer) /*&& !(MovementState.CurrentState == CharacterMovementsStates.Jumping)*/) //checks if set box overlaps with ground
         {
             LastOnGroundTime = Time.time; //if so sets the lastGrounded to coyoteTime
             if ((MovementState.CurrentState == CharacterMovementsStates.Jumping
