@@ -49,6 +49,9 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     
     [Header("Layers & Tags")]
     [SerializeField] private LayerMask _groundLayer;
+    [Tooltip("Список объектов, которые нужно поворачивать вместе с персонажем")]
+    [SerializeField]
+    protected Transform[] objectsToTurn;
 
     public float CoyoteTime => coyoteTime;
 
@@ -139,7 +142,12 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         Vector3 scale = transform.localScale; 
         scale.x *= -1;
         transform.localScale = scale;
-
+        foreach (var obj in objectsToTurn)
+        {
+            Vector3 rot = obj.transform.localRotation.eulerAngles; 
+            rot.y += 180;
+            obj.transform.localRotation = Quaternion.Euler(rot);
+        }
         IsFacingRight = !IsFacingRight;
     }
     
@@ -186,5 +194,5 @@ public enum CharacterMovementsStates
 
 public enum CharacterAttackingState
 {
-    Idle, Attacking
+    Idle, Attacking, RangeAttacking
 }

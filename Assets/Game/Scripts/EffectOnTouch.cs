@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Tools;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EffectOnTouch : MonoBehaviour
@@ -22,11 +23,18 @@ public class EffectOnTouch : MonoBehaviour
     [Tooltip("Должен ли объект быть автоматически отключен через некоторое время после Awake")]
     [SerializeField] protected bool useAutoDisable = false;
     [SerializeField] protected float autoDisableTime;
+    [Tooltip("Способ определения направления толчка" +
+        "OwnDir - основано на собственном направлении - подходит для зон ударов" +
+         "VelocityDir - основано на направлении собственной скорости - подходит для метательных объектов")]
+    [SerializeField] 
+    protected KnockbackDirDefinition knockbackDirDefinition;
     
     private List<PropertyManager> collidableObjects; 
     
     protected List<Effect> _effects;
     
+    protected Health objectHealth;
+    protected Rigidbody2D rigidBody;
     
     public void AddEffect(Effect ef)
     {
@@ -35,6 +43,7 @@ public class EffectOnTouch : MonoBehaviour
 
     protected void Awake()
     {
+        rigidBody = GetComponent<Rigidbody2D>();
         _effects=new List<Effect>();
         if (startEffects != null)
         {
@@ -50,6 +59,12 @@ public class EffectOnTouch : MonoBehaviour
             Invoke("AutoDisable",autoDisableTime);
         }
     }
+    
+
+    private void Start()
+    {
+        objectHealth = GetComponent<Health>();
+    }
 
     protected void OnCollideWithDamageable(PropertyManager propertyManager)
     {
@@ -58,14 +73,37 @@ public class EffectOnTouch : MonoBehaviour
         {
             propertyManager.AddEffect(_effects[i]);
         }
-
         var body = propertyManager.GetComponent<Rigidbody2D>();
-        body?.AddForce((body.transform.position - transform.position).normalized*knockBack,ForceMode2D.Impulse);
+        if (body != null)
+        {
+            Vector2 dir;
+            if (knockbackDirDefinition == KnockbackDirDefinition.VelocityDir && rigidBody!=null)
+            {
+                dir = rigidBody.velocity.normalized;
+            }
+            else
+            {
+                dir = ((Vector2) transform.right).normalized;
+            }
+            var vec1 = dir * knockBack.x;
+            Vector2 vec2;
+            if (Vector2.SignedAngle(dir, Vector2.up) <= 0)
+            {
+                vec2 = dir.Perpendicular1() * knockBack.y;
+            }
+            else
+            {
+                vec2 = dir.Perpendicular2() * knockBack.y;
+            }
+            //Debug.Log($"dir = {dir}, vec1 = {vec1}, vec2 = {vec2}, sum = {vec1+vec2}");
+            body.AddForce(vec1+vec2,ForceMode2D.Impulse);
+        }
+        objectHealth?.DoDamage(DamageTakenDamageable + DamageTakenEveryTime);
     }
 
     protected void OnCollideWithNonDamageable(Collider2D collider)
     {
-        
+        objectHealth?.DoDamage(DamageTakenNonDamageable + DamageTakenEveryTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -105,7 +143,7 @@ public class EffectOnTouch : MonoBehaviour
 
     protected void OnEnable()
     {
-        _effects=new List<Effect>();
+        //_effects=new List<Effect>();
         if (startEffects != null)
         {
             for (int i = 0; i < startEffects.Length; i++)
@@ -138,4 +176,13 @@ public class EffectOnTouch : MonoBehaviour
             }                
         }
     }
+}
+/// <summary>
+/// Способ определения направления толчка
+/// OwnDir - основано на собственном направлении - подходит для зон ударов
+/// VelocityDir - основано на направлении собственной скорости - подходит для метательных объектов
+/// </summary>
+public enum KnockbackDirDefinition
+{
+    OwnDir, VelocityDir
 }

@@ -1,9 +1,12 @@
 ﻿Properties:
 1 - Health
 2 - Endurance
-
+3 - AttackDamage
+4 - RangedAttackDamage
 
 
 
 Effects:
 1 - InstantDeath
+2 - MeleeAttack
+3 - RangedAttack
