@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
     protected ObjectProperty hProperty;
 
     protected Character owner;
-    void Start()
+    void Awake()
     {
         owner = gameObject.GetComponentInParent<Character>();
         _propertyManager = GetComponent<PropertyManager>();

@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class TilemapSecretPlaceLogic : MonoBehaviour
 {
-    Tilemap map;
+    private Tilemap map;
     private void Awake()
     {
         map = GetComponent<Tilemap>();
