@@ -1485,6 +1485,7 @@ MonoBehaviour:
   knockBack: {x: 0, y: 0}
   useAutoDisable: 0
   autoDisableTime: 0
+  ignoreOwnerCollision: 0
   knockbackDirDefinition: 0
 --- !u!61 &774400008
 BoxCollider2D:
@@ -2284,6 +2285,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1832698403}
   m_CullTransparentMesh: 0
+--- !u!1 &1868068845 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6848911176167128378, guid: 44e66baf59e83f44eb4de65b8706be0a, type: 3}
+  m_PrefabInstance: {fileID: 1997256334}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1868068846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868068845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 341c7389d3894ee41b72c4fbea1fd001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!251 &1868068847
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868068845}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1001 &1997256334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2346,6 +2383,14 @@ PrefabInstance:
     - target: {fileID: 6848911176167128378, guid: 44e66baf59e83f44eb4de65b8706be0a, type: 3}
       propertyPath: m_Name
       value: Platform (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848911176167128378, guid: 44e66baf59e83f44eb4de65b8706be0a, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7569647001055505569, guid: 44e66baf59e83f44eb4de65b8706be0a, type: 3}
+      propertyPath: m_UsedByEffector
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44e66baf59e83f44eb4de65b8706be0a, type: 3}
