@@ -23,6 +23,9 @@ public class EffectOnTouch : MonoBehaviour
     [Tooltip("Должен ли объект быть автоматически отключен через некоторое время после Awake")]
     [SerializeField] protected bool useAutoDisable = false;
     [SerializeField] protected float autoDisableTime;
+    [Tooltip("Следует ли отключить столкновения с владельцем этого объекта?")]
+    [SerializeField] 
+    protected bool ignoreOwnerCollision;
     [Tooltip("Способ определения направления толчка" +
         "OwnDir - основано на собственном направлении - подходит для зон ударов" +
          "VelocityDir - основано на направлении собственной скорости - подходит для метательных объектов")]
@@ -35,6 +38,10 @@ public class EffectOnTouch : MonoBehaviour
     
     protected Health objectHealth;
     protected Rigidbody2D rigidBody;
+    /// <summary>
+    /// Владелец объекта, наносящего урон
+    /// </summary>
+    protected Character owner;
     
     public void AddEffect(Effect ef)
     {
@@ -127,6 +134,16 @@ public class EffectOnTouch : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         
+    }
+
+    public void SetOwner(Character character)
+    {
+        owner = character;
+
+        if (ignoreOwnerCollision)
+        {
+            Physics2D.IgnoreCollision(owner.GetComponent<Collider2D>(),GetComponent<Collider2D>());
+        }
     }
 
     public void ClearEffects()

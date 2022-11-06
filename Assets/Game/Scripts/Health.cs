@@ -35,13 +35,13 @@ public class Health : MonoBehaviour
         {
             _propertyManager = gameObject.AddComponent<PropertyManager>();
         }
+        hProperty=_propertyManager.AddProperty("Health", maxHealth, initialHealth);
+        hProperty.RegisterChangeCallback(OnHealthChanged);
     }
 
     void Start()
     {
-
-        hProperty=_propertyManager.AddProperty("Health", maxHealth, initialHealth);
-        hProperty.RegisterChangeCallback(OnHealthChanged);
+        
     }
 
     // Update is called once per frame

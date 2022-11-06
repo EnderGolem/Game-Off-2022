@@ -87,10 +87,12 @@ public class RangedAttack : CharacterAbility<bool>
         }
 
         var eff = proj.GetComponent<EffectOnTouch>();
+        eff.SetOwner(owner);
         for (int i = 0; i < attackEffects.Length; i++)
         {
             eff.AddEffect(new Effect(attackEffects[i],owner.PropertyManager));
         }
+        
         proj.enabled = true;
     }
 

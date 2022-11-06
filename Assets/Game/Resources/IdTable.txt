@@ -3,6 +3,7 @@
 2 - Endurance
 3 - AttackDamage
 4 - RangedAttackDamage
+5 - WalkSpeed
 
 
 

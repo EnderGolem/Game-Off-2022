@@ -123,7 +123,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0.3
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 2
   m_SleepingMode: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b65c917cce37d40b5f548944696335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialVelocity: 12
+  initialVelocity: 15
 --- !u!58 &188732072717986305
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -189,6 +189,7 @@ MonoBehaviour:
   knockBack: {x: 10, y: 0}
   useAutoDisable: 0
   autoDisableTime: 0
+  ignoreOwnerCollision: 1
   knockbackDirDefinition: 1
 --- !u!114 &9062165416485910411
 MonoBehaviour:
