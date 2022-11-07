@@ -6,7 +6,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class RangedAttack : CharacterAbility<bool>
+public class RangedAttack : CharacterAbility
 {
     protected bool curInput;
     [Tooltip("Снаряды используемые при стрельбе")]
@@ -102,12 +102,11 @@ public class RangedAttack : CharacterAbility<bool>
 
     protected bool CanAttack()
     {
-        return owner.AttackingState.CurrentState == CharacterAttackingState.Idle;
+        return owner.AttackingState.CurrentState == CharacterAttackingState.Idle && AbilityAuthorized;
     }
 
-    public override void ProcessInput(bool input)
+    public void ProcessInput(bool input)
     {
-        base.ProcessInput(input);
         curInput = input;
     }
     /// <summary>

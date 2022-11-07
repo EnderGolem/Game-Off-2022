@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityMove : CharacterAbility<Vector2>
+public class AbilityMove : CharacterAbility
 {
    /// <summary>
    /// Последнее направление ввода
@@ -124,10 +124,9 @@ public class AbilityMove : CharacterAbility<Vector2>
 		*/
    }
 
-   public override void ProcessInput(Vector2 input)
+   public void ProcessInput(Vector2 input)
    {
-      base.ProcessInput(input);
-      curInputDir = input;
+	   curInputDir = input;
    }
 
    protected void OnValidate()
