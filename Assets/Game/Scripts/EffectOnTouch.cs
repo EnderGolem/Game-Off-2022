@@ -75,7 +75,6 @@ public class EffectOnTouch : MonoBehaviour
 
     protected void OnCollideWithDamageable(PropertyManager propertyManager)
     {
-        
         for (int i = 0; i < _effects.Count; i++)
         {
             propertyManager.AddEffect(_effects[i]);

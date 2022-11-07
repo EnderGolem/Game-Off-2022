@@ -335,6 +335,7 @@ MonoBehaviour:
     m_Bits: 512
   objectsToTurn:
   - {fileID: 8130458793347639460}
+  - {fileID: 267052651853494059}
 --- !u!114 &8434176433734082515
 MonoBehaviour:
   m_ObjectHideFlags: 0
