@@ -51,7 +51,6 @@ public class AbilityGetDown : CharacterAbility<bool>
         if (started && !owner.BodyInPLatform())
         {
             EndOfGetDown();
-            print("GET_DOWN_END!");
         }
     }
 
@@ -64,7 +63,6 @@ public class AbilityGetDown : CharacterAbility<bool>
         #region Perform Getdown
         //TODO
         started = true;
-        print("GET_DOWN!");
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), true);
         owner.MovementState.ChangeState(CharacterMovementsStates.Jumping);
 
@@ -80,7 +78,7 @@ public class AbilityGetDown : CharacterAbility<bool>
     {
         return !started && owner.IsOnGround && owner.MovementState.CurrentState != CharacterMovementsStates.Jumping
                                 && owner.MovementState.CurrentState != CharacterMovementsStates.Dashing
-            && !owner.IsTired && owner.StayOnPLatform();
+            && !owner.IsTired && owner.StayOnPLatform() && curMoveInputDir.y < 0;
     }
 
     public override void ProcessInput(bool input)

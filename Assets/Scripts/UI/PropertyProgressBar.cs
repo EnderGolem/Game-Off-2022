@@ -19,7 +19,6 @@ namespace MoreMountains.Tools
 			_progressBar = GetComponent<MMProgressBar>();
 			property = owner.PropertyManager.GetPropertyByName(propertyName);
 			property.RegisterChangeCallback(OnEnduranceChanged);
-			_progressBar.UpdateBar(property.GetCurValue(), 0, property.BaseValue);
 		}
 		void OnEnduranceChanged(float oldCurValue, float newCurValue, float oldValue, float newValue)
         {
