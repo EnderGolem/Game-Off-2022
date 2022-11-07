@@ -6,7 +6,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class RangedAttack : CharacterAbility<bool>
+public class RangedAttack : CharacterAbility
 {
     protected bool curInput;
     [Tooltip("Снаряды используемые при стрельбе")]
@@ -40,6 +40,10 @@ public class RangedAttack : CharacterAbility<bool>
     protected Vector2 curTargetPos;
 
     protected ObjectProperty damageProperty;
+    /// <summary>
+    /// Следует ли при рассчете баллистической траектори ориентироваться на фазу подъема или на фазу спуска
+    /// </summary>
+    protected bool useDirectFire = true;
     
     protected override void PreInitialize()
     {
@@ -83,7 +87,7 @@ public class RangedAttack : CharacterAbility<bool>
                 SetTargetPos(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
             }
             
-            proj.SetAngleToPosition(curTargetPos);
+            proj.SetAngleToPosition(curTargetPos,useDirectFire);
         }
 
         var eff = proj.GetComponent<EffectOnTouch>();
@@ -98,12 +102,11 @@ public class RangedAttack : CharacterAbility<bool>
 
     protected bool CanAttack()
     {
-        return owner.AttackingState.CurrentState == CharacterAttackingState.Idle;
+        return owner.AttackingState.CurrentState == CharacterAttackingState.Idle && AbilityAuthorized;
     }
 
-    public override void ProcessInput(bool input)
+    public void ProcessInput(bool input)
     {
-        base.ProcessInput(input);
         curInput = input;
     }
     /// <summary>
@@ -115,6 +118,11 @@ public class RangedAttack : CharacterAbility<bool>
         curTargetPos = target;
     }
 
+    public void SetUseDirectFire(bool flag)
+    {
+        useDirectFire = flag;
+    }
+
     private void OnDrawGizmos()
     {
         if (UseBalliscticToTarget)
@@ -122,7 +130,7 @@ public class RangedAttack : CharacterAbility<bool>
             var p = projectile.GetComponent<Projectile>();
             var f = p.CalculateAngleToHitDesignatedPosition(
                 Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()), projStartPos.position,
-                out float angle);
+                out float angle,useDirectFire);
             if (f)
             {
                 Vector2 curPos = projStartPos.position;

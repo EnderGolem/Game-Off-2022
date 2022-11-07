@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityJump : CharacterAbility<bool>
+public class AbilityJump : CharacterAbility
 {
     [Header("Jump")]
     [Tooltip("На какую высоту прыгает игрок, если будет зажимать прыжок до конца")]
@@ -141,10 +141,10 @@ public class AbilityJump : CharacterAbility<bool>
     {
         return owner.IsOnGround && owner.MovementState.CurrentState != CharacterMovementsStates.Jumping
                                 && owner.MovementState.CurrentState != CharacterMovementsStates.Dashing
-            && !owner.IsTired;
+            && !owner.IsTired && AbilityAuthorized;
     }
 
-    public override void ProcessInput(bool input)
+    public void ProcessInput(bool input)
     {
         base.ProcessInput(input);
         if (input && !(curMoveInputDir.y < 0))

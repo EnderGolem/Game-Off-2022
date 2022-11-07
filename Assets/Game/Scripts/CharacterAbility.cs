@@ -7,9 +7,25 @@ using UnityEngine;
 /// Это сделано для того, чтобы все способности имели доступ к таким
 /// общим параметрам персонажа как состояние движения и атаки
 /// </summary>
-public class CharacterAbility<T> : MonoBehaviour
+public class CharacterAbility : MonoBehaviour
 {
     protected Character owner;
+    [Tooltip("Название конкретной способности. Используется, чтобы можно было" +
+             "различать разные способности одного типа.")]
+    [SerializeField]
+    protected string abilityName;
+    [Tooltip("Можно ли использовать способность в данный момент")]
+    [SerializeField]
+    public bool abilityPermitted = true;
+
+    public string AbilityName => abilityName;
+
+    public bool AbilityAuthorized {
+        get
+        {
+            return abilityPermitted;
+        }
+    }
 
     private void Awake()
     {
@@ -36,9 +52,5 @@ public class CharacterAbility<T> : MonoBehaviour
     {
         owner = gameObject.GetComponentInParent<Character>();
     }
-
-    public virtual void ProcessInput(T input)
-    {
-        
-    }
+    
 }
