@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityDash : CharacterAbility<bool>
+public class AbilityDash : CharacterAbility
 {
     [Header("Dash")]
     [Tooltip("Количество рывков, которые максимально модно накопить для совершения подряд")]
@@ -66,9 +66,8 @@ public class AbilityDash : CharacterAbility<bool>
         }
     }
 
-    public override void ProcessInput(bool input)
+    public void ProcessInput(bool input)
     {
-        base.ProcessInput(input);
         if (input)
         {
             LastPressedDashTime = Time.time;
@@ -205,7 +204,7 @@ public class AbilityDash : CharacterAbility<bool>
             StartCoroutine(nameof(RefillDash), 1);
         }
 
-        return _dashesLeft > 0 && owner.MovementState.CurrentState != CharacterMovementsStates.Dashing;
+        return _dashesLeft > 0 && owner.MovementState.CurrentState != CharacterMovementsStates.Dashing && AbilityAuthorized;
     }
 }
 

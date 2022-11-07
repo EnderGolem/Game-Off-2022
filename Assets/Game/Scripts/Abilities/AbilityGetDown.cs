@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityGetDown : CharacterAbility<bool>
+public class AbilityGetDown : CharacterAbility
 {
     [Header("GetDown")]
     [Space (5)]
@@ -83,9 +83,8 @@ public class AbilityGetDown : CharacterAbility<bool>
             && !owner.IsTired && owner.StayOnPLatform();
     }
 
-    public override void ProcessInput(bool input)
+    public void ProcessInput(bool input)
     {
-        base.ProcessInput(input);
         if (input)
         {
             LastPressedGetdownTime = Time.time;

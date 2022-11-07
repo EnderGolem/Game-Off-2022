@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeAttack : CharacterAbility<bool>
+public class MeleeAttack : CharacterAbility
 {
     [SerializeField]
     protected Collider2D damageZone;
@@ -38,7 +38,7 @@ public class MeleeAttack : CharacterAbility<bool>
 
     private void Update()
     {
-        if (curInput && owner.AttackingState.CurrentState != CharacterAttackingState.Attacking)
+        if (curInput && CanAttack())
         {
             StartCoroutine(Attack());
         }
@@ -69,9 +69,13 @@ public class MeleeAttack : CharacterAbility<bool>
 
     }
 
-    public override void ProcessInput(bool input)
+    public void ProcessInput(bool input)
     {
-        base.ProcessInput(input);
         curInput = input;
+    }
+
+    protected bool CanAttack()
+    {
+        return owner.AttackingState.CurrentState == CharacterAttackingState.Idle && AbilityAuthorized;
     }
 }

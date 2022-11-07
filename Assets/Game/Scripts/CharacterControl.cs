@@ -16,6 +16,7 @@ public class CharacterControl : MonoBehaviour
     private AbilityGetDown _abilityGetDown;
     private MeleeAttack _meleeAttack;
     private RangedAttack _rangedAttack;
+    private WeaponHandler _weaponHandler;
     private void Awake()
     {
         _character = GetComponent<Character>();
@@ -25,6 +26,7 @@ public class CharacterControl : MonoBehaviour
         _abilityGetDown = GetComponent<AbilityGetDown>();
         _meleeAttack = GetComponent<MeleeAttack>();
         _rangedAttack = GetComponent<RangedAttack>();
+        _weaponHandler = GetComponent<WeaponHandler>();
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -132,6 +134,14 @@ public class CharacterControl : MonoBehaviour
     public void Look(InputAction.CallbackContext context)
     {
        
+    }
+
+    public void Scroll(InputAction.CallbackContext context)
+    {
+        if (_weaponHandler != null)
+        {
+            _weaponHandler.ProcessInput(context.ReadValue<float>());
+        }
     }
 
 }
