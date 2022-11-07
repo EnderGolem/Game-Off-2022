@@ -8,10 +8,6 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance { get; private set; }
-    public string[] unloadableScenes;
-    public string loadableScene;
-    public string loadingScene;
-
     public void Awake()
     {
         if (Instance == null)
@@ -25,12 +21,7 @@ public class SceneLoader : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void LoadScene()
-    {
-        LoadScene(unloadableScenes, loadableScene, loadingScene);
-    }
-
-    public void LoadScene(string[] unloadableScenes, string loadableScene, string loadingScene)
+    public void LoadScene( string loadableScene, string loadingScene, string[] unloadableScenes = null)
     {
         StartCoroutine(Load(unloadableScenes,  loadableScene,  loadingScene));
     }
@@ -47,6 +38,7 @@ public class SceneLoader : MonoBehaviour
         {
             yield return null;
         }
+        if(unloadableScenes != null)
         foreach (var unloadableScene in unloadableScenes)
         {
             SceneManager.UnloadSceneAsync(unloadableScene);
