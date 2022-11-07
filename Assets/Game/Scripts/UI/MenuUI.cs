@@ -1,4 +1,5 @@
-using System.Collections;
+ using System;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class MenuUI : MonoBehaviour
     public SettingsUI settingsUI;
     public void ButtonStart()
     {
-        print("Start");
+        SceneLoader.Instance.LoadScene("Loading","TilemapTest");
     }
     public void ButtonContinue()
     {
