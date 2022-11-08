@@ -194,8 +194,8 @@ public class PropertyManager : MonoBehaviour
                     var eff = (c > 0) ? effect.GetCopy() : effect;
                     _effects.Add(eff);
                     effectsOverlayDuration.Add(eff,0f);
-                    Debug.Log("Property count = "+_properties.Count);
-                    Debug.Log("add");
+                    //Debug.Log("Property count = "+_properties.Count);
+                    //Debug.Log("add");
                     //StartCoroutine(RemoveEffect(effect));
                 }
 
