@@ -48,19 +48,22 @@ public class CameraTracking : MonoBehaviour
 
     void LateUpdate()
     {
+        if(trackingObject == null)
+            return; 
         switch (cameraCondition)
         {
             case CameraEnum.Tracking:
                 float posX = trackingObject.position.x;
                 float posY = trackingObject.position.y;
-                if (trackingObject.GetComponent<Rigidbody2D>())
+                var rigidbody = trackingObject.GetComponent<Rigidbody2D>();
+                if (rigidbody)
                 {
-                    centerOffset.x += velocityMultX * trackingObject.GetComponent<Rigidbody2D>().velocity.x;
+                    centerOffset.x += velocityMultX * rigidbody.velocity.x;
                     centerOffset.x = maxOffsetX < Math.Abs(centerOffset.x)
                         ? (centerOffset.x > 0 ? maxOffsetX : -maxOffsetX)
                         : centerOffset.x;
                     posX += centerOffset.x;
-                    centerOffset.y += velocityMultY * trackingObject.GetComponent<Rigidbody2D>().velocity.y;
+                    centerOffset.y += velocityMultY * rigidbody.velocity.y;
                     centerOffset.y = maxOffsetY < Math.Abs(centerOffset.y)
                         ? (centerOffset.y > 0 ? maxOffsetY : -maxOffsetY)
                         : centerOffset.y;
