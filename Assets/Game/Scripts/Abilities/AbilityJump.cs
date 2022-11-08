@@ -146,7 +146,7 @@ public class AbilityJump : CharacterAbility
 
     public void ProcessInput(bool input)
     {
-        base.ProcessInput(input);
+
         if (input && !(curMoveInputDir.y < 0))
         {
             LastPressedJumpTime = Time.time;
