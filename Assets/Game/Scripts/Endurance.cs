@@ -17,12 +17,14 @@ public class Endurance : MonoBehaviour
     
     protected PropertyManager _propertyManager;
     protected ObjectProperty enduranceProperty;
+    protected ObjectProperty enduranceRecoverSpeed;
 
     protected Character owner;
 
     private void Awake()
     {
         owner = gameObject.GetComponentInParent<Character>();
+        enduranceRecoverSpeed = owner.PropertyManager.AddProperty("EnduranceRecoverSpeed", recoverSpeed);
         enduranceProperty=owner.PropertyManager.AddProperty("Endurance", baseEndurance);
         enduranceProperty.RegisterChangeCallback(OnEnduranceChanged);
     }
@@ -34,7 +36,7 @@ public class Endurance : MonoBehaviour
 
     private void Update()
     {
-        enduranceProperty.ChangeCurValue(recoverSpeed * Time.deltaTime);
+        enduranceProperty.ChangeCurValue(enduranceRecoverSpeed.GetCurValue() * Time.deltaTime);
     }
 
     protected void OnEnduranceChanged(float oldCurValue, float newCurValue, float oldValue, float newValue)

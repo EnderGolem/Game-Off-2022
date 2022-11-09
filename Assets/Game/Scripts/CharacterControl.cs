@@ -18,6 +18,7 @@ public class CharacterControl : MonoBehaviour
     private MeleeAttack _meleeAttack;
     private RangedAttack _rangedAttack;
     private WeaponHandler _weaponHandler;
+    private ShieldBlock _shieldBlock;
     private void Awake()
     {
         _character = GetComponent<Character>();
@@ -29,6 +30,7 @@ public class CharacterControl : MonoBehaviour
         _meleeAttack = GetComponent<MeleeAttack>();
         _rangedAttack = GetComponent<RangedAttack>();
         _weaponHandler = GetComponent<WeaponHandler>();
+        _shieldBlock = GetComponent<ShieldBlock>();
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -121,10 +123,7 @@ public class CharacterControl : MonoBehaviour
                 _meleeAttack.ProcessInput(false);
             }
         }
-    }
-
-    public void SecondaryAttack(InputAction.CallbackContext context)
-    {
+        
         if (_rangedAttack != null)
         {
             if (context.started)
@@ -134,6 +133,21 @@ public class CharacterControl : MonoBehaviour
             else if (context.canceled)
             {
                 _rangedAttack.ProcessInput(false);
+            }
+        }
+    }
+
+    public void SecondaryAttack(InputAction.CallbackContext context)
+    {
+        if (_shieldBlock != null)
+        {
+            if (context.started)
+            {
+                _shieldBlock.ProcessInput(true);
+            }
+            else if (context.canceled)
+            {
+                _shieldBlock.ProcessInput(false);
             }
         }
     }

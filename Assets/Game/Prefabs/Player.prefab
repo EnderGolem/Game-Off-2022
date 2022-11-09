@@ -333,6 +333,9 @@ MonoBehaviour:
   _platformLayer:
     serializedVersion: 2
     m_Bits: 512
+  _stairwayLayer:
+    serializedVersion: 2
+    m_Bits: 0
   objectsToTurn:
   - {fileID: 8130458793347639460}
   - {fileID: 267052651853494059}

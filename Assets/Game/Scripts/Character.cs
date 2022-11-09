@@ -209,5 +209,5 @@ public enum CharacterMovementsStates
 
 public enum CharacterAttackingState
 {
-    Idle, Attacking, RangeAttacking
+    Idle, Attacking, RangeAttacking,Blocking
 }
