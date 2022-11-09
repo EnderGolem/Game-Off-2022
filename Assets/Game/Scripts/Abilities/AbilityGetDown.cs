@@ -64,6 +64,7 @@ public class AbilityGetDown : CharacterAbility
         //TODO
         started = true;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), true);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Stairway"), true);
         owner.MovementState.ChangeState(CharacterMovementsStates.Jumping);
 
         #endregion
@@ -72,13 +73,14 @@ public class AbilityGetDown : CharacterAbility
     {
         started = false;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), false);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Stairway"), false);
     }
     
     protected bool CanGetdown()
     {
         return !started && owner.IsOnGround && owner.MovementState.CurrentState != CharacterMovementsStates.Jumping
                                 && owner.MovementState.CurrentState != CharacterMovementsStates.Dashing
-            && !owner.IsTired && owner.StayOnPLatform() && curMoveInputDir.y < 0;
+            && !owner.IsTired && (owner.StayOnPlatform || owner.StayOnStairway) && curMoveInputDir.y < 0;
     }
 
     public void ProcessInput(bool input)

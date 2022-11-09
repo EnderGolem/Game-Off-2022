@@ -14,6 +14,7 @@ public class CharacterControl : MonoBehaviour
     private AbilityJump _abilityJump;
     private AbilityDash _abilityDash;
     private AbilityGetDown _abilityGetDown;
+    private AbilityStairMovement _abilityStairMovement;
     private MeleeAttack _meleeAttack;
     private RangedAttack _rangedAttack;
     private WeaponHandler _weaponHandler;
@@ -24,6 +25,7 @@ public class CharacterControl : MonoBehaviour
         _abilityJump = GetComponent<AbilityJump>();
         _abilityDash = GetComponent<AbilityDash>();
         _abilityGetDown = GetComponent<AbilityGetDown>();
+        _abilityStairMovement = GetComponent<AbilityStairMovement>();
         _meleeAttack = GetComponent<MeleeAttack>();
         _rangedAttack = GetComponent<RangedAttack>();
         _weaponHandler = GetComponent<WeaponHandler>();
@@ -53,6 +55,11 @@ public class CharacterControl : MonoBehaviour
         if (_abilityGetDown != null)
         {
             _abilityGetDown.SetMoveInput(context.ReadValue<Vector2>());
+        }
+
+        if (_abilityStairMovement != null)
+        {
+            _abilityStairMovement.SetMoveInput(context.ReadValue<Vector2>());
         }
 
     }
