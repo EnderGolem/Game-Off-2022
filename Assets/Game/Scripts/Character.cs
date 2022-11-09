@@ -64,7 +64,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     protected Vector2 curMoveInputDir;
     private void Awake()
     {
-    Debug.Log("Character");
+        Debug.Log("Character");
         PropertyManager = GetComponent<PropertyManager>();
         if (PropertyManager == null)//гарантия того что объекты с компонентом health имеют PropertyManager
         {
