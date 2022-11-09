@@ -24,6 +24,10 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         get => Time.time - LastOnGroundTime < coyoteTime;
     }
 
+    public bool StayOnGround { get; private set; }
+    public bool StayOnPlatform { get; private set; }
+    public bool StayOnStairway { get; private set; }
+
     public bool IsFacingRight { get; private set; } = true;
 
     public bool IsAlive { get; private set; } = true;
@@ -49,8 +53,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     [SerializeField] private Vector2 _groundCheckSize = new Vector2(0.49f, 0.03f);
     
     [Header("Layers & Tags")]
-    [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private LayerMask _platformLayer;
+    [SerializeField] private LayerMask _groundLayer, _platformLayer, _stairwayLayer;
 
     [Tooltip("Список объектов, которые нужно поворачивать вместе с персонажем")]
     [SerializeField]
@@ -61,7 +64,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     protected Vector2 curMoveInputDir;
     private void Awake()
     {
-        Debug.Log("Character");
+    Debug.Log("Character");
         PropertyManager = GetComponent<PropertyManager>();
         if (PropertyManager == null)//гарантия того что объекты с компонентом health имеют PropertyManager
         {
@@ -84,11 +87,10 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     {
         CheckGrounded();
         CheckFacing();
-    }
-    //Возвращает true, если игрок стоит на платформе. В отличие от других поверхностей, с платформ можно спрыгивать
-    public bool StayOnPLatform()
-    {
-        return Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _platformLayer);
+
+        StayOnStairway = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _stairwayLayer);
+        StayOnPlatform = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _platformLayer);
+        StayOnGround = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer);
     }
     //Возвращает true если коллайдер игрока все еще соприкасается с платформой
     public bool BodyInPLatform()
@@ -97,7 +99,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     }
     protected void CheckGrounded()
     {
-        if (Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer|_platformLayer) /*&& !(MovementState.CurrentState == CharacterMovementsStates.Jumping)*/) //checks if set box overlaps with ground
+        if (StayOnGround||StayOnPlatform||StayOnStairway) /*&& !(MovementState.CurrentState == CharacterMovementsStates.Jumping)*/ //checks if set box overlaps with ground
         {
             LastOnGroundTime = Time.time; //if so sets the lastGrounded to coyoteTime
             if ((MovementState.CurrentState == CharacterMovementsStates.Jumping
