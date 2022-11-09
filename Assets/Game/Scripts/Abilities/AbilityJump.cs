@@ -60,6 +60,10 @@ public class AbilityJump : CharacterAbility
         base.PreInitialize();
         rigidbody = owner.RigidBody;
         enduranceProperty = owner.PropertyManager.GetPropertyByName("Endurance");
+        owner.CalculateGravityStrength(jumpHeight, jumpTimeToApex);
+
+        //Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
+        jumpForce = Mathf.Abs(owner.gravityStrength) * jumpTimeToApex;
         LastPressedJumpTime = -100000;
     }
 
@@ -166,9 +170,12 @@ public class AbilityJump : CharacterAbility
             GetOwner();
         }
 
-        owner.CalculateGravityStrength(jumpHeight, jumpTimeToApex);
-        
-        //Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
-        jumpForce = Mathf.Abs(owner.gravityStrength) * jumpTimeToApex;
+        if (owner != null)
+        {
+            owner.CalculateGravityStrength(jumpHeight, jumpTimeToApex);
+
+            //Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
+            jumpForce = Mathf.Abs(owner.gravityStrength) * jumpTimeToApex;
+        }
     }
 }

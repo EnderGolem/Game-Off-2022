@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Tools;
 using Unity.VisualScripting;
@@ -95,11 +93,11 @@ public class EffectOnTouch : MonoBehaviour
             Vector2 vec2;
             if (Vector2.SignedAngle(dir, Vector2.up) <= 0)
             {
-                vec2 = dir.Perpendicular1() * knockBack.y;
+                vec2 = dir.MMRotate(-90) * knockBack.y;
             }
             else
             {
-                vec2 = dir.Perpendicular2() * knockBack.y;
+                vec2 = dir.MMRotate(90) * knockBack.y;
             }
             //Debug.Log($"dir = {dir}, vec1 = {vec1}, vec2 = {vec2}, sum = {vec1+vec2}");
             body.AddForce(vec1+vec2,ForceMode2D.Impulse);
