@@ -7,6 +7,9 @@ public class ShieldBlock : CharacterAbility
 {
     [SerializeField]
     protected Shield shield;
+    [Tooltip("Модификатор силы отталкивания во время блокирования")]
+    [SerializeField]
+    protected float knockbackModifier;
     [Tooltip("Список эффектов, накладываемых на игрока, когда он использует щит" +
              "Используется например для замедления игрока")]
     [SerializeField]
@@ -19,7 +22,7 @@ public class ShieldBlock : CharacterAbility
     protected override void PreInitialize()
     {
         base.PreInitialize();
-        shield.Initialize(owner,GetComponent<Collider2D>());
+        shield.Initialize(owner,GetComponent<Collider2D>(),knockbackModifier);
     }
 
     private void Update()

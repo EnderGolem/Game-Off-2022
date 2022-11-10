@@ -96,30 +96,9 @@ public class EffectOnTouch : MonoBehaviour
             propertyManager.AddEffect(_effects[i]);
         }
         var body = propertyManager.GetComponent<Rigidbody2D>();
-        if (body != null)
-        {
-            Vector2 dir;
-            if (knockbackDirDefinition == KnockbackDirDefinition.VelocityDir && rigidBody!=null)
-            {
-                dir = rigidBody.velocity.normalized;
-            }
-            else
-            {
-                dir = ((Vector2) transform.right).normalized;
-            }
-            var vec1 = dir * knockBack.x;
-            Vector2 vec2;
-            if (Vector2.SignedAngle(dir, Vector2.up) <= 0)
-            {
-                vec2 = dir.MMRotate(-90) * knockBack.y;
-            }
-            else
-            {
-                vec2 = dir.MMRotate(90) * knockBack.y;
-            }
-            //Debug.Log($"dir = {dir}, vec1 = {vec1}, vec2 = {vec2}, sum = {vec1+vec2}");
-            body.AddForce(vec1+vec2,ForceMode2D.Impulse);
-        }
+       
+        ApplyKnockback(body);
+        
         objectHealth?.DoDamage(DamageTakenDamageable + DamageTakenEveryTime);
     }
 
@@ -130,7 +109,37 @@ public class EffectOnTouch : MonoBehaviour
 
     protected void OnCollideWithShield(Shield shield)
     {
-        
+        ApplyKnockback(shield.OwnerCollider.attachedRigidbody,shield.KnockBackModifier);
+    }
+
+    protected void ApplyKnockback(Rigidbody2D body, float knockbackModifier = 1)
+    {
+        if (body != null)
+        {
+            Vector2 dir;
+            if (knockbackDirDefinition == KnockbackDirDefinition.VelocityDir && rigidBody != null)
+            {
+                dir = rigidBody.velocity.normalized;
+            }
+            else
+            {
+                dir = ((Vector2) transform.right).normalized;
+            }
+
+            var vec1 = dir * knockBack.x;
+            Vector2 vec2;
+            if (Vector2.SignedAngle(dir, Vector2.up) <= 0)
+            {
+                vec2 = dir.MMRotate(-90) * knockBack.y;
+            }
+            else
+            {
+                vec2 = dir.MMRotate(90) * knockBack.y;
+            }
+            
+            //Debug.Log($"dir = {dir}, vec1 = {vec1}, vec2 = {vec2}, sum = {vec1+vec2}");
+            body.AddForce((vec1 + vec2) * knockbackModifier, ForceMode2D.Impulse);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -148,6 +157,8 @@ public class EffectOnTouch : MonoBehaviour
         ///проходимся и записываем всех владельцев щитов, чтобы потом игнорировать их коллайдеры
         foreach (var col in co)
         {
+            
+            if(!collidingObjects.ContainsKey(col.Key)) continue;
             //Debug.Log($"{Time.time}: {col.Key.gameObject.name} - {col.Value}");
             var shield = col.Key.GetComponent<Shield>();
             if (shield != null)
@@ -163,6 +174,12 @@ public class EffectOnTouch : MonoBehaviour
 
         foreach (var col in co)
         {
+            ///На любом шаге цикла может сработать OnDisable
+            /// Тогда словарь соприкасаемых объектов полностью очистится
+            /// И мы будем пытаться обратиться к кобъектам, к которым мы уже
+            /// Не прикасаемся.
+            /// Чтобы такого не происходило делаем эту проверку
+            if(!collidingObjects.ContainsKey(col.Key)) continue;
             ///Проверяем, что мы давно не накладывали эффект
             if (Time.time - collidingObjects[col.Key] > repeatedEffectApplicationTime)
             {
@@ -198,6 +215,7 @@ public class EffectOnTouch : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        
         collidingObjects.Remove(other);
     }
 
@@ -221,7 +239,7 @@ public class EffectOnTouch : MonoBehaviour
     private void OnDisable()
     {
         ClearEffects();
-        collidingObjects.Clear();
+       // collidingObjects.Clear();
     }
     /// <summary>
     /// Если к объекту пожключено здоровье, то при смерти объекта будет вызвана эта функция
