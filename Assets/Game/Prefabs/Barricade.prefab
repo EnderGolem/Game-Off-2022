@@ -81,6 +81,7 @@ MonoBehaviour:
   autoDisableTime: 0
   ignoreOwnerCollision: 1
   knockbackDirDefinition: 0
+  repeatedEffectApplicationTime: 0.4
 --- !u!1 &3258006641619216053
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ public class TilemapSecretPlaceLogic : MonoBehaviour
     private void Awake()
     {
         map = GetComponent<Tilemap>();
-        map.color = Color.white;
+        map.color = new Color(map.color.r,map.color.g,map.color.b,1f);
     }
     //При столкновении игрока с тайлом удаляем этот тайл и все связанные с ним
     private void OnTriggerEnter2D(Collider2D collision)

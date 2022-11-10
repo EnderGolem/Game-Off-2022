@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 188732072717986307}
   - component: {fileID: 9062165416485910411}
   - component: {fileID: 4452396882366527592}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TestProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,6 +191,7 @@ MonoBehaviour:
   autoDisableTime: 0
   ignoreOwnerCollision: 1
   knockbackDirDefinition: 1
+  repeatedEffectApplicationTime: 1
 --- !u!114 &9062165416485910411
 MonoBehaviour:
   m_ObjectHideFlags: 0
