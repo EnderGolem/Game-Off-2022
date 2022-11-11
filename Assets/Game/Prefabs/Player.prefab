@@ -256,7 +256,6 @@ GameObject:
   - component: {fileID: 8434176433734082512}
   - component: {fileID: 8434176433734082513}
   - component: {fileID: 8434176433734082526}
-  - component: {fileID: 8434176433734082527}
   - component: {fileID: 8434176433734082514}
   - component: {fileID: 8434176433734082515}
   - component: {fileID: 8434176433734082517}
@@ -270,6 +269,9 @@ GameObject:
   - component: {fileID: 6757614623177310575}
   - component: {fileID: 2908697544807498183}
   - component: {fileID: 4063666793226419220}
+  - component: {fileID: 3178306362428260345}
+  - component: {fileID: 4575642185042089952}
+  - component: {fileID: 749741786340377920}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -370,22 +372,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!58 &8434176433734082527
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8434176433734082524}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.4}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!114 &8434176433734082514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -779,17 +765,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: CrossbowShot
-  abilityPermitted: 1
+  abilityPermitted: 0
   projectile: {fileID: 188732072717986314, guid: de13bd4f1fec80546b269dca3be806cc, type: 3}
   projStartPos: {fileID: 8130458793347639460}
   spawnAngleOffset: 30
   delayBeforeAttack: 0
   delayAfterAttack: 0.3
-  baseDamage: 0
+  baseDamage: 1
   attackEffects:
   - {fileID: 11400000, guid: 60e37015eeb934e46805e0552551a9a0, type: 2}
-  UseBalliscticToTarget: 0
-  UseCursorToAimBallistic: 0
+  UseInventoryToManageAmmo: 1
+  weaponName: Crossbow
+  UseBalliscticToTarget: 1
+  UseCursorToAimBallistic: 1
 --- !u!114 &2908697544807498183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -805,9 +793,6 @@ MonoBehaviour:
   abilityName: WeaponHandler
   abilityPermitted: 1
   defaultWeapon: {fileID: 11400000, guid: 19734569720f0ab419813793e8b9b443, type: 2}
-  availableWeapons:
-  - {fileID: 11400000, guid: 9f8f7a7db12900943bd80041beb0b39b, type: 2}
-  - {fileID: 11400000, guid: c251781710f568e4d8849979b0c2ce8e, type: 2}
   inputBuffer: 0.4
 --- !u!114 &4063666793226419220
 MonoBehaviour:
@@ -827,3 +812,54 @@ MonoBehaviour:
   knockbackModifier: 0.3
   effectsInBlock:
   - {fileID: 11400000, guid: 2b7a4c536fc249b4c84cf8edd76bfdf1, type: 2}
+--- !u!70 &3178306362428260345
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434176433734082524}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 1.9999999}
+  m_Direction: 0
+--- !u!114 &4575642185042089952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434176433734082524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 979957d09ef0a1f4b856a57dcc70c91f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startAmmunition:
+  - name: Bolt
+    count: 10
+  startWeapons:
+  - {fileID: 11400000, guid: 9f8f7a7db12900943bd80041beb0b39b, type: 2}
+  - {fileID: 11400000, guid: c251781710f568e4d8849979b0c2ce8e, type: 2}
+--- !u!114 &749741786340377920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434176433734082524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc785b59fbb2424409061a006f1af319, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: ReloadCrossbow
+  abilityPermitted: 1
+  reloadTime: 1
+  weaponName: Crossbow
+  needHoldToUse: 1

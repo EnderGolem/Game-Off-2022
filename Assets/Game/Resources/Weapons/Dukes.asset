@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1741774fafa504c4bb757a3ac88911e5, type: 3}
   m_Name: Dukes
   m_EditorClassIdentifier: 
+  itemName: Dukes
   activeAbilities: []
+  maxAmmoCount: 0
+  ammunitionType: 
