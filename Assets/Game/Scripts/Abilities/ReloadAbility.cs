@@ -63,7 +63,7 @@ public class ReloadAbility : CharacterAbility
 
    protected void Reload()
    {
-      Debug.Log("Reload");
+     
       _inventoryHandler.ReloadWeapon(weaponName);
    }
 
