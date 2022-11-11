@@ -19,6 +19,7 @@ public class CharacterControl : MonoBehaviour
     private RangedAttack _rangedAttack;
     private WeaponHandler _weaponHandler;
     private ShieldBlock _shieldBlock;
+    private ReloadAbility _reloadAbility;
     private void Awake()
     {
         _character = GetComponent<Character>();
@@ -31,6 +32,7 @@ public class CharacterControl : MonoBehaviour
         _rangedAttack = GetComponent<RangedAttack>();
         _weaponHandler = GetComponent<WeaponHandler>();
         _shieldBlock = GetComponent<ShieldBlock>();
+        _reloadAbility = GetComponent<ReloadAbility>();
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -148,6 +150,18 @@ public class CharacterControl : MonoBehaviour
             else if (context.canceled)
             {
                 _shieldBlock.ProcessInput(false);
+            }
+        }
+
+        if (_reloadAbility != null)
+        {
+            if (context.started)
+            {
+                _reloadAbility.ProcessInput(true);
+            }
+            else if (context.canceled)
+            {
+                _reloadAbility.ProcessInput(false);
             }
         }
     }

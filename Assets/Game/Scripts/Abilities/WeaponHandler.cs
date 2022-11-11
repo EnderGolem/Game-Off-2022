@@ -10,8 +10,7 @@ public class WeaponHandler : CharacterAbility
     [Tooltip("Оружие устанавливаемое по умолчанию")]
     [SerializeField]
     protected Weapon defaultWeapon;
-    [Tooltip("Список оружия, доступного из инвентаря в данный момент")]
-    [SerializeField]
+    //Список оружия, доступного из инвентаря в данный момент
     protected List<Weapon> availableWeapons;
     [Range(0.01f,1)]
     [SerializeField]
@@ -29,6 +28,7 @@ public class WeaponHandler : CharacterAbility
     protected override void PreInitialize()
     {
         base.PreInitialize();
+        availableWeapons = new List<Weapon>();
         abilities = GetComponentsInParent<CharacterAbility>();
         lastInputScrollTime = -10000;
     }
@@ -107,6 +107,13 @@ public class WeaponHandler : CharacterAbility
             curScroll = input;
             lastInputScrollTime = Time.time;
         }
+    }
+
+    public void UpdateAvailableWeapons(List<Weapon> newAvailableWeapons)
+    {
+        availableWeapons = newAvailableWeapons;
+        
+        ChooseCurrentWeapon();
     }
 
     protected bool CanChangeWeapon()

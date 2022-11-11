@@ -27,6 +27,12 @@ public class RangedAttack : CharacterAbility
     protected float baseDamage;
     [SerializeField]
     protected EffectDescription[] attackEffects;
+    [Tooltip("Следует ли использовать инвентарь для получения информации о зарядке оружия или делать это самостоятельно")] 
+    [SerializeField]
+    protected bool UseInventoryToManageAmmo;
+    [Tooltip("Имя оружия для обращения к инвентарю")]
+    [SerializeField]
+    protected string weaponName;
     [Tooltip("Следует ли при выстреле рассчитывать угола выстрела так, чтобы попасть по заданным координатам?"+
     "Полезно для ботов")]
     [SerializeField]
@@ -44,10 +50,13 @@ public class RangedAttack : CharacterAbility
     /// Следует ли при рассчете баллистической траектори ориентироваться на фазу подъема или на фазу спуска
     /// </summary>
     protected bool useDirectFire = true;
+
+    protected InventoryHandler _inventoryHandler;
     
     protected override void PreInitialize()
     {
         base.PreInitialize();
+        _inventoryHandler = GetComponent<InventoryHandler>();
         damageProperty=owner.PropertyManager.AddProperty("RangedAttackDamage", baseDamage);
     }
     private void Update()
@@ -63,6 +72,8 @@ public class RangedAttack : CharacterAbility
         owner.AttackingState.ChangeState(CharacterAttackingState.RangeAttacking);
         
         yield return new WaitForSeconds(delayBeforeAttack);
+
+        if (UseInventoryToManageAmmo) _inventoryHandler.Shoot(weaponName);
         
         SpawnProjectile();
         
@@ -102,7 +113,17 @@ public class RangedAttack : CharacterAbility
 
     protected bool CanAttack()
     {
-        return owner.AttackingState.CurrentState == CharacterAttackingState.Idle && AbilityAuthorized;
+        return IsLoaded() && owner.AttackingState.CurrentState == CharacterAttackingState.Idle && AbilityAuthorized;
+    }
+
+    protected bool IsLoaded()
+    {
+        if (UseInventoryToManageAmmo)
+        {
+            return _inventoryHandler.CanShoot(weaponName);
+        }
+
+        return true;
     }
 
     public void ProcessInput(bool input)
