@@ -120,6 +120,14 @@ public class InventoryHandler : MonoBehaviour
         if (!ammunition.ContainsKey(loadedAmmoCount[weaponName].Item1.AmmunitionType)) return false;
         return ammunition[loadedAmmoCount[weaponName].Item1.AmmunitionType] > 0;
     }
+
+    public void AddAmmunition(string ammoName, int count)
+    {
+        if (ammunition.ContainsKey(ammoName) && count > 0)
+        {
+            ammunition[ammoName] += count;
+        }
+    }
 }
 [Serializable]
 public class Ammunition
