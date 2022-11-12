@@ -18,6 +18,8 @@ public class Health : MonoBehaviour
     [SerializeField]
     protected float timeBeforeDestruction;
     
+    public delegate void OnDamageDelegate(float damage);
+    public OnDamageDelegate OnDamage;
     // death delegate
     public delegate void OnDeathDelegate();
     public OnDeathDelegate OnDeath;
@@ -83,6 +85,7 @@ public class Health : MonoBehaviour
 
     protected void OnHealthChanged(float oldCurValue, float newCurValue, float oldValue, float newValue)
     {
+        OnDamage?.Invoke(oldCurValue - newCurValue);
         CheckDeath();
     }
 }

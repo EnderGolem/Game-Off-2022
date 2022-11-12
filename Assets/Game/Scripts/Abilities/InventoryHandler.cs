@@ -36,12 +36,12 @@ public class InventoryHandler : MonoBehaviour
         {
             loadedAmmoCount[startWeapons[i].ItemName] = (startWeapons[i],startWeapons[i].MaxAmmoCount);
         }
-        _weaponHandler.UpdateAvailableWeapons(startWeapons);
+        
     }
 
     void Start()
     {
-        
+        _weaponHandler.UpdateAvailableWeapons(startWeapons);
     }
 
     // Update is called once per frame

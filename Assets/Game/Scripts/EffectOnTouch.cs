@@ -12,6 +12,9 @@ public class EffectOnTouch : MonoBehaviour
     public float DamageTakenDamageable;
     
     public float DamageTakenNonDamageable;
+    [Tooltip("Список слоев с которым будет произведено взаимодействие")]
+    [SerializeField] 
+    protected LayerMask targetLayer;
     
     [Tooltip("Эффекты, которые будут заложены изначально, не зависят от характеристик")]
     [SerializeField]
@@ -59,14 +62,14 @@ public class EffectOnTouch : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         _effects=new List<Effect>();
         collidingObjects = new Dictionary<Collider2D,float>();
-        if (startEffects != null)
+       /* if (startEffects != null)
         {
             for (int i = 0; i < startEffects.Length; i++)
             {
                 AddEffect(new Effect(startEffects[i]));
             }
             //Debug.Log(gameObject.name + "effects count: "+startEffects.Length);
-        }
+        }*/
  
         if (useAutoDisable)
         {
@@ -144,7 +147,12 @@ public class EffectOnTouch : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        collidingObjects.Add(other,0);
+        if (!MMLayers.LayerInLayerMask(other.gameObject.layer, targetLayer))
+        {
+
+            return;
+        }
+            collidingObjects.Add(other,0);
     }
 
     protected void HandleCollidedObjects()
@@ -215,7 +223,11 @@ public class EffectOnTouch : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        
+        if (!MMLayers.LayerInLayerMask(other.gameObject.layer, targetLayer))
+        {
+
+            return;
+        }
         collidingObjects.Remove(other);
     }
 

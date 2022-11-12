@@ -9,12 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1741774fafa504c4bb757a3ac88911e5, type: 3}
-  m_Name: Crossbow
+  m_Script: {fileID: 11500000, guid: 87e018b4a0348f1429fb99fef3face94, type: 3}
+  m_Name: ApplePoison
   m_EditorClassIdentifier: 
-  itemName: Crossbow
-  activeAbilities:
-  - CrossbowShot
-  - CrossbowReload
-  maxAmmoCount: 1
-  ammunitionType: Bolt
+  id: 7
+  duration: 5
+  chance: 1
+  maxStackCount: 3
+  nature: 0
+  impacts:
+  - targetId: 1
+    type: 2
+    defaultValue: -1
+    propertyId: -1
