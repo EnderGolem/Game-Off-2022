@@ -48,9 +48,19 @@ public class CharacterAbility : MonoBehaviour
         
     }
 
+    private void LateUpdate()
+    {
+        if(owner.Animator != null)
+        UpdateAnimator();
+    }
+
     protected void GetOwner()
     {
         owner = gameObject.GetComponentInParent<Character>();
     }
-    
+
+    protected virtual void UpdateAnimator()
+    {
+        
+    }
 }

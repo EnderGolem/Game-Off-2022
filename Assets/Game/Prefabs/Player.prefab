@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 267052651853494059}
   - component: {fileID: 1506179850611331165}
   - component: {fileID: 743341502864594043}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: MeleeAttackZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,6 +176,9 @@ MonoBehaviour:
   DamageTakenEveryTime: 0
   DamageTakenDamageable: 0
   DamageTakenNonDamageable: 0
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 16969
   startEffects: []
   knockBack: {x: 20, y: -30}
   useAutoDisable: 0
@@ -399,6 +402,7 @@ MonoBehaviour:
   objectsToTurn:
   - {fileID: 8130458793347639460}
   - {fileID: 267052651853494059}
+  animator: {fileID: 0}
 --- !u!114 &8434176433734082515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -715,7 +719,9 @@ MonoBehaviour:
   abilityName: SwordAttack
   abilityPermitted: 1
   damageZone: {fileID: 1506179850611331165}
-  delayBeforeAttack: 0
+  minAttackPreparingTime: 0
+  maxAttackPreparingTime: 0
+  delayBeforeAttacking: 0
   activeDamageZoneTime: 0.2
   delayAfterAttack: 0.3
   baseDamage: 2
@@ -858,7 +864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc785b59fbb2424409061a006f1af319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityName: ReloadCrossbow
+  abilityName: CrossbowReload
   abilityPermitted: 1
   reloadTime: 1
   weaponName: Crossbow

@@ -8,7 +8,12 @@ public class MeleeAttack : CharacterAbility
     [SerializeField]
     protected Collider2D damageZone;
     [SerializeField]
-    protected float delayBeforeAttack;
+    protected float minAttackPreparingTime;
+    [SerializeField]
+    protected float maxAttackPreparingTime;
+
+    [SerializeField] 
+    protected float delayBeforeAttacking;
     [SerializeField]
     protected float activeDamageZoneTime;
     [SerializeField] 
@@ -16,6 +21,8 @@ public class MeleeAttack : CharacterAbility
 
     [SerializeField] 
     protected float baseDamage;
+    
+    
 
     [SerializeField] 
     protected EffectDescription[] attackEffects;
@@ -26,6 +33,8 @@ public class MeleeAttack : CharacterAbility
     protected ObjectProperty damageProperty;
     
     protected bool curInput;
+
+    protected float lastAttackStart;
 
     protected override void PreInitialize()
     {
@@ -40,16 +49,28 @@ public class MeleeAttack : CharacterAbility
     {
         if (curInput && CanAttack())
         {
-            StartCoroutine(Attack());
+            StartAttack();
+        }
+
+        if (owner.AttackingState.CurrentState == CharacterAttackingState.AttackPreparing)
+        {
+            HandleAttackPreparing();
+        }
+
+        if (owner.AttackingState.CurrentState == CharacterAttackingState.Attacking)
+        {
+            HandleAttacking();
         }
     }
 
     protected IEnumerator Attack()
     {
+        owner.AttackingState.ChangeState(CharacterAttackingState.AttackPreparing);
+        
+        yield return new WaitForSeconds(minAttackPreparingTime);
+
         owner.AttackingState.ChangeState(CharacterAttackingState.Attacking);
         
-        yield return new WaitForSeconds(delayBeforeAttack);
-
         for (int i = 0; i < attackEffects.Length; i++)
         {
             damageZoneOnTouch.AddEffect(new Effect(attackEffects[i],owner.PropertyManager));
@@ -69,13 +90,72 @@ public class MeleeAttack : CharacterAbility
 
     }
 
+    protected void StartAttack()
+    {
+        owner.AttackingState.ChangeState(CharacterAttackingState.AttackPreparing);
+        lastAttackStart = Time.time;
+    }
+
+    protected void HandleAttackPreparing()
+    {
+        var delta = Time.time - lastAttackStart;
+        if (delta > maxAttackPreparingTime || (delta > minAttackPreparingTime && !curInput))
+        {
+            for (int i = 0; i < attackEffects.Length; i++)
+            {
+                damageZoneOnTouch.AddEffect(new Effect(attackEffects[i],owner.PropertyManager));
+            }
+            
+            owner.AttackingState.ChangeState(CharacterAttackingState.Attacking);
+
+            lastAttackStart = Time.time;
+        }
+    }
+
+    protected void HandleAttacking()
+    {
+        var delta = Time.time - lastAttackStart;
+        
+        if (delta > activeDamageZoneTime + delayBeforeAttacking)
+        {
+            damageZone.enabled = false;
+            damageZoneOnTouch.enabled = false;
+            
+            owner.AttackingState.ChangeState(CharacterAttackingState.Idle);
+
+            lastAttackStart = Time.time;
+            
+        }
+        else if(delta > delayBeforeAttacking)
+        {
+            damageZone.enabled = true;
+            damageZoneOnTouch.enabled = true;
+        }
+    }
+
+    protected override void UpdateAnimator()
+    {
+        base.UpdateAnimator();
+        owner.Animator.SetBool("AttackPreparing", owner.AttackingState.CurrentState == CharacterAttackingState.AttackPreparing);
+        owner.Animator.SetBool("Attacking", owner.AttackingState.CurrentState == CharacterAttackingState.Attacking);
+        
+        owner.Animator.SetFloat("AttackSpeed",1/(activeDamageZoneTime+delayBeforeAttacking));
+        owner.Animator.SetFloat("AttackPreparingSpeed",1/maxAttackPreparingTime);
+        
+    }
+
     public void ProcessInput(bool input)
     {
         curInput = input;
     }
 
+    protected bool isReloaded()
+    {
+        return Time.time - lastAttackStart > delayAfterAttack;
+    }
+
     protected bool CanAttack()
     {
-        return owner.AttackingState.CurrentState == CharacterAttackingState.Idle && AbilityAuthorized;
+        return isReloaded() && owner.AttackingState.CurrentState == CharacterAttackingState.Idle && AbilityAuthorized;
     }
 }

@@ -157,7 +157,14 @@ public class AbilityJump : CharacterAbility
 
         curInput = input;
     }
-    
+
+    protected override void UpdateAnimator()
+    {
+        base.UpdateAnimator();
+        owner.Animator.SetBool("Jumping", owner.MovementState.CurrentState == CharacterMovementsStates.Jumping);
+        owner.Animator.SetBool("Falling", owner.MovementState.CurrentState == CharacterMovementsStates.JumpFalling);
+    }
+
     public virtual void SetMoveInput(Vector2 input)
     {
         curMoveInputDir = input;

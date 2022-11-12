@@ -124,6 +124,12 @@ public class AbilityMove : CharacterAbility
 		*/
    }
 
+   protected override void UpdateAnimator()
+   {
+	   base.UpdateAnimator();
+	   owner.Animator.SetBool("Walking", owner.MovementState.CurrentState == CharacterMovementsStates.Walking);
+   }
+
    public void ProcessInput(Vector2 input)
    {
 	   curInputDir = input;

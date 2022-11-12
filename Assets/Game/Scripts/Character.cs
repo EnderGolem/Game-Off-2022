@@ -10,9 +10,8 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 {
     public MMStateMachine<CharacterMovementsStates> MovementState;
     public MMStateMachine<CharacterAttackingState> AttackingState;
-    
-    /// the animator associated to this character
-    public Animator _animator { get; protected set; }
+
+    public Animator Animator => animator;
 
     public Rigidbody2D RigidBody { get; protected set; }
     private CircleCollider2D _Collider;
@@ -58,6 +57,8 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     [Tooltip("Список объектов, которые нужно поворачивать вместе с персонажем")]
     [SerializeField]
     protected Transform[] objectsToTurn;
+    [SerializeField]
+    protected Animator animator;
 
     public float CoyoteTime => coyoteTime;
 
@@ -91,7 +92,15 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         StayOnStairway = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _stairwayLayer);
         StayOnPlatform = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _platformLayer);
         StayOnGround = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer);
+        
+        
     }
+
+    private void LateUpdate()
+    {
+        UpdateAnimator();
+    }
+
     //Возвращает true если коллайдер игрока все еще соприкасается с платформой
     public bool BodyInPLatform()
     {
@@ -191,6 +200,11 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         //Debug.Log(eventType.NewState);
     }
 
+    protected void UpdateAnimator()
+    {
+        animator.SetBool("IdleMove", MovementState.CurrentState == CharacterMovementsStates.Idle);
+    }
+
     private void OnEnable()
     {
         this.MMEventStartListening();
@@ -209,5 +223,5 @@ public enum CharacterMovementsStates
 
 public enum CharacterAttackingState
 {
-    Idle, Attacking, RangeAttacking,Blocking, Reloading
+    Idle, Attacking, RangeAttacking,Blocking, Reloading, AttackPreparing
 }

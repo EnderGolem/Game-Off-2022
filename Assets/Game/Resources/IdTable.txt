@@ -14,3 +14,5 @@ Effects:
 3 - RangedAttack
 4 - BarricadeDamage
 5 - ShieldBlock
+6 - AppleHeal
+7 - ApplePoison

@@ -185,6 +185,9 @@ MonoBehaviour:
   DamageTakenEveryTime: 1
   DamageTakenDamageable: 0
   DamageTakenNonDamageable: 0
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 841
   startEffects: []
   knockBack: {x: 10, y: 0}
   useAutoDisable: 0
