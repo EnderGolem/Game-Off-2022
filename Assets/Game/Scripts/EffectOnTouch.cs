@@ -124,9 +124,13 @@ public class EffectOnTouch : MonoBehaviour
             {
                 dir = rigidBody.velocity.normalized;
             }
-            else
+            else if(knockbackDirDefinition == KnockbackDirDefinition.RightDir)
             {
                 dir = ((Vector2) transform.right).normalized;
+            }
+            else
+            {
+                dir = ((Vector2)(body.transform.position - transform.position)).normalized;
             }
 
             var vec1 = dir * knockBack.x;
@@ -304,5 +308,5 @@ public class EffectOnTouch : MonoBehaviour
 /// </summary>
 public enum KnockbackDirDefinition
 {
-    OwnDir, VelocityDir
+    RightDir, VelocityDir, DirToTarget
 }

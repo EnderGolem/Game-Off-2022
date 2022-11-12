@@ -16,3 +16,4 @@ Effects:
 5 - ShieldBlock
 6 - AppleHeal
 7 - ApplePoison
+8 - BarrelExplosion
