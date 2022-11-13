@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
 /// <summary>
@@ -59,6 +60,9 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     protected Transform[] objectsToTurn;
     [SerializeField]
     protected Animator animator;
+    [Tooltip("Фидбек, вызываемый при приземлении")]
+    [SerializeField]
+    protected MMFeedbacks groundedFeedback;
 
     public float CoyoteTime => coyoteTime;
 
@@ -114,6 +118,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
             if ((MovementState.CurrentState == CharacterMovementsStates.Jumping
                  || MovementState.CurrentState == CharacterMovementsStates.JumpFalling) && Mathf.Abs(RigidBody.velocity.y) < 0.1)
             {
+                groundedFeedback?.PlayFeedbacks();
                 MovementState.ChangeState(CharacterMovementsStates.Idle);
             }
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class AbilityMove : CharacterAbility
@@ -43,6 +44,8 @@ public class AbilityMove : CharacterAbility
    [Tooltip("Реальное время, на которое рассчитана анимация ходьбы")]
    [SerializeField]
    protected float actualWalkAnimationTime;
+   [SerializeField]
+   protected MMFeedbacks walkFeedback;
 
    protected ObjectProperty walkSpeedProperty;
    protected override void PreInitialize()
@@ -116,11 +119,20 @@ public class AbilityMove : CharacterAbility
 		if (owner.MovementState.CurrentState == CharacterMovementsStates.Idle && Mathf.Abs(targetSpeed) > 0)
 		{
 			owner.MovementState.ChangeState(CharacterMovementsStates.Walking);
+			if (owner.IsOnGround && walkFeedback != null && !walkFeedback.IsPlaying)
+			{
+				walkFeedback?.PlayFeedbacks();	
+			} 
 		}
 		
 		if (owner.MovementState.CurrentState == CharacterMovementsStates.Walking && Mathf.Abs(targetSpeed) == 0)
 		{
 			owner.MovementState.ChangeState(CharacterMovementsStates.Idle);
+			walkFeedback?.StopFeedbacks();
+		}
+		else if (!owner.IsOnGround)
+		{
+			walkFeedback?.StopFeedbacks();
 		}
 
 		/*
