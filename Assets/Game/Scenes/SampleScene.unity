@@ -4025,6 +4025,82 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082516, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: accelInAir
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082516, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: deccelInAir
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082516, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: runMaxSpeed
+      value: 5.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082516, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: runAcceleration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082516, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: runDecceleration
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082516, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: doConserveMomentum
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082516, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: jumpHangMaxSpeedMult
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082516, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: jumpHangTimeThreshold
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082516, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: jumpHangAccelerationMult
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082519, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: jumpForce
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082519, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: jumpHeight
+      value: 3.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082519, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: maxFallSpeed
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082519, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: jumpTimeToApex
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082519, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: fallGravityMult
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082519, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: maxFastFallSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082519, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: jumpCutGravityMult
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082519, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: fastFallGravityMult
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082519, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: jumpHangGravityMult
+      value: 0.882
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434176433734082519, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
+      propertyPath: jumpHangTimeThreshold
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8434176433734082524, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
       propertyPath: m_Name
       value: Player
