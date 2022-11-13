@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -38,6 +39,12 @@ public class EffectOnTouch : MonoBehaviour
              "Если все это время объект находится в зоне эффекта")]
     [SerializeField]
     protected float repeatedEffectApplicationTime = 1f;
+    [SerializeField]
+    protected MMFeedbacks hitDamageableFeedback;
+    [SerializeField]
+    protected MMFeedbacks hitNonDamageableFeedback;
+    [SerializeField]
+    protected MMFeedbacks hitShieldFeedback;
     
     protected List<Effect> _effects;
     
@@ -102,16 +109,22 @@ public class EffectOnTouch : MonoBehaviour
        
         ApplyKnockback(body);
         
+        hitDamageableFeedback?.PlayFeedbacks();
+        
         objectHealth?.DoDamage(DamageTakenDamageable + DamageTakenEveryTime);
     }
 
     protected void OnCollideWithNonDamageable(Collider2D collider)
     {
+        hitNonDamageableFeedback?.PlayFeedbacks();
+        
         objectHealth?.DoDamage(DamageTakenNonDamageable + DamageTakenEveryTime);
     }
 
     protected void OnCollideWithShield(Shield shield)
     {
+        hitShieldFeedback?.PlayFeedbacks();
+        
         ApplyKnockback(shield.OwnerCollider.attachedRigidbody,shield.KnockBackModifier);
     }
 

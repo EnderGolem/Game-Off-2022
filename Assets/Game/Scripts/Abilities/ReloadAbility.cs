@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class ReloadAbility : CharacterAbility
@@ -14,6 +15,12 @@ public class ReloadAbility : CharacterAbility
    [Tooltip("Нужно ли зажимать клавишу перезарядки на протяжении всего времени перезарядки")]
    [SerializeField]
    protected bool needHoldToUse;
+   [Tooltip("Фидбэк, работающий пока идет перезарядка")]
+   [SerializeField]
+   protected MMFeedbacks reloadingFeedback;
+   [Tooltip("Фидбэк, вызываемый, когда перезарядка завершена")]
+   [SerializeField]
+   protected MMFeedbacks stopReloadFeedback;
 
    protected Coroutine curReloadRoutine;
 
@@ -48,15 +55,16 @@ public class ReloadAbility : CharacterAbility
    protected IEnumerator StartReloading()
    {
       owner.AttackingState.ChangeState(CharacterAttackingState.Reloading);
-      
+      reloadingFeedback?.PlayFeedbacks();
       yield return new WaitForSeconds(reloadTime);
-      
+      reloadingFeedback?.StopFeedbacks();
       Reload();
       owner.AttackingState.ChangeState(CharacterAttackingState.Idle);
    }
 
    protected void InterruptReload()
    {
+      reloadingFeedback?.StopFeedbacks();
       StopCoroutine(curReloadRoutine);
       owner.AttackingState.ChangeState(CharacterAttackingState.Idle);
    }
@@ -65,6 +73,7 @@ public class ReloadAbility : CharacterAbility
    {
      
       _inventoryHandler.ReloadWeapon(weaponName);
+      stopReloadFeedback?.PlayFeedbacks();
    }
 
    protected bool CanReload()

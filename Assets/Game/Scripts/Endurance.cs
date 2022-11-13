@@ -21,6 +21,9 @@ public class Endurance : MonoBehaviour
     [Tooltip("Фидбек, вызываемый в момент когда игрок выдохся")]
     [SerializeField]
     protected MMFeedbacks fizzleOutFeedback;
+    [Tooltip("фидбэк, который регулярно работает, когда персонаж устал")]
+    [SerializeField]
+    protected MMFeedbacks tirednessFeedback;
     
     protected PropertyManager _propertyManager;
     protected ObjectProperty enduranceProperty;
@@ -49,6 +52,7 @@ public class Endurance : MonoBehaviour
         {
             enduranceProperty.ChangeCurValue(enduranceRecoverSpeed.GetCurValue() * Time.deltaTime);
         }
+        
     }
 
     protected void OnEnduranceChanged(float oldCurValue, float newCurValue, float oldValue, float newValue)
@@ -63,6 +67,8 @@ public class Endurance : MonoBehaviour
             if (!owner.IsTired)
             {
               fizzleOutFeedback?.PlayFeedbacks();   
+              
+              tirednessFeedback?.PlayFeedbacks();
             }
             owner.IsTired = true;
             return;
@@ -70,6 +76,8 @@ public class Endurance : MonoBehaviour
 
         if (owner.IsTired && newCurValue > tirednessThreshold)
         {
+            tirednessFeedback?.StopFeedbacks();
+            
             owner.IsTired = false;
         }
     }

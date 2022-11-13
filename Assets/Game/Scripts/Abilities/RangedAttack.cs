@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using Unity.Mathematics;
 using UnityEngine;
@@ -40,6 +41,9 @@ public class RangedAttack : CharacterAbility
     [Tooltip("Следует ли рассчитывать баллистику по координатам курсора, если персонажем управляет игрок")]
     [SerializeField]
     protected bool UseCursorToAimBallistic;
+    [Tooltip("Фидбэк, вызываемый при выстреле")]
+    [SerializeField]
+    protected MMFeedbacks shotFeedback;
     /// <summary>
     /// Координаты по которым будет производится выстрел
     /// </summary>
@@ -74,6 +78,8 @@ public class RangedAttack : CharacterAbility
         yield return new WaitForSeconds(delayBeforeAttack);
 
         if (UseInventoryToManageAmmo) _inventoryHandler.Shoot(weaponName);
+        
+        shotFeedback?.PlayFeedbacks();
         
         SpawnProjectile();
         
