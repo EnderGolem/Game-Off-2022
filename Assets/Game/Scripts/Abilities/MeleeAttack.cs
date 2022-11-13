@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class MeleeAttack : CharacterAbility
@@ -27,6 +28,8 @@ public class MeleeAttack : CharacterAbility
 
     [SerializeField] 
     protected EffectDescription[] attackEffects;
+    [SerializeField]
+    protected MMFeedbacks startAttackFeedback;
 
     protected EffectOnTouch damageZoneOnTouch;
     
@@ -110,6 +113,7 @@ public class MeleeAttack : CharacterAbility
             }
             
             owner.AttackingState.ChangeState(CharacterAttackingState.Attacking);
+            startAttackFeedback?.PlayFeedbacks();
             enduranceProperty.ChangeCurValue(-enduranceCost);
             lastAttackStart = Time.time;
         }
