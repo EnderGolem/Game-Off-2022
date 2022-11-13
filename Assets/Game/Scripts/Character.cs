@@ -202,7 +202,11 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 
     protected void UpdateAnimator()
     {
-        animator.SetBool("IdleMove", MovementState.CurrentState == CharacterMovementsStates.Idle);
+        if (animator != null)
+        {
+            animator.SetBool("IdleMove", MovementState.CurrentState == CharacterMovementsStates.Idle);
+            
+        }
     }
 
     private void OnEnable()
@@ -218,7 +222,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 
 public enum CharacterMovementsStates
 {
-    Idle, Walking, Jumping, Dashing, JumpFalling
+    Idle, Walking, Jumping, Dashing, JumpFalling, Flying
 }
 
 public enum CharacterAttackingState

@@ -39,6 +39,10 @@ public class AbilityMove : CharacterAbility
    [Tooltip("Если игрок двигается е меняя направления выше своей максимальной скорости, то с включенным этим параметром" +
             "он скорость сбрасывать не будет")]
    public bool doConserveMomentum = true;
+   
+   [Tooltip("Реальное время, на которое рассчитана анимация ходьбы")]
+   [SerializeField]
+   protected float actualWalkAnimationTime;
 
    protected ObjectProperty walkSpeedProperty;
    protected override void PreInitialize()
@@ -68,9 +72,12 @@ public class AbilityMove : CharacterAbility
 
 		#region Calculate AccelRate
 		float accelRate;
-        
-		runAccelAmount = (50 * runAcceleration) / walkSpeedProperty.GetCurValue();
-		runDeccelAmount = (50 * runDecceleration) / walkSpeedProperty.GetCurValue();
+
+
+		runAccelAmount = (50 * runAcceleration) / runMaxSpeed;
+		runDeccelAmount = (50 * runDecceleration) / runMaxSpeed;
+		
+	   
 		//Gets an acceleration value based on if we are accelerating (includes turning) 
 		//or trying to decelerate (stop). As well as applying a multiplier if we're air borne.
 		if (owner.IsOnGround)
@@ -102,7 +109,6 @@ public class AbilityMove : CharacterAbility
 		//Calculate difference between current velocity and desired velocity
 		float speedDif = targetSpeed - rigidbody.velocity.x;
 		//Calculate force along x-axis to apply to thr player
-
 		float movement = speedDif * accelRate;
 		//Convert this to a vector and apply to rigidbody
 		rigidbody.AddForce(movement * Vector2.right, ForceMode2D.Force);
@@ -128,6 +134,8 @@ public class AbilityMove : CharacterAbility
    {
 	   base.UpdateAnimator();
 	   owner.Animator.SetBool("Walking", owner.MovementState.CurrentState == CharacterMovementsStates.Walking);
+	   if(actualWalkAnimationTime == 0 ) Debug.LogError("Выставьте время анимации ходьбы!");
+	   owner.Animator.SetFloat("WalkSpeed",(1/actualWalkAnimationTime)*(walkSpeedProperty.GetCurValue()/runMaxSpeed));
    }
 
    public void ProcessInput(Vector2 input)

@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Game/Scenes/MenuScene.unity
     guid: c21181aafb5ebbc4a9c4bb5daeca74bc
-  - enabled: 0
+  - enabled: 1
     path: Assets/Game/Scenes/ParallaxTest.unity
     guid: 096e5be692bcd9a4eb15ffbcebf1216e
   - enabled: 0
@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Game/Scenes/TilemapTest.unity
     guid: b5270ab37a125564a9b153dc9e3eb929
-  - enabled: 1
+  - enabled: 0
     path: Assets/Game/Scenes/Loading.unity
     guid: 9b84032684b15df4bb4a5321cae11ebb
   m_configObjects: {}
