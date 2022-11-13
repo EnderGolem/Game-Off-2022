@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class Endurance : MonoBehaviour
@@ -14,12 +15,20 @@ public class Endurance : MonoBehaviour
     [Tooltip("Количество выносливости восстанавливаемое в секунду")]
     [SerializeField]
     protected float recoverSpeed = 20;
+    [Tooltip("Время через которое выносливость начинает восстанавливаться после последней траты")]
+    [SerializeField]
+    protected float recoverDelay;
+    [Tooltip("Фидбек, вызываемый в момент когда игрок выдохся")]
+    [SerializeField]
+    protected MMFeedbacks fizzleOutFeedback;
     
     protected PropertyManager _propertyManager;
     protected ObjectProperty enduranceProperty;
     protected ObjectProperty enduranceRecoverSpeed;
 
     protected Character owner;
+
+    protected float lastSpentTime=-1000;
 
     private void Awake()
     {
@@ -36,13 +45,25 @@ public class Endurance : MonoBehaviour
 
     private void Update()
     {
-        enduranceProperty.ChangeCurValue(enduranceRecoverSpeed.GetCurValue() * Time.deltaTime);
+        if (Time.time - lastSpentTime > recoverDelay)
+        {
+            enduranceProperty.ChangeCurValue(enduranceRecoverSpeed.GetCurValue() * Time.deltaTime);
+        }
     }
 
     protected void OnEnduranceChanged(float oldCurValue, float newCurValue, float oldValue, float newValue)
     {
+        if (oldCurValue > newCurValue)
+        {
+            lastSpentTime = Time.time;
+        }
+
         if (newCurValue <= 0)
         {
+            if (!owner.IsTired)
+            {
+              fizzleOutFeedback?.PlayFeedbacks();   
+            }
             owner.IsTired = true;
             return;
         }

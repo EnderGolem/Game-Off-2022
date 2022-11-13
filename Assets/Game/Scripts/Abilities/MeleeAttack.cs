@@ -21,8 +21,9 @@ public class MeleeAttack : CharacterAbility
 
     [SerializeField] 
     protected float baseDamage;
-    
-    
+    [Tooltip("Выносливость тратимая при ударе")]
+    [SerializeField]
+    protected float enduranceCost;
 
     [SerializeField] 
     protected EffectDescription[] attackEffects;
@@ -31,6 +32,7 @@ public class MeleeAttack : CharacterAbility
     
     protected PropertyManager _propertyManager;
     protected ObjectProperty damageProperty;
+    protected ObjectProperty enduranceProperty;
     
     protected bool curInput;
 
@@ -40,6 +42,7 @@ public class MeleeAttack : CharacterAbility
     {
         base.PreInitialize();
         damageProperty=owner.PropertyManager.AddProperty("AttackDamage", baseDamage);
+        enduranceProperty = owner.PropertyManager.GetPropertyByName("Endurance");
         damageZoneOnTouch = damageZone.GetComponent<EffectOnTouch>();
         damageZone.enabled = false;
         damageZoneOnTouch.enabled = false;
@@ -107,7 +110,7 @@ public class MeleeAttack : CharacterAbility
             }
             
             owner.AttackingState.ChangeState(CharacterAttackingState.Attacking);
-
+            enduranceProperty.ChangeCurValue(-enduranceCost);
             lastAttackStart = Time.time;
         }
     }
@@ -156,6 +159,6 @@ public class MeleeAttack : CharacterAbility
 
     protected bool CanAttack()
     {
-        return isReloaded() && owner.AttackingState.CurrentState == CharacterAttackingState.Idle && AbilityAuthorized;
+        return isReloaded() && !owner.IsTired && owner.AttackingState.CurrentState == CharacterAttackingState.Idle && AbilityAuthorized;
     }
 }

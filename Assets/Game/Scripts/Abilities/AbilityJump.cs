@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class AbilityJump : CharacterAbility
@@ -42,6 +43,9 @@ public class AbilityJump : CharacterAbility
     [Tooltip("Количество выносливости, тратимой при прыжке")]
     [SerializeField]
     protected float enduranceCost;
+
+    [SerializeField] 
+    protected MMFeedbacks jumpFeedback;
     /// <summary>
     /// Последнее направление ввода
     /// </summary>
@@ -138,6 +142,8 @@ public class AbilityJump : CharacterAbility
                 force -= rigidbody.velocity.y;
             rigidbody.AddForce(Vector2.up * force, ForceMode2D.Impulse);
             #endregion
+            
+            jumpFeedback?.PlayFeedbacks();
         }
     }
     
