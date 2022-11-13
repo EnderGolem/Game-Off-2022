@@ -202,7 +202,11 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 
     protected void UpdateAnimator()
     {
-        animator.SetBool("IdleMove", MovementState.CurrentState == CharacterMovementsStates.Idle);
+        if (animator != null)
+        {
+            animator.SetBool("IdleMove", MovementState.CurrentState == CharacterMovementsStates.Idle);
+            
+        }
     }
 
     private void OnEnable()
