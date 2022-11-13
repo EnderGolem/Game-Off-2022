@@ -18,6 +18,9 @@ public class CharacterControl : MonoBehaviour
     private MeleeAttack _meleeAttack;
     private RangedAttack _rangedAttack;
     private WeaponHandler _weaponHandler;
+    private ShieldBlock _shieldBlock;
+    private ReloadAbility _reloadAbility;
+    private AbilityFly _abilityFly;
     private void Awake()
     {
         _character = GetComponent<Character>();
@@ -29,6 +32,9 @@ public class CharacterControl : MonoBehaviour
         _meleeAttack = GetComponent<MeleeAttack>();
         _rangedAttack = GetComponent<RangedAttack>();
         _weaponHandler = GetComponent<WeaponHandler>();
+        _shieldBlock = GetComponent<ShieldBlock>();
+        _reloadAbility = GetComponent<ReloadAbility>();
+        _abilityFly = GetComponent<AbilityFly>();
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -60,6 +66,11 @@ public class CharacterControl : MonoBehaviour
         if (_abilityStairMovement != null)
         {
             _abilityStairMovement.SetMoveInput(context.ReadValue<Vector2>());
+        }
+
+        if (_abilityFly != null)
+        {
+            _abilityFly.ProcessInput(context.ReadValue<Vector2>());
         }
 
     }
@@ -121,10 +132,7 @@ public class CharacterControl : MonoBehaviour
                 _meleeAttack.ProcessInput(false);
             }
         }
-    }
-
-    public void SecondaryAttack(InputAction.CallbackContext context)
-    {
+        
         if (_rangedAttack != null)
         {
             if (context.started)
@@ -134,6 +142,33 @@ public class CharacterControl : MonoBehaviour
             else if (context.canceled)
             {
                 _rangedAttack.ProcessInput(false);
+            }
+        }
+    }
+
+    public void SecondaryAttack(InputAction.CallbackContext context)
+    {
+        if (_shieldBlock != null)
+        {
+            if (context.started)
+            {
+                _shieldBlock.ProcessInput(true);
+            }
+            else if (context.canceled)
+            {
+                _shieldBlock.ProcessInput(false);
+            }
+        }
+
+        if (_reloadAbility != null)
+        {
+            if (context.started)
+            {
+                _reloadAbility.ProcessInput(true);
+            }
+            else if (context.canceled)
+            {
+                _reloadAbility.ProcessInput(false);
             }
         }
     }

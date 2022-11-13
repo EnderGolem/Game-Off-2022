@@ -4,6 +4,8 @@
 3 - AttackDamage
 4 - RangedAttackDamage
 5 - WalkSpeed
+6 - EnduranceRecoverSpeed
+7 - FlySpeed
 
 
 
@@ -11,3 +13,8 @@ Effects:
 1 - InstantDeath
 2 - MeleeAttack
 3 - RangedAttack
+4 - BarricadeDamage
+5 - ShieldBlock
+6 - AppleHeal
+7 - ApplePoison
+8 - BarrelExplosion

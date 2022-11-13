@@ -82,6 +82,9 @@ public class DeathConnector : MonoBehaviour
                 {
                   rigidbody.velocity = Vector2.zero;
                   rigidbody.simulated = false;
+                  
+                  connectedBody = bodyToConnect;
+                  wasConnected = true;
                 }
             }
         }

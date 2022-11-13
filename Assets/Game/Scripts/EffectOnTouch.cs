@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -10,6 +13,9 @@ public class EffectOnTouch : MonoBehaviour
     public float DamageTakenDamageable;
     
     public float DamageTakenNonDamageable;
+    [Tooltip("Список слоев с которым будет произведено взаимодействие")]
+    [SerializeField] 
+    protected LayerMask targetLayer;
     
     [Tooltip("Эффекты, которые будут заложены изначально, не зависят от характеристик")]
     [SerializeField]
@@ -29,8 +35,16 @@ public class EffectOnTouch : MonoBehaviour
          "VelocityDir - основано на направлении собственной скорости - подходит для метательных объектов")]
     [SerializeField] 
     protected KnockbackDirDefinition knockbackDirDefinition;
-    
-    private List<PropertyManager> collidableObjects; 
+    [Tooltip("Промежуток времени, через который на объект будет вновь наложен эффект в том случае " +
+             "Если все это время объект находится в зоне эффекта")]
+    [SerializeField]
+    protected float repeatedEffectApplicationTime = 1f;
+    [SerializeField]
+    protected MMFeedbacks hitDamageableFeedback;
+    [SerializeField]
+    protected MMFeedbacks hitNonDamageableFeedback;
+    [SerializeField]
+    protected MMFeedbacks hitShieldFeedback;
     
     protected List<Effect> _effects;
     
@@ -40,7 +54,11 @@ public class EffectOnTouch : MonoBehaviour
     /// Владелец объекта, наносящего урон
     /// </summary>
     protected Character owner;
-    
+    /// <summary>
+    /// Список объектов, находящихся в зоне эффекта + время когда в последний раз на них производилось
+    /// наложение эффекта
+    /// </summary>
+    protected Dictionary<Collider2D,float> collidingObjects;
     public void AddEffect(Effect ef)
     {
         _effects.Add(ef);
@@ -50,14 +68,15 @@ public class EffectOnTouch : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         _effects=new List<Effect>();
-        if (startEffects != null)
+        collidingObjects = new Dictionary<Collider2D,float>();
+       /* if (startEffects != null)
         {
             for (int i = 0; i < startEffects.Length; i++)
             {
                 AddEffect(new Effect(startEffects[i]));
             }
             //Debug.Log(gameObject.name + "effects count: "+startEffects.Length);
-        }
+        }*/
  
         if (useAutoDisable)
         {
@@ -69,6 +88,15 @@ public class EffectOnTouch : MonoBehaviour
     private void Start()
     {
         objectHealth = GetComponent<Health>();
+        if (objectHealth != null)
+        {
+            objectHealth.OnDeath += OnDeath;
+        }
+    }
+
+    private void Update()
+    {
+        HandleCollidedObjects();
     }
 
     protected void OnCollideWithDamageable(PropertyManager propertyManager)
@@ -78,17 +106,46 @@ public class EffectOnTouch : MonoBehaviour
             propertyManager.AddEffect(_effects[i]);
         }
         var body = propertyManager.GetComponent<Rigidbody2D>();
+       
+        ApplyKnockback(body);
+        
+        hitDamageableFeedback?.PlayFeedbacks();
+        
+        objectHealth?.DoDamage(DamageTakenDamageable + DamageTakenEveryTime);
+    }
+
+    protected void OnCollideWithNonDamageable(Collider2D collider)
+    {
+        hitNonDamageableFeedback?.PlayFeedbacks();
+        
+        objectHealth?.DoDamage(DamageTakenNonDamageable + DamageTakenEveryTime);
+    }
+
+    protected void OnCollideWithShield(Shield shield)
+    {
+        hitShieldFeedback?.PlayFeedbacks();
+        
+        ApplyKnockback(shield.OwnerCollider.attachedRigidbody,shield.KnockBackModifier);
+    }
+
+    protected void ApplyKnockback(Rigidbody2D body, float knockbackModifier = 1)
+    {
         if (body != null)
         {
             Vector2 dir;
-            if (knockbackDirDefinition == KnockbackDirDefinition.VelocityDir && rigidBody!=null)
+            if (knockbackDirDefinition == KnockbackDirDefinition.VelocityDir && rigidBody != null)
             {
                 dir = rigidBody.velocity.normalized;
             }
-            else
+            else if(knockbackDirDefinition == KnockbackDirDefinition.RightDir)
             {
                 dir = ((Vector2) transform.right).normalized;
             }
+            else
+            {
+                dir = ((Vector2)(body.transform.position - transform.position)).normalized;
+            }
+
             var vec1 = dir * knockBack.x;
             Vector2 vec2;
             if (Vector2.SignedAngle(dir, Vector2.up) <= 0)
@@ -99,28 +156,81 @@ public class EffectOnTouch : MonoBehaviour
             {
                 vec2 = dir.MMRotate(90) * knockBack.y;
             }
+            
             //Debug.Log($"dir = {dir}, vec1 = {vec1}, vec2 = {vec2}, sum = {vec1+vec2}");
-            body.AddForce(vec1+vec2,ForceMode2D.Impulse);
+            body.AddForce((vec1 + vec2) * knockbackModifier, ForceMode2D.Impulse);
         }
-        objectHealth?.DoDamage(DamageTakenDamageable + DamageTakenEveryTime);
-    }
-
-    protected void OnCollideWithNonDamageable(Collider2D collider)
-    {
-        objectHealth?.DoDamage(DamageTakenNonDamageable + DamageTakenEveryTime);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var propertyManager = other.GetComponent<PropertyManager>();
-        if (propertyManager != null)
+        if (!MMLayers.LayerInLayerMask(other.gameObject.layer, targetLayer))
         {
-            OnCollideWithDamageable(propertyManager);
+
+            return;
         }
-        else
+            collidingObjects.Add(other,0);
+    }
+
+    protected void HandleCollidedObjects()
+    {
+        ///Множество коллайдеров для тех персонажей, чей щит мы затронули
+        HashSet<Collider2D> shieldsOwners = new HashSet<Collider2D>();
+
+        var co = collidingObjects.ToArray();
+        var updateTime = new List<Collider2D>();
+        ///проходимся и записываем всех владельцев щитов, чтобы потом игнорировать их коллайдеры
+        foreach (var col in co)
         {
-            OnCollideWithNonDamageable(other);
+            
+            if(!collidingObjects.ContainsKey(col.Key)) continue;
+            //Debug.Log($"{Time.time}: {col.Key.gameObject.name} - {col.Value}");
+            var shield = col.Key.GetComponent<Shield>();
+            if (shield != null)
+            {
+                shieldsOwners.Add(shield.OwnerCollider);
+                if (Time.time - col.Value > repeatedEffectApplicationTime)
+                {
+                    updateTime.Add(col.Key);
+                    OnCollideWithShield(shield);
+                }
+            }
         }
+
+        foreach (var col in co)
+        {
+            ///На любом шаге цикла может сработать OnDisable
+            /// Тогда словарь соприкасаемых объектов полностью очистится
+            /// И мы будем пытаться обратиться к кобъектам, к которым мы уже
+            /// Не прикасаемся.
+            /// Чтобы такого не происходило делаем эту проверку
+            if(!collidingObjects.ContainsKey(col.Key)) continue;
+            ///Проверяем, что мы давно не накладывали эффект
+            if (Time.time - collidingObjects[col.Key] > repeatedEffectApplicationTime)
+            {
+                if (col.Key.GetComponent<Shield>() == null && !shieldsOwners.Contains(col.Key))
+                {
+                    updateTime.Add(col.Key);
+                    var propertyManager = col.Key.GetComponent<PropertyManager>();
+                    if (propertyManager != null)
+                    {
+                        OnCollideWithDamageable(propertyManager);
+                    }
+                    else
+                    {
+                        OnCollideWithNonDamageable(col.Key);
+                    }
+                    
+                }
+            }
+        }
+        
+
+        foreach (var col in updateTime)
+        {
+            collidingObjects[col] = Time.time;
+        }
+
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -130,7 +240,12 @@ public class EffectOnTouch : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        
+        if (!MMLayers.LayerInLayerMask(other.gameObject.layer, targetLayer))
+        {
+
+            return;
+        }
+        collidingObjects.Remove(other);
     }
 
     public void SetOwner(Character character)
@@ -153,6 +268,14 @@ public class EffectOnTouch : MonoBehaviour
     private void OnDisable()
     {
         ClearEffects();
+       // collidingObjects.Clear();
+    }
+    /// <summary>
+    /// Если к объекту пожключено здоровье, то при смерти объекта будет вызвана эта функция
+    /// </summary>
+    public void OnDeath()
+    {
+        this.enabled = false;
     }
 
     protected void OnEnable()
@@ -198,5 +321,5 @@ public class EffectOnTouch : MonoBehaviour
 /// </summary>
 public enum KnockbackDirDefinition
 {
-    OwnDir, VelocityDir
+    RightDir, VelocityDir, DirToTarget
 }

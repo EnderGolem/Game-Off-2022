@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -17,7 +18,12 @@ public class Health : MonoBehaviour
     [Tooltip("Время после смерти перед уничтожением объекта")]
     [SerializeField]
     protected float timeBeforeDestruction;
-    
+    [SerializeField]
+    protected MMFeedbacks damageFeedback;
+    [SerializeField]
+    protected MMFeedbacks OnKillFeedback;
+    public delegate void OnDamageDelegate(float damage);
+    public OnDamageDelegate OnDamage;
     // death delegate
     public delegate void OnDeathDelegate();
     public OnDeathDelegate OnDeath;
@@ -70,6 +76,7 @@ public class Health : MonoBehaviour
             owner.Kill();
         }
         OnDeath?.Invoke();
+        OnKillFeedback?.PlayFeedbacks();
         if (destroyOnDeath)
         {
             Invoke(nameof(DestroySelf), timeBeforeDestruction);
@@ -83,6 +90,8 @@ public class Health : MonoBehaviour
 
     protected void OnHealthChanged(float oldCurValue, float newCurValue, float oldValue, float newValue)
     {
+        damageFeedback?.PlayFeedbacks();
+        OnDamage?.Invoke(oldCurValue - newCurValue);
         CheckDeath();
     }
 }

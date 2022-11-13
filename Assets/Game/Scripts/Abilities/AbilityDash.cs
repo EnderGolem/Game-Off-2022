@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class AbilityDash : CharacterAbility
@@ -34,6 +35,8 @@ public class AbilityDash : CharacterAbility
     public DashType dashType;
     [Tooltip("Физический слой к которому принадлежит персонаж во время рывка")]
     public string LayerWhileDashing;
+    [SerializeField]
+    protected MMFeedbacks dashFeedback;
     /// <summary>
     /// Последнее направление ввода
     /// </summary>
@@ -150,7 +153,7 @@ public class AbilityDash : CharacterAbility
         float startTime = Time.time;
 
         _dashesLeft--;
-
+        dashFeedback?.PlayFeedbacks();
         owner.SetGravityScale(0);
 
         int layer = gameObject.layer;

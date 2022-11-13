@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1741774fafa504c4bb757a3ac88911e5, type: 3}
   m_Name: Crossbow
   m_EditorClassIdentifier: 
+  itemName: Crossbow
   activeAbilities:
   - CrossbowShot
+  - CrossbowReload
+  maxAmmoCount: 1
+  ammunitionType: Bolt

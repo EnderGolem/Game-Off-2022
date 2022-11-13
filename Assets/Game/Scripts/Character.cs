@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
 /// <summary>
@@ -10,12 +11,11 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 {
     public MMStateMachine<CharacterMovementsStates> MovementState;
     public MMStateMachine<CharacterAttackingState> AttackingState;
-    
-    /// the animator associated to this character
-    public Animator _animator { get; protected set; }
+
+    public Animator Animator => animator;
 
     public Rigidbody2D RigidBody { get; protected set; }
-    private CircleCollider2D _Collider;
+    private CapsuleCollider2D _Collider;
 
     public PropertyManager PropertyManager { get; private set; }
 
@@ -58,6 +58,11 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     [Tooltip("Список объектов, которые нужно поворачивать вместе с персонажем")]
     [SerializeField]
     protected Transform[] objectsToTurn;
+    [SerializeField]
+    protected Animator animator;
+    [Tooltip("Фидбек, вызываемый при приземлении")]
+    [SerializeField]
+    protected MMFeedbacks groundedFeedback;
 
     public float CoyoteTime => coyoteTime;
 
@@ -73,7 +78,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         RigidBody = GetComponent<Rigidbody2D>();
         MovementState = new MMStateMachine<CharacterMovementsStates>(gameObject,true);
         AttackingState = new MMStateMachine<CharacterAttackingState>(gameObject, true);
-        _Collider = GetComponent<CircleCollider2D>();
+        _Collider = GetComponent<CapsuleCollider2D>();
     }
 
     // Start is called before the first frame update
@@ -91,11 +96,19 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         StayOnStairway = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _stairwayLayer);
         StayOnPlatform = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _platformLayer);
         StayOnGround = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer);
+        
+        
     }
+
+    private void LateUpdate()
+    {
+        UpdateAnimator();
+    }
+
     //Возвращает true если коллайдер игрока все еще соприкасается с платформой
     public bool BodyInPLatform()
     {
-        return Physics2D.OverlapCircle((Vector2)transform.position+_Collider.offset, _Collider.radius, _platformLayer);
+        return Physics2D.OverlapCapsule((Vector2)transform.position+_Collider.offset, _Collider.size,_Collider.direction, 0,_platformLayer);
     }
     protected void CheckGrounded()
     {
@@ -105,6 +118,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
             if ((MovementState.CurrentState == CharacterMovementsStates.Jumping
                  || MovementState.CurrentState == CharacterMovementsStates.JumpFalling) && Mathf.Abs(RigidBody.velocity.y) < 0.1)
             {
+                groundedFeedback?.PlayFeedbacks();
                 MovementState.ChangeState(CharacterMovementsStates.Idle);
             }
         }
@@ -191,6 +205,15 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         //Debug.Log(eventType.NewState);
     }
 
+    protected void UpdateAnimator()
+    {
+        if (animator != null)
+        {
+            animator.SetBool("IdleMove", MovementState.CurrentState == CharacterMovementsStates.Idle);
+            
+        }
+    }
+
     private void OnEnable()
     {
         this.MMEventStartListening();
@@ -204,10 +227,10 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 
 public enum CharacterMovementsStates
 {
-    Idle, Walking, Jumping, Dashing, JumpFalling
+    Idle, Walking, Jumping, Dashing, JumpFalling, Flying
 }
 
 public enum CharacterAttackingState
 {
-    Idle, Attacking, RangeAttacking
+    Idle, Attacking, RangeAttacking,Blocking, Reloading, AttackPreparing
 }

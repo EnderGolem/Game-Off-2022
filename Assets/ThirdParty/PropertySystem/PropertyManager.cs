@@ -249,6 +249,8 @@ public class PropertyManager : MonoBehaviour
 
     private void RemoveEffect(Effect effect)
     {
+        if(effect == null) return;
+        
         Impact[] impacts = effect.getImpacts();
         foreach (var imp in impacts)
         {

@@ -16,10 +16,10 @@ TagManager:
   - Player
   - Platform
   - Stairway
-  - Enemy
-  - 
-  - 
-  - 
+  - DamageZone
+  - Projectile
+  - Boosts
+  - BackgroundInteractables
   - 
   - 
   - 

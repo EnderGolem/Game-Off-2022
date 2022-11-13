@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class Endurance : MonoBehaviour
@@ -14,15 +15,28 @@ public class Endurance : MonoBehaviour
     [Tooltip("Количество выносливости восстанавливаемое в секунду")]
     [SerializeField]
     protected float recoverSpeed = 20;
+    [Tooltip("Время через которое выносливость начинает восстанавливаться после последней траты")]
+    [SerializeField]
+    protected float recoverDelay;
+    [Tooltip("Фидбек, вызываемый в момент когда игрок выдохся")]
+    [SerializeField]
+    protected MMFeedbacks fizzleOutFeedback;
+    [Tooltip("фидбэк, который регулярно работает, когда персонаж устал")]
+    [SerializeField]
+    protected MMFeedbacks tirednessFeedback;
     
     protected PropertyManager _propertyManager;
     protected ObjectProperty enduranceProperty;
+    protected ObjectProperty enduranceRecoverSpeed;
 
     protected Character owner;
+
+    protected float lastSpentTime=-1000;
 
     private void Awake()
     {
         owner = gameObject.GetComponentInParent<Character>();
+        enduranceRecoverSpeed = owner.PropertyManager.AddProperty("EnduranceRecoverSpeed", recoverSpeed);
         enduranceProperty=owner.PropertyManager.AddProperty("Endurance", baseEndurance);
         enduranceProperty.RegisterChangeCallback(OnEnduranceChanged);
     }
@@ -34,19 +48,36 @@ public class Endurance : MonoBehaviour
 
     private void Update()
     {
-        enduranceProperty.ChangeCurValue(recoverSpeed * Time.deltaTime);
+        if (Time.time - lastSpentTime > recoverDelay)
+        {
+            enduranceProperty.ChangeCurValue(enduranceRecoverSpeed.GetCurValue() * Time.deltaTime);
+        }
+        
     }
 
     protected void OnEnduranceChanged(float oldCurValue, float newCurValue, float oldValue, float newValue)
     {
+        if (oldCurValue > newCurValue)
+        {
+            lastSpentTime = Time.time;
+        }
+
         if (newCurValue <= 0)
         {
+            if (!owner.IsTired)
+            {
+              fizzleOutFeedback?.PlayFeedbacks();   
+              
+              tirednessFeedback?.PlayFeedbacks();
+            }
             owner.IsTired = true;
             return;
         }
 
         if (owner.IsTired && newCurValue > tirednessThreshold)
         {
+            tirednessFeedback?.StopFeedbacks();
+            
             owner.IsTired = false;
         }
     }
