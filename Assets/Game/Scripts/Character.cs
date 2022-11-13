@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Events;
 /// <summary>
 /// Класс хранящий общие данные персонажа
 /// </summary>
@@ -11,6 +12,9 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 {
     public MMStateMachine<CharacterMovementsStates> MovementState;
     public MMStateMachine<CharacterAttackingState> AttackingState;
+
+    [HideInInspector] public UnityEvent OnDead;
+    public Transform cameraTarget;
 
     public Animator Animator => animator;
 
@@ -187,6 +191,8 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 
     public void Kill()
     {
+        OnDead.Invoke();
+        GetComponentInChildren<DeadBodyRagdoll>().Kill();
         IsAlive = false;
     }
 

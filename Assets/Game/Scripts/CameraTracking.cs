@@ -86,7 +86,7 @@ public class CameraTracking : MonoBehaviour
         }
     }
 
-    void SetTrackingObject(Transform trackingObject)
+    public void SetTrackingObject(Transform trackingObject)
     {
         this.trackingObject = trackingObject;
         directionToObject = (trackingObject.position - transform.position).normalized;
@@ -94,7 +94,7 @@ public class CameraTracking : MonoBehaviour
         cameraCondition = CameraEnum.Moving;
     }
 
-    void SetZoom(float Zoom)
+    public void SetZoom(float Zoom)
     {
         if (camera.orthographic)
             camera.orthographicSize = Zoom;
