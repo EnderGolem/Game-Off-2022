@@ -218,7 +218,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 
 public enum CharacterMovementsStates
 {
-    Idle, Walking, Jumping, Dashing, JumpFalling
+    Idle, Walking, Jumping, Dashing, JumpFalling, Flying
 }
 
 public enum CharacterAttackingState

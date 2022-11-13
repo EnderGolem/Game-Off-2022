@@ -5,6 +5,7 @@
 4 - RangedAttackDamage
 5 - WalkSpeed
 6 - EnduranceRecoverSpeed
+7 - FlySpeed
 
 
 

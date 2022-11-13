@@ -20,6 +20,7 @@ public class CharacterControl : MonoBehaviour
     private WeaponHandler _weaponHandler;
     private ShieldBlock _shieldBlock;
     private ReloadAbility _reloadAbility;
+    private AbilityFly _abilityFly;
     private void Awake()
     {
         _character = GetComponent<Character>();
@@ -33,6 +34,7 @@ public class CharacterControl : MonoBehaviour
         _weaponHandler = GetComponent<WeaponHandler>();
         _shieldBlock = GetComponent<ShieldBlock>();
         _reloadAbility = GetComponent<ReloadAbility>();
+        _abilityFly = GetComponent<AbilityFly>();
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -64,6 +66,11 @@ public class CharacterControl : MonoBehaviour
         if (_abilityStairMovement != null)
         {
             _abilityStairMovement.SetMoveInput(context.ReadValue<Vector2>());
+        }
+
+        if (_abilityFly != null)
+        {
+            _abilityFly.ProcessInput(context.ReadValue<Vector2>());
         }
 
     }
