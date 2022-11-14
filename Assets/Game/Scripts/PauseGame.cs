@@ -6,10 +6,11 @@ using UnityEngine.InputSystem;
 public class PauseGame : MonoBehaviour
 {
     [SerializeField] EscMenuUI escMenuUI;
+    [HideInInspector] public Overlay owner;
     bool onPause = false;
     float oldTimeScale = 1f;
 
-    private void Awake()
+    public void Initialize()
     {
         escMenuUI.OnContinueButtonPressed.AddListener(Pause);
         escMenuUI.OnCryCravenButtonPressed.AddListener(Pause);

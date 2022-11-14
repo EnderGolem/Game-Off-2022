@@ -6,23 +6,22 @@ using UnityEngine.InputSystem;
 
 public class RespawnManager : MonoBehaviour
 {
-    [SerializeField] Transform spawnPoint;
+    [SerializeField] Vector3 spawnPoint;
     [SerializeField] GameObject playerPref;
-    [SerializeField] Character player;
+    [HideInInspector] public Overlay owner;
 
     [SerializeField] GameObject DeadScreen;
     [SerializeField] PropertyProgressBar healthBar;
     [SerializeField] PropertyProgressBar enduranceBar;
     [SerializeField] EscMenuUI escMenu;
     bool canRespawn = false;
-    private void Start()
+    public void Initialize()
     {
         escMenu.OnCryCravenButtonPressed.AddListener(CryCraven);
-        player?.OnDead.AddListener(OnPlayerDead);
-        if (spawnPoint == null && player != null)
+        owner.player?.OnDead.AddListener(OnPlayerDead);
+        if (owner.player != null)
         {
-            spawnPoint = new GameObject("PlayerRespawnPoint").transform;
-            spawnPoint.position = player.transform.position;
+            spawnPoint = owner.player.transform.position;
         }
     }
     public void KeyPressed(InputAction.CallbackContext context)
@@ -35,31 +34,31 @@ public class RespawnManager : MonoBehaviour
             }
         }
     }
-    private void OnPlayerDead()
+    private void OnPlayerDead(Character character = null)
     {
         canRespawn = true;
         DeadScreen.SetActive(true);
     }
     private void CryCraven()
     {
-        if (player != null)
+        if (owner.player != null)
         {
-            player.PropertyManager.GetPropertyByName("Health").ChangeCurValue(-100);
+            owner.player.PropertyManager.GetPropertyByName("Health").ChangeCurValue(-100);
         }
     }
     public void Respawn()
     {
-        if (player==null)
+        if (owner.player == null)
         {
             canRespawn = false;
-            player = Instantiate(playerPref, spawnPoint.position,spawnPoint.rotation).GetComponent<Character>();
-            player.gameObject.name = "Player";
-            player.OnDead.AddListener(OnPlayerDead);
-            healthBar.SetOwner(player);
-            enduranceBar.SetOwner(player);
+            owner.player = Instantiate(playerPref, spawnPoint,new Quaternion(0,0,0,0)).GetComponent<Character>();
+            owner.player.gameObject.name = "Player";
+            owner.player.OnDead.AddListener(OnPlayerDead);
+            healthBar.SetOwner(owner.player);
+            enduranceBar.SetOwner(owner.player);
             DeadScreen.SetActive(false);
             var cam = Camera.main.GetComponent<CameraTracking>();
-            cam.SetTrackingObject(player.cameraTarget);
+            cam.SetTrackingObject(owner.player.cameraTarget);
             cam.SetZoom(5);
             Time.timeScale = 1f;
         }

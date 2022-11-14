@@ -13,7 +13,8 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     public MMStateMachine<CharacterMovementsStates> MovementState;
     public MMStateMachine<CharacterAttackingState> AttackingState;
 
-    [HideInInspector] public UnityEvent OnDead;
+    public UnityEvent<Character> OnCreate;
+    public UnityEvent<Character> OnDead;
     public Transform cameraTarget;
 
     public Animator Animator => animator;
@@ -83,6 +84,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         MovementState = new MMStateMachine<CharacterMovementsStates>(gameObject,true);
         AttackingState = new MMStateMachine<CharacterAttackingState>(gameObject, true);
         _Collider = GetComponent<CapsuleCollider2D>();
+        OnCreate.Invoke(this);
     }
 
     // Start is called before the first frame update
@@ -191,7 +193,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 
     public void Kill()
     {
-        OnDead.Invoke();
+        OnDead.Invoke(this);
         GetComponentInChildren<DeadBodyRagdoll>().Kill();
         IsAlive = false;
     }

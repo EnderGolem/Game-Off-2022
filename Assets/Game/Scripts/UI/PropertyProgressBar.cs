@@ -17,8 +17,6 @@ namespace MoreMountains.Tools
 		protected virtual void Start()
 		{
 			_progressBar = GetComponent<MMProgressBar>();
-			property = owner.PropertyManager.GetPropertyByName(propertyName);
-			property.RegisterChangeCallback(OnValueChanged);
 		}
 		void OnValueChanged(float oldCurValue, float newCurValue, float oldValue, float newValue)
         {
