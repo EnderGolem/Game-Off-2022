@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class Health : PropertyObject
 {
     [Tooltip("Максимальное здоровье персонажа")]
     [SerializeField]
@@ -28,26 +28,14 @@ public class Health : MonoBehaviour
     public delegate void OnDeathDelegate();
     public OnDeathDelegate OnDeath;
     
-    protected PropertyManager _propertyManager;
     protected ObjectProperty hProperty;
 
-    protected Character owner;
 
-    void Awake()
+    public override void Initialize()
     {
-        owner = gameObject.GetComponentInParent<Character>();
-        _propertyManager = GetComponent<PropertyManager>();
-        if (_propertyManager == null)//гарантия того что объекты с компонентом health имеют PropertyManager
-        {
-            _propertyManager = gameObject.AddComponent<PropertyManager>();
-        }
-        hProperty=_propertyManager.AddProperty("Health", maxHealth, initialHealth);
+        base.Initialize();
+        hProperty = _propertyManager.AddProperty("Health", maxHealth, initialHealth);
         hProperty.RegisterChangeCallback(OnHealthChanged);
-    }
-
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
