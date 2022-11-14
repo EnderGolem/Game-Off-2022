@@ -9,8 +9,11 @@ public class DeadBodyRagdoll : MonoBehaviour
     List<GameObject> objectsIK = new List<GameObject>();
     IKManager2D manager = null;
     Animator    animator = null;
+    Character owner;
+    [SerializeField] Transform head;
     private void Awake()
     {
+        transform.parent?.TryGetComponent(out owner);
         manager = GetComponent<IKManager2D>();
         animator = GetComponent<Animator>();
         var container = GetComponentsInChildren<Rigidbody2D>();
@@ -30,25 +33,42 @@ public class DeadBodyRagdoll : MonoBehaviour
         if (transform.parent == null) 
             Invoke("Kill", Random.Range(3, 12));
     }
+
     [ContextMenu("KILL!")]
     //Перевод тела в Ragdoll-состояние. Отключается анимация и инверсная кинематика, включаются коллайдеры конечностей
     public void Kill()
     {
-        foreach (var body in bodies)
+        if (owner != null)
         {
-            body.simulated = true;
-            body.gameObject.layer = LayerMask.NameToLayer("Obstacles");
+            //DeadBodyRagdoll dublicate = Instantiate(gameObject, transform.position,transform.rotation).GetComponent<DeadBodyRagdoll>();
+            transform.SetParent(null);
+            if (owner.gameObject.tag=="Player")
+            {
+                var cam = Camera.main.GetComponent<CameraTracking>();
+                cam.SetTrackingObject(head);
+                cam.SetZoom(4);
+                Time.timeScale = 0.25f;
+            }
+            //dublicate.transform.localScale = transform.parent.localScale;
+            //dublicate.Kill();
         }
-        foreach (var obj in objectsIK)
+
         {
-            obj.SetActive(false);
+            foreach (var body in bodies)
+            {
+                body.simulated = true;
+                body.gameObject.layer = LayerMask.NameToLayer("Obstacles");
+            }
+            foreach (var obj in objectsIK)
+            {
+                Destroy(obj);
+            }
+            //for (int i = 0; i<transform.childCount; i++)
+            //{
+            //    transform.GetChild(i).SetParent(transform);
+            //}
+            Destroy(manager);
+            Destroy(animator);
         }
-        for (int i = 0; i<transform.childCount; i++)
-        {
-            transform.GetChild(i).SetParent(transform);
-        }
-        manager.enabled=false;
-        animator.enabled=false;
-        transform.SetParent(null);
     }
 }

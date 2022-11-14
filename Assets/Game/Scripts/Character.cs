@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Events;
 /// <summary>
 /// Класс хранящий общие данные персонажа
 /// </summary>
@@ -11,6 +12,10 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 {
     public MMStateMachine<CharacterMovementsStates> MovementState;
     public MMStateMachine<CharacterAttackingState> AttackingState;
+
+    public UnityEvent<Character> OnCreate;
+    public UnityEvent<Character> OnDead;
+    public Transform cameraTarget;
 
     public Animator Animator => animator;
 
@@ -75,10 +80,17 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         {
             PropertyManager = gameObject.AddComponent<PropertyManager>();
         }
+        //Чтобы свойства были инициализированы раньше способностей
+        var properties = GetComponents<PropertyObject>();
+        foreach(var p in properties)
+        {
+            p.Initialize();
+        }
         RigidBody = GetComponent<Rigidbody2D>();
         MovementState = new MMStateMachine<CharacterMovementsStates>(gameObject,true);
         AttackingState = new MMStateMachine<CharacterAttackingState>(gameObject, true);
         _Collider = GetComponent<CapsuleCollider2D>();
+        OnCreate.Invoke(this);
     }
 
     // Start is called before the first frame update
@@ -187,6 +199,8 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 
     public void Kill()
     {
+        OnDead.Invoke(this);
+        GetComponentInChildren<DeadBodyRagdoll>().Kill();
         IsAlive = false;
     }
 
