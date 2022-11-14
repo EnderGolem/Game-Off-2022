@@ -5762,7 +5762,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8434176433734082515, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
   m_PrefabInstance: {fileID: 8434176433293515913}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1958910311}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e18e60c9b532974cb58711603e3d106, type: 3}
@@ -5773,7 +5773,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8434176433734082514, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
   m_PrefabInstance: {fileID: 8434176433293515913}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1958910311}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d6bfad84c7003a4ca03d6ec086bf459, type: 3}
@@ -7275,25 +7275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd9b656a7f135a4091cc1db90585af3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1958910311 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8434176433734082524, guid: f596a38f1892c874188c62040ef1bb86, type: 3}
-  m_PrefabInstance: {fileID: 8434176433293515913}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1958910326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1958910311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0018a507bf97be44ae6f33abb641b57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: StairMovement
-  abilityPermitted: 1
 --- !u!1 &2048050701
 GameObject:
   m_ObjectHideFlags: 0

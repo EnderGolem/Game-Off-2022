@@ -80,6 +80,12 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         {
             PropertyManager = gameObject.AddComponent<PropertyManager>();
         }
+        //Чтобы свойства были инициализированы раньше способностей
+        var properties = GetComponents<PropertyObject>();
+        foreach(var p in properties)
+        {
+            p.Initialize();
+        }
         RigidBody = GetComponent<Rigidbody2D>();
         MovementState = new MMStateMachine<CharacterMovementsStates>(gameObject,true);
         AttackingState = new MMStateMachine<CharacterAttackingState>(gameObject, true);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
-public class Endurance : MonoBehaviour
+public class Endurance : PropertyObject
 {
     [Tooltip("Базовая выносливость персонажа")]
     [SerializeField]
@@ -25,25 +25,17 @@ public class Endurance : MonoBehaviour
     [SerializeField]
     protected MMFeedbacks tirednessFeedback;
     
-    protected PropertyManager _propertyManager;
     protected ObjectProperty enduranceProperty;
     protected ObjectProperty enduranceRecoverSpeed;
 
-    protected Character owner;
-
     protected float lastSpentTime=-1000;
 
-    private void Awake()
+    public override void Initialize()
     {
-        owner = gameObject.GetComponentInParent<Character>();
-        enduranceRecoverSpeed = owner.PropertyManager.AddProperty("EnduranceRecoverSpeed", recoverSpeed);
-        enduranceProperty=owner.PropertyManager.AddProperty("Endurance", baseEndurance);
+        base.Initialize();
+        enduranceRecoverSpeed = _propertyManager.AddProperty("EnduranceRecoverSpeed", recoverSpeed);
+        enduranceProperty = _propertyManager.AddProperty("Endurance", baseEndurance);
         enduranceProperty.RegisterChangeCallback(OnEnduranceChanged);
-    }
-
-    private void Start()
-    {
-        
     }
 
     private void Update()
