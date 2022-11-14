@@ -6,21 +6,27 @@ using UnityEngine;
 public class AIDecisionDetectTargetRectangle : AIDecision
 {
 
+    [Tooltip("Высота прямоугольника")]
     public float height;
+    [Tooltip("Длина прямоугольника")]
     public float length;
-    
+   
+    [Tooltip("Замечает ли обьекты снизу")]
     public bool DownDetection = false;
-    [Tooltip("the center of the search rectanlge")]
+    [Tooltip("Центр прямоугольника")]
     public Vector3 DetectionOriginOffset = new Vector3(0, 0, 0);
-    
-    [Tooltip("the layer(s) to search our target on")]
+    [Tooltip("Слой на котором ищем")]
     public LayerMask TargetLayer;
+    
+    [Tooltip("the layer(s) to look for obstacles on")]
+    public LayerMask ObstacleMask ;
     protected Collider2D _collider;
     protected Character _character;
     protected bool _init = false;
     protected Collider2D _detectionCollider = null;
     protected Vector2 _raycastOrigin;
     protected Color _gizmoColor = Color.yellow;
+    protected Vector2 _boxcastDirection;
 
     /// <summary>
     /// On init we grab our Character component
@@ -56,10 +62,24 @@ public class AIDecisionDetectTargetRectangle : AIDecision
             return false;
         }
 
-        if (!DownDetection)
+        if (DownDetection)
         {
             _brain.Target = _detectionCollider.gameObject.transform;
             return true;
+        }
+        else
+        {
+            _boxcastDirection = (Vector2)(_detectionCollider.gameObject.MMGetComponentNoAlloc<Collider2D>().bounds.center - _collider.bounds.center);
+            RaycastHit2D hit = Physics2D.BoxCast(_collider.bounds.center, _collider.bounds.size, 0f, _boxcastDirection.normalized, _boxcastDirection.magnitude, ObstacleMask);
+            if (!hit)
+            {
+                _brain.Target = _detectionCollider.gameObject.transform;
+                return true;
+            }
+            else
+            {
+                return false;
+            }             
         }
         //else DownDetection, не реализована.
         return false;

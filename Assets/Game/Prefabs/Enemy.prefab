@@ -504,13 +504,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Label: 
-  height: 2
+  height: 5
   length: 10
   DownDetection: 0
   DetectionOriginOffset: {x: 0, y: 0, z: 0}
   TargetLayer:
     serializedVersion: 2
     m_Bits: 256
+  ObstacleMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &3837762958326460412
 MonoBehaviour:
   m_ObjectHideFlags: 0
