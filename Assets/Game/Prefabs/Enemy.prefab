@@ -470,7 +470,7 @@ MonoBehaviour:
   spawnAngleOffset: 30
   delayBeforeAttack: 0
   delayAfterAttack: 0.3
-  baseDamage: 0
+  baseDamage: 1
   attackEffects:
   - {fileID: 11400000, guid: 60e37015eeb934e46805e0552551a9a0, type: 2}
   UseInventoryToManageAmmo: 0
