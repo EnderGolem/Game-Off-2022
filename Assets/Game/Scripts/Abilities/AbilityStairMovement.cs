@@ -19,24 +19,48 @@ public class AbilityStairMovement : CharacterAbility
 
     private void Update()
     {
-        if (!(owner.StayOnPlatform||owner.StayOnGround) || curMoveInputDir.y > 0)
+        if (owner.IsPlayer)
         {
-            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Stairway"), false);
-        }
-        else
-        {
-            if (!owner.StayOnStairway)
-                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Stairway"), true);
-        }
-        if (owner.StayOnStairway && curMoveInputDir.y < 0)
-        {
-            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), true);
-            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Stairway"), false);
-        }
-        else
-        {
-            if (!owner.BodyInPLatform())
-                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), false);
+            /*Debug.Log(!owner.IsOnGroundReal && owner.RigidBody.velocity.y > 0);
+            if ((!owner.IsOnGroundReal && owner.RigidBody.velocity.y > 0) || owner.IsOnGround && !owner.StayOnStairway)
+            {
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Stairway"),
+                    true);
+            }
+            else
+            {
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Stairway"),
+                    false);
+            }*/
+
+            if (!(owner.StayOnPlatform || owner.StayOnGround) || curMoveInputDir.y > 0)
+            {
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Stairway"),
+                    false);
+            }
+            else
+            {
+                if (!owner.StayOnStairway)
+                {
+                    
+                    Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Stairway"),
+                        true);
+                }
+            }
+
+            if (owner.StayOnStairway && curMoveInputDir.y < 0)
+            {
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"),
+                    true);
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Stairway"),
+                    false);
+            }
+            else
+            {
+                if (!owner.BodyInPLatform())
+                    Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"),
+                        false);
+            }
         }
     }
     public virtual void SetMoveInput(Vector2 input)

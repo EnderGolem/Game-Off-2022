@@ -29,6 +29,11 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         get => Time.time - LastOnGroundTime < coyoteTime;
     }
 
+    public bool IsOnGroundReal
+    {
+        get => Time.time - LastOnGroundTime < 0.001;
+    }
+
     public bool StayOnGround { get; private set; }
     public bool StayOnPlatform { get; private set; }
     public bool StayOnStairway { get; private set; }
@@ -46,6 +51,11 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     public float gravityScale { get; private set; }
 
     public float LastOnGroundTime { get; private set; }
+
+    public bool IsPlayer => isPlayer;
+    
+    [SerializeField]
+    protected bool isPlayer;
     [Tooltip("Время спустя которое после физического отрыва от земли персонаж перестает считаться стоящим на земле," +
              "что позволяет ему прыгать уже сойдя с платформы")]
     [SerializeField] 
@@ -108,8 +118,6 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         StayOnStairway = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _stairwayLayer);
         StayOnPlatform = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _platformLayer);
         StayOnGround = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer);
-        
-        
     }
 
     private void LateUpdate()
@@ -200,7 +208,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     public void Kill()
     {
         OnDead.Invoke(this);
-        GetComponentInChildren<DeadBodyRagdoll>().Kill();
+        GetComponentInChildren<DeadBodyRagdoll>()?.Kill();
         IsAlive = false;
     }
 
@@ -236,6 +244,11 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     private void OnDisable()
     {
         this.MMEventStopListening();
+    }
+
+    private void OnDrawGizmos()
+    {
+        MMDebug.DrawRectangle(_groundCheckPoint.position,Color.magenta, _groundCheckSize);
     }
 }
 

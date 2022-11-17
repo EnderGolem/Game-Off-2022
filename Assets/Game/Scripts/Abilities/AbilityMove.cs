@@ -77,8 +77,8 @@ public class AbilityMove : CharacterAbility
 		float accelRate;
 
 
-		runAccelAmount = (50 * runAcceleration) / runMaxSpeed;
-		runDeccelAmount = (50 * runDecceleration) / runMaxSpeed;
+		runAccelAmount = (Math.Abs(runMaxSpeed) > 0.001)?(50 * runAcceleration) / runMaxSpeed:0;
+		runDeccelAmount = (Math.Abs(runMaxSpeed) > 0.001)?(50 * runDecceleration) / runMaxSpeed:0;
 		
 	   
 		//Gets an acceleration value based on if we are accelerating (includes turning) 
