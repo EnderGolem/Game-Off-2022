@@ -148,7 +148,6 @@ GameObject:
   - component: {fileID: 1251703485}
   - component: {fileID: 1251703486}
   - component: {fileID: 1251703487}
-  - component: {fileID: -5706816943676630126}
   m_Layer: 15
   m_Name: Enemy
   m_TagString: Untagged
@@ -320,6 +319,8 @@ MonoBehaviour:
   jumpHangMaxSpeedMult: 1.5
   jumpHangTimeThreshold: 1.5
   doConserveMomentum: 1
+  blockAttackingStates: 
+  attackingSpeedModifier: 0.4
   actualWalkAnimationTime: 0
   walkFeedback: {fileID: 0}
 --- !u!114 &4633728839478822863
@@ -672,20 +673,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: 
---- !u!114 &-5706816943676630126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4633728839478822852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ada0b91179265cd4a9493a590f8cbf21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minDiffToDamage: 500
-  damageKoef: 0.1
 --- !u!1 &4633728840515905771
 GameObject:
   m_ObjectHideFlags: 0
