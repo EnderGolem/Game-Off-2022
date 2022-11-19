@@ -126,6 +126,8 @@ public class EffectOnTouch : MonoBehaviour
         hitShieldFeedback?.PlayFeedbacks();
         
         ApplyKnockback(shield.OwnerCollider.attachedRigidbody,shield.KnockBackModifier);
+        
+        objectHealth?.DoDamage(900000);
     }
 
     protected void ApplyKnockback(Rigidbody2D body, float knockbackModifier = 1)
@@ -188,6 +190,7 @@ public class EffectOnTouch : MonoBehaviour
             var shield = col.Key.GetComponent<Shield>();
             if (shield != null)
             {
+                Debug.Log("Shield detected!");
                 shieldsOwners.Add(shield.OwnerCollider);
                 if (Time.time - col.Value > repeatedEffectApplicationTime)
                 {

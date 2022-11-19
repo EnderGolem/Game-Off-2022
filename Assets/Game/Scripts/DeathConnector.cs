@@ -10,6 +10,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class DeathConnector : MonoBehaviour
 {
+
     private Rigidbody2D rigidbody;
     private Collider2D collider;
     private Health health;
@@ -21,6 +22,8 @@ public class DeathConnector : MonoBehaviour
     /// Тело к, которому объект был подсоединен
     /// </summary>
     private Rigidbody2D connectedBody;
+
+    private Collider2D connectedCollider;
     /// <summary>
     /// Маска коллайдеров, к которым можно прикрепиться
     /// </summary>
@@ -42,7 +45,7 @@ public class DeathConnector : MonoBehaviour
     {
         if (wasConnected)
         {
-            if (connectedBody==null )
+            if (connectedBody==null)
             {
                 Destroy(gameObject);
             }
@@ -66,6 +69,15 @@ public class DeathConnector : MonoBehaviour
         }*/
         if (colliders.Count > 0)
         {
+            for (int i = 0; i < colliders.Count; i++)
+            {
+                if (colliders[i].GetComponent<Shield>() != null)
+                {
+                    Destroy(gameObject);
+                    return;
+                }
+            }
+            
             var bodyToConnect = colliders[0].attachedRigidbody;
             
             if (bodyToConnect != null)
@@ -76,6 +88,7 @@ public class DeathConnector : MonoBehaviour
                     joint.connectedBody = bodyToConnect;
                     joint.enableCollision = false;
                     connectedBody = bodyToConnect;
+                    connectedCollider = colliders[0];
                     wasConnected = true;
                 }
                 else
@@ -84,6 +97,7 @@ public class DeathConnector : MonoBehaviour
                   rigidbody.simulated = false;
                   
                   connectedBody = bodyToConnect;
+                  connectedCollider = colliders[0];
                   wasConnected = true;
                 }
             }

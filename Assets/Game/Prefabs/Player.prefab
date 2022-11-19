@@ -6883,6 +6883,7 @@ GameObject:
   - component: {fileID: 4575642185042089952}
   - component: {fileID: 749741786340377920}
   - component: {fileID: 880104770058250211}
+  - component: {fileID: 6409185320501813077}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -6952,6 +6953,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   cameraTarget: {fileID: 882419418110711753}
+  isPlayer: 1
   coyoteTime: 0.1
   _groundCheckPoint: {fileID: 8434176432686526706}
   _groundCheckSize: {x: 0.49, y: 0.1}
@@ -7471,6 +7473,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: StairMovement
   abilityPermitted: 1
+--- !u!114 &6409185320501813077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434176433734082524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ada0b91179265cd4a9493a590f8cbf21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDiffToDamage: 500
+  damageKoef: 0.1
 --- !u!1 &8444532863953983276
 GameObject:
   m_ObjectHideFlags: 0

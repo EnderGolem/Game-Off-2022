@@ -108,6 +108,8 @@ MonoBehaviour:
   initialHealth: 1
   destroyOnDeath: 0
   timeBeforeDestruction: 0
+  damageFeedback: {fileID: 0}
+  OnKillFeedback: {fileID: 0}
 --- !u!50 &188732072717986308
 Rigidbody2D:
   serializedVersion: 4
@@ -195,6 +197,9 @@ MonoBehaviour:
   ignoreOwnerCollision: 1
   knockbackDirDefinition: 1
   repeatedEffectApplicationTime: 1
+  hitDamageableFeedback: {fileID: 0}
+  hitNonDamageableFeedback: {fileID: 0}
+  hitShieldFeedback: {fileID: 0}
 --- !u!114 &9062165416485910411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0e93864a3251fe4785373b76e718dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyWhenDisableConnectCollider: 1
   mask:
     serializedVersion: 2
-    m_Bits: 585
+    m_Bits: 841

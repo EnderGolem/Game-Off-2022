@@ -30,6 +30,7 @@ public class Endurance : PropertyObject
 
     protected float lastSpentTime=-1000;
 
+
     public override void Initialize()
     {
         base.Initialize();

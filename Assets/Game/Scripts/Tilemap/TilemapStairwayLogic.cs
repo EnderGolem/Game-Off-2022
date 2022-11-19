@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TilemapStairwayLogic : MonoBehaviour
 {
-    //Компонент PlatformEffector2D мешает работе Physics2D.IgnoreLayerCollision. Чтобы это исправить, в компоненте эффектора нужно снять флаг useColliderMask
+    //РљРѕРјРїРѕРЅРµРЅС‚ PlatformEffector2D РјРµС€Р°РµС‚ СЂР°Р±РѕС‚Рµ Physics2D.IgnoreLayerCollision. Р§С‚РѕР±С‹ СЌС‚Рѕ РёСЃРїСЂР°РІРёС‚СЊ, РІ РєРѕРјРїРѕРЅРµРЅС‚Рµ СЌС„С„РµРєС‚РѕСЂР° РЅСѓР¶РЅРѕ СЃРЅСЏС‚СЊ С„Р»Р°Рі useColliderMask
     void Start()
     {
         PlatformEffector2D platformEffector = GetComponent<PlatformEffector2D>();
