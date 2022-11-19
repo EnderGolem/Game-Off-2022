@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
@@ -40,6 +41,12 @@ public class AbilityMove : CharacterAbility
    [Tooltip("Если игрок двигается е меняя направления выше своей максимальной скорости, то с включенным этим параметром" +
             "он скорость сбрасывать не будет")]
    public bool doConserveMomentum = true;
+   [Tooltip("При каких атакующих действия следует замедлять движение")]
+   [SerializeField]
+   protected CharacterAttackingState[] blockAttackingStates;
+   [Tooltip("На сколько уменьшается скорость движения во время выполнения атакующего действия")]
+   [SerializeField]
+   protected float attackingSpeedModifier = 0.4f;
    
    [Tooltip("Реальное время, на которое рассчитана анимация ходьбы")]
    [SerializeField]
@@ -70,6 +77,11 @@ public class AbilityMove : CharacterAbility
    {
       //Calculate the direction we want to move in and our desired velocity
 		float targetSpeed = curInputDir.x * walkSpeedProperty.GetCurValue();
+
+		if (blockAttackingStates.Contains(owner.AttackingState.CurrentState))
+		{
+			targetSpeed *= attackingSpeedModifier;
+		}
 		//We can reduce are control using Lerp() this smooths changes to are direction and speed
 		//targetSpeed = Mathf.Lerp(RB.velocity.x, targetSpeed, lerpAmount);
 

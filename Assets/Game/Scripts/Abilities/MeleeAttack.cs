@@ -122,16 +122,18 @@ public class MeleeAttack : CharacterAbility
     protected void HandleAttacking()
     {
         var delta = Time.time - lastAttackStart;
-        
-        if (delta > activeDamageZoneTime + delayBeforeAttacking)
+
+        if (delta > activeDamageZoneTime + delayBeforeAttacking + delayAfterAttack)
+        {
+            owner.AttackingState.ChangeState(CharacterAttackingState.Idle);
+            
+            lastAttackStart = Time.time;
+        }
+        else if (delta > activeDamageZoneTime + delayBeforeAttacking)
         {
             damageZone.enabled = false;
             damageZoneOnTouch.enabled = false;
-            
-            owner.AttackingState.ChangeState(CharacterAttackingState.Idle);
 
-            lastAttackStart = Time.time;
-            
         }
         else if(delta > delayBeforeAttacking)
         {
@@ -146,7 +148,7 @@ public class MeleeAttack : CharacterAbility
         owner.Animator.SetBool("AttackPreparing", owner.AttackingState.CurrentState == CharacterAttackingState.AttackPreparing);
         owner.Animator.SetBool("Attacking", owner.AttackingState.CurrentState == CharacterAttackingState.Attacking);
         
-        owner.Animator.SetFloat("AttackSpeed",1/(activeDamageZoneTime+delayBeforeAttacking));
+        owner.Animator.SetFloat("AttackSpeed",1/(activeDamageZoneTime+delayBeforeAttacking+delayAfterAttack));
         owner.Animator.SetFloat("AttackPreparingSpeed",1/maxAttackPreparingTime);
         
     }
