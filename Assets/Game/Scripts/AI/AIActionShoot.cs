@@ -6,8 +6,7 @@ using UnityEngine;
 public class AIActionShoot : AIAction
 {
     protected RangedAttack _rangedAttack;
-
-
+    
     public override void Initialization()
     {
         _rangedAttack = GetComponent<RangedAttack>();

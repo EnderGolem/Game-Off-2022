@@ -97,10 +97,10 @@ public class AIDecisionDetectTargetRectangle : AIDecision
         
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(_raycastOrigin, new Vector3(length,height));
-        if (_init)
+        /*if (_init)
         {
             Gizmos.color = _gizmoColor;
             Gizmos.DrawCube(_raycastOrigin, new Vector3(length,height));
-        }            
+        }*/            
     }
 }

@@ -11,14 +11,22 @@ public class Projectile : MonoBehaviour
     [Tooltip("Импульс придаваемый снаряду при старте по дефолту")]
     [SerializeField]
     protected float initialVelocity;
+    [Tooltip("Следует ли разворачивать модель снаряда в сторону скорости движения")]
+    [SerializeField]
+    protected bool rotateModelToVelocityDir;
+    [SerializeField]
+    protected Transform model;
     
     protected Rigidbody2D rigidBody;
+
+    protected Health _health;
 
     public Rigidbody2D RigidBody => rigidBody;
     public float InitialVelocity => initialVelocity;
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
+        _health = GetComponent<Health>();
     }
 
     void Start()
@@ -29,7 +37,17 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (rotateModelToVelocityDir)
+        {
+            if (_health != null && !_health.IsAlive)
+            {
+            }
+            else
+            {
+                model.right = rigidBody.velocity.normalized;
+            }
+            
+        }
     }
 
     public bool CalculateAngleToHitDesignatedPosition(Vector2 targetPosition,Vector2 startPosition, out float CalculatedAngle,bool useDirectFire = true)
