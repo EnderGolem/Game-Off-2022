@@ -19,6 +19,7 @@ public class AIActionShoot : AIAction
     protected virtual void Shoot()
     {
         _rangedAttack.SetTargetPos(_brain.Target.position);
+        _rangedAttack.Owner.SetMoveInput(_brain.Target.position - transform.position);
         _rangedAttack.ProcessInput(true);
     }
     public override void OnExitState()

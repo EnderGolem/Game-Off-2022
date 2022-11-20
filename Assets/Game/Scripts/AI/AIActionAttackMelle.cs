@@ -20,6 +20,7 @@ public class AIActionAttackMelle : AIAction
     protected virtual void Attack()
     {
         _meleeAttack.ProcessInput(true);
+        _meleeAttack.Owner.SetMoveInput(_brain.Target.position - transform.position);
     }
     
     public override void OnExitState()

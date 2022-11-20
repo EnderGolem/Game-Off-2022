@@ -69,19 +69,20 @@ public class AIDecisionDetectTargetRectangle : AIDecision
         }
         else
         {
-            _boxcastDirection = (Vector2)(_detectionCollider.gameObject.MMGetComponentNoAlloc<Collider2D>().bounds.center - _collider.bounds.center);
+            //FIX странный баг, время от времени, он может не детектить, почему, понять не могу, причем он либо работает за запуск, либо нет.
+            _boxcastDirection = (Vector2)(_detectionCollider.gameObject.MMGetComponentNoAlloc<Collider2D>().bounds.center - _collider.bounds.center);       
             RaycastHit2D hit = Physics2D.BoxCast(_collider.bounds.center, _collider.bounds.size, 0f, _boxcastDirection.normalized, _boxcastDirection.magnitude, ObstacleMask);
+         
             if (!hit)
-            {
+            {   
                 _brain.Target = _detectionCollider.gameObject.transform;
                 return true;
             }
             else
-            {
+            {  
                 return false;
             }             
         }
-        //else DownDetection, не реализована.
         return false;
     }
     protected virtual void OnDrawGizmosSelected()
