@@ -23,5 +23,11 @@ public class AIActionMoveToTarget : AIAction
         var direction = _brain.Target.transform.position - transform.position;
         direction.y = 0;
         _abilityMove.ProcessInput(direction.normalized);
+        _abilityMove.Owner.SetMoveInput(direction.normalized);
+    }
+    public override void OnExitState()
+    {
+        base.OnExitState();
+        _abilityMove.ProcessInput(Vector2.zero);
     }
 }
