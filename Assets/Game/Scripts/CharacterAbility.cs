@@ -18,6 +18,12 @@ public class CharacterAbility : MonoBehaviour
     [SerializeField]
     public bool abilityPermitted = true;
 
+    public Character Owner
+    {
+        get { return owner; }
+        private set { owner = value; }
+    }
+    
     public string AbilityName => abilityName;
 
     public bool AbilityAuthorized {

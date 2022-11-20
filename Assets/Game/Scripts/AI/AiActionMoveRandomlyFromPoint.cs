@@ -36,5 +36,11 @@ public class AiActionMoveRandomlyFromPoint : AIAction
         if (transform.position.x < startPos.x - length / 2)
             isLeft = false;
         _abilityMove.ProcessInput(direction.normalized);
+        _abilityMove.Owner.SetMoveInput(direction.normalized);
+    }
+    public override void OnExitState()
+    {
+        base.OnExitState();
+        _abilityMove.ProcessInput(Vector2.zero);
     }
 }
