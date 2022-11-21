@@ -28,7 +28,7 @@ public class ForceDamage : MonoBehaviour
 
             if (diff < minDiffToDamage) return;
 
-            Debug.Log("Force: " + damageKoef * diff + gameObject.name);
+            //Debug.Log("Force: " + damageKoef * diff + gameObject.name);
 
             h?.DoDamage(damageKoef * diff);
         }

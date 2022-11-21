@@ -7,7 +7,6 @@ using UnityEngine;
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Health))]
-[RequireComponent(typeof(Collider2D))]
 public class DeathConnector : MonoBehaviour
 {
 
@@ -31,7 +30,7 @@ public class DeathConnector : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        collider = GetComponent<Collider2D>();
+        collider = GetComponentInChildren<Collider2D>();
         health = GetComponent<Health>();
     }
 

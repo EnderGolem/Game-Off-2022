@@ -190,7 +190,7 @@ MonoBehaviour:
   DamageTakenNonDamageable: 0
   targetLayer:
     serializedVersion: 2
-    m_Bits: 841
+    m_Bits: 33609
   startEffects: []
   knockBack: {x: 10, y: 0}
   useAutoDisable: 0
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mask:
     serializedVersion: 2
-    m_Bits: 585
+    m_Bits: 33353
 --- !u!1 &1631572947853324541
 GameObject:
   m_ObjectHideFlags: 0

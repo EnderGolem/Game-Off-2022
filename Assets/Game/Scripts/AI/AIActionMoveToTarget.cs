@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class AIActionMoveToTarget : AIAction
 {
+    [Tooltip("Если включить этот флажок, то персонаж будет убегать от цели")]
+    [SerializeField]
+    protected bool moveOppositeDirection;
+    
     protected AbilityMove _abilityMove;
 
     public override void Initialization()
@@ -22,6 +26,11 @@ public class AIActionMoveToTarget : AIAction
     {
         var direction = _brain.Target.transform.position - transform.position;
         direction.y = 0;
+        if (moveOppositeDirection)
+        {
+            direction = -direction;
+        }
+
         _abilityMove.ProcessInput(direction.normalized);
         _abilityMove.Owner.SetMoveInput(direction.normalized);
     }

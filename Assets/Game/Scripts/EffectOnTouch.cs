@@ -158,7 +158,6 @@ public class EffectOnTouch : MonoBehaviour
             {
                 vec2 = dir.MMRotate(90) * knockBack.y;
             }
-            
             //Debug.Log($"dir = {dir}, vec1 = {vec1}, vec2 = {vec2}, sum = {vec1+vec2}");
             body.AddForce((vec1 + vec2) * knockbackModifier, ForceMode2D.Impulse);
         }
@@ -190,7 +189,7 @@ public class EffectOnTouch : MonoBehaviour
             var shield = col.Key.GetComponent<Shield>();
             if (shield != null)
             {
-                Debug.Log("Shield detected!");
+                //Debug.Log("Shield detected!");
                 shieldsOwners.Add(shield.OwnerCollider);
                 if (Time.time - col.Value > repeatedEffectApplicationTime)
                 {
@@ -257,7 +256,7 @@ public class EffectOnTouch : MonoBehaviour
 
         if (ignoreOwnerCollision)
         {
-            Physics2D.IgnoreCollision(owner.GetComponent<Collider2D>(),GetComponent<Collider2D>());
+            Physics2D.IgnoreCollision(owner.GetComponent<Collider2D>(),GetComponentInChildren<Collider2D>());
         }
     }
 
