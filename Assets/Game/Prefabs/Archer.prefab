@@ -255,7 +255,10 @@ MonoBehaviour:
   delayAfterAttack: 0
   timeBetweenAttacks: 1
   baseDamage: 3
+  baseDamageToEThroughShield: 25
   attackEffects: []
+  throughShieldEffects:
+  - {fileID: 11400000, guid: 95da9bfb61952e1448f9007429451dbd, type: 2}
   UseInventoryToManageAmmo: 0
   weaponName: 
   UseBalliscticToTarget: 1
@@ -290,9 +293,12 @@ MonoBehaviour:
   delayAfterAttack: 0.1
   timeBetweenAttacks: 0.8
   baseDamage: 1
+  baseDamageToEThroughShield: 15
   enduranceCost: 0
   attackEffects:
   - {fileID: 11400000, guid: de9d88e45a44181448792b71ade4e445, type: 2}
+  throughShieldEffects:
+  - {fileID: 11400000, guid: 5cac96bea02f43c42a7e27c0117e1601, type: 2}
   startAttackFeedback: {fileID: 0}
 --- !u!114 &8392162823263601579
 MonoBehaviour:
@@ -802,6 +808,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 33609
   startEffects: []
+  startThroughShieldEffects: []
   knockBack: {x: 20, y: 30}
   useAutoDisable: 0
   autoDisableTime: 0

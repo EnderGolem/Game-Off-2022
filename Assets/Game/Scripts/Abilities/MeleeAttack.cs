@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class MeleeAttack : CharacterAbility
 {
+    [Header("Zone")]
     [SerializeField]
     protected Collider2D damageZone;
+    [Header("Timing")]
     [SerializeField]
     protected float minAttackPreparingTime;
     [SerializeField]
@@ -21,15 +23,28 @@ public class MeleeAttack : CharacterAbility
     protected float delayAfterAttack;
     [SerializeField]
     protected float timeBetweenAttacks;
-
+    [Header("Properties")]
     [SerializeField] 
     protected float baseDamage;
+    [SerializeField] 
+    protected float baseDamageToEThroughShield;
     [Tooltip("Выносливость тратимая при ударе")]
     [SerializeField]
     protected float enduranceCost;
 
     [SerializeField] 
     protected EffectDescription[] attackEffects;
+    [SerializeField]
+    protected EffectDescription[] throughShieldEffects;
+
+    [Header("Animations")] 
+    protected string AttackPreparingParameter = "AttackPreparing";
+    protected string AttackingParameter = "Attacking";
+
+    protected string AttackSpeedAnimParameter = "AttackSpeed";
+    protected string AttackPreparingSpeedAnimParameter = "AttackPreparingSpeed";
+    
+    [Header("Feedbacks")]
     [SerializeField]
     protected MMFeedbacks startAttackFeedback;
 
@@ -38,6 +53,7 @@ public class MeleeAttack : CharacterAbility
     protected PropertyManager _propertyManager;
     protected ObjectProperty damageProperty;
     protected ObjectProperty enduranceProperty;
+    protected ObjectProperty damageToEThroughShieldProperty;
     
     protected bool curInput;
 
@@ -48,6 +64,8 @@ public class MeleeAttack : CharacterAbility
         base.PreInitialize();
         damageProperty=owner.PropertyManager.AddProperty("AttackDamage", baseDamage);
         enduranceProperty = owner.PropertyManager.GetPropertyByName("Endurance");
+        damageToEThroughShieldProperty =
+            owner.PropertyManager.AddProperty("MeleeDamageToEThroughShield", baseDamageToEThroughShield);
         damageZoneOnTouch = damageZone.GetComponent<EffectOnTouch>();
         damageZone.enabled = false;
         damageZoneOnTouch.enabled = false;
@@ -113,6 +131,10 @@ public class MeleeAttack : CharacterAbility
             {
                 damageZoneOnTouch.AddEffect(new Effect(attackEffects[i],owner.PropertyManager));
             }
+            for (int i = 0; i < throughShieldEffects.Length; i++)
+            {
+                damageZoneOnTouch.AddThroughShieldEffect(new Effect(throughShieldEffects[i],owner.PropertyManager));
+            }
             
             owner.AttackingState.ChangeState(CharacterAttackingState.Attacking);
             startAttackFeedback?.PlayFeedbacks();
@@ -148,11 +170,11 @@ public class MeleeAttack : CharacterAbility
     protected override void UpdateAnimator()
     {
         base.UpdateAnimator();
-        owner.Animator.SetBool("AttackPreparing", owner.AttackingState.CurrentState == CharacterAttackingState.AttackPreparing);
-        owner.Animator.SetBool("Attacking", owner.AttackingState.CurrentState == CharacterAttackingState.Attacking);
+        owner.Animator.SetBool(AttackPreparingParameter, owner.AttackingState.CurrentState == CharacterAttackingState.AttackPreparing);
+        owner.Animator.SetBool(AttackingParameter, owner.AttackingState.CurrentState == CharacterAttackingState.Attacking);
         
-        owner.Animator.SetFloat("AttackSpeed",1/(activeDamageZoneTime+delayBeforeAttacking+delayAfterAttack));
-        owner.Animator.SetFloat("AttackPreparingSpeed",1/maxAttackPreparingTime);
+        owner.Animator.SetFloat(AttackSpeedAnimParameter,1/(activeDamageZoneTime+delayBeforeAttacking+delayAfterAttack));
+        owner.Animator.SetFloat(AttackPreparingSpeedAnimParameter,1/maxAttackPreparingTime);
         
     }
 

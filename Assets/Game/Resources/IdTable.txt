@@ -6,7 +6,8 @@
 5 - WalkSpeed
 6 - EnduranceRecoverSpeed
 7 - FlySpeed
-
+8 - MeleeDamageToEThroughShield
+9 - RangeDamageToEThroughShield
 
 
 Effects:
@@ -18,3 +19,6 @@ Effects:
 6 - AppleHeal
 7 - ApplePoison
 8 - BarrelExplosion
+9 - ThroughShieldMeleeAttack
+10 - ThroughShieldRangeAttack
+11 - BarrelExplosionThroughShield

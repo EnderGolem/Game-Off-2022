@@ -214,12 +214,17 @@ MonoBehaviour:
     m_Bits: 21321
   startEffects:
   - {fileID: 11400000, guid: 7966a84e41e64a9469b97bf11684cded, type: 2}
+  startThroughShieldEffects:
+  - {fileID: 11400000, guid: d5a971ee2be0b354ca4845cd305a0eb3, type: 2}
   knockBack: {x: 50, y: 0}
   useAutoDisable: 0
   autoDisableTime: 0
   ignoreOwnerCollision: 0
   knockbackDirDefinition: 2
   repeatedEffectApplicationTime: 1
+  hitDamageableFeedback: {fileID: 0}
+  hitNonDamageableFeedback: {fileID: 0}
+  hitShieldFeedback: {fileID: 0}
 --- !u!58 &8896064299258799915
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -289,6 +294,7 @@ MonoBehaviour:
   initialHealth: 1
   destroyOnDeath: 1
   timeBeforeDestruction: 1
+  damageFeedback: {fileID: 0}
   OnKillFeedback: {fileID: 8896064299022081812}
 --- !u!61 &8896064299356952563
 BoxCollider2D:
