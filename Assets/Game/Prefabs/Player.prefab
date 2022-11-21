@@ -3648,7 +3648,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.2, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &743341502864594043
 MonoBehaviour:
@@ -3669,12 +3669,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 49737
   startEffects: []
-  knockBack: {x: 20, y: -30}
+  knockBack: {x: 20, y: 5}
   useAutoDisable: 0
   autoDisableTime: 0
   ignoreOwnerCollision: 0
   knockbackDirDefinition: 0
-  repeatedEffectApplicationTime: 0.2
+  repeatedEffectApplicationTime: 1
   hitDamageableFeedback: {fileID: 4356993569478289304}
   hitNonDamageableFeedback: {fileID: 1233234276117936026}
   hitShieldFeedback: {fileID: 8992829459684372307}
@@ -7203,15 +7203,15 @@ MonoBehaviour:
   abilityName: Walking
   abilityPermitted: 1
   runMaxSpeed: 5.5
-  runAcceleration: 5
-  runDecceleration: 5
+  runAcceleration: 3
+  runDecceleration: 3
   accelInAir: 1
   deccelInAir: 1
   jumpHangAccelerationMult: 1
   jumpHangMaxSpeedMult: 1
   jumpHangTimeThreshold: 0
   doConserveMomentum: 1
-  blockAttackingStates: 
+  blockAttackingStates: 0500000001000000
   attackingSpeedModifier: 0.4
   actualWalkAnimationTime: 1.5
   walkFeedback: {fileID: 7088558366212562251}
@@ -7305,6 +7305,7 @@ MonoBehaviour:
   delayBeforeAttacking: 0.25
   activeDamageZoneTime: 0.05
   delayAfterAttack: 0.3
+  timeBetweenAttacks: 0
   baseDamage: 1
   enduranceCost: 25
   attackEffects:
@@ -7364,7 +7365,9 @@ MonoBehaviour:
   projStartPos: {fileID: 8130458793347639460}
   spawnAngleOffset: 30
   delayBeforeAttack: 0
+  attackTime: 0
   delayAfterAttack: 0.3
+  timeBetweenAttacks: 0
   baseDamage: 1
   attackEffects:
   - {fileID: 11400000, guid: 60e37015eeb934e46805e0552551a9a0, type: 2}
@@ -7372,6 +7375,13 @@ MonoBehaviour:
   weaponName: Crossbow
   UseBalliscticToTarget: 1
   UseCursorToAimBallistic: 1
+  holdShootToAim: 0
+  aimIK: 0
+  aimAlways: 0
+  aimSolver: {fileID: 0}
+  projStartPosDistToCenter: 0
+  IKtarget: {fileID: 0}
+  IKMoveSpeed: 0
   shotFeedback: {fileID: 8170424169849063331}
 --- !u!114 &2908697544807498183
 MonoBehaviour:

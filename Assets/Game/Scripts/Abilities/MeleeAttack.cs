@@ -19,6 +19,8 @@ public class MeleeAttack : CharacterAbility
     protected float activeDamageZoneTime;
     [SerializeField] 
     protected float delayAfterAttack;
+    [SerializeField]
+    protected float timeBetweenAttacks;
 
     [SerializeField] 
     protected float baseDamage;
@@ -114,7 +116,7 @@ public class MeleeAttack : CharacterAbility
             
             owner.AttackingState.ChangeState(CharacterAttackingState.Attacking);
             startAttackFeedback?.PlayFeedbacks();
-            enduranceProperty.ChangeCurValue(-enduranceCost);
+            enduranceProperty?.ChangeCurValue(-enduranceCost);
             lastAttackStart = Time.time;
         }
     }
@@ -141,6 +143,7 @@ public class MeleeAttack : CharacterAbility
             damageZoneOnTouch.enabled = true;
         }
     }
+    
 
     protected override void UpdateAnimator()
     {
@@ -160,7 +163,7 @@ public class MeleeAttack : CharacterAbility
 
     protected bool isReloaded()
     {
-        return Time.time - lastAttackStart > delayAfterAttack;
+        return Time.time - lastAttackStart > timeBetweenAttacks;
     }
 
     protected bool CanAttack()
