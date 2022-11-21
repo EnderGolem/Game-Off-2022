@@ -9,7 +9,7 @@ public class Overlay : MonoBehaviour
     PauseGame pauseGame;
     RespawnManager respawnManager;
 
-    private void Start()
+    private void Awake()
     {
         respawnManager = GetComponent<RespawnManager>();
         pauseGame = GetComponent<PauseGame>();

@@ -30,8 +30,8 @@ public class DeadBodyRagdoll : MonoBehaviour
             }
         }
         //Чисто для демонстрации
-        if (transform.parent == null) 
-            Invoke("Kill", Random.Range(3, 12));
+        //if (transform.parent == null) 
+        //    Invoke("Kill", Random.Range(3, 12));
     }
 
     [ContextMenu("KILL!")]
