@@ -2,13 +2,15 @@
  using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuUI : MonoBehaviour
 {
     public SettingsUI settingsUI;
     public void ButtonStart()
     {
-        SceneLoader.Instance.LoadScene("Loading","TilemapTest");
+        SceneLoader.Instance.LoadScene("Loading","Forest");
+        //SceneManager.LoadScene("Forest");
     }
     public void ButtonContinue()
     {
@@ -24,6 +26,6 @@ public class MenuUI : MonoBehaviour
     }
     public void ButtonCredits()
     {
-        print("Credits");
+        SceneManager.LoadScene("CreditsScene");
     }
 }

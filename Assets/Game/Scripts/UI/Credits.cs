@@ -6,26 +6,26 @@ using TMPro;
 
 public class Credits : MonoBehaviour
 {
-    [Tooltip("Задержка между сменой текста")]
+    [Tooltip("Р—Р°РґРµСЂР¶РєР° РјРµР¶РґСѓ СЃРјРµРЅРѕР№ С‚РµРєСЃС‚Р°")]
     [SerializeField] float delay;
-    [Tooltip("Длительность показа текста")]
+    [Tooltip("Р”Р»РёС‚РµР»СЊРЅРѕСЃС‚СЊ РїРѕРєР°Р·Р° С‚РµРєСЃС‚Р°")]
     [SerializeField] float duration;
-    [Tooltip("Добавление длительности за каждый символ текста")]
+    [Tooltip("Р”РѕР±Р°РІР»РµРЅРёРµ РґР»РёС‚РµР»СЊРЅРѕСЃС‚Рё Р·Р° РєР°Р¶РґС‹Р№ СЃРёРјРІРѕР» С‚РµРєСЃС‚Р°")]
     [SerializeField] float timePerSymbol;
-    [Tooltip("Интенсивность появления текста")]
+    [Tooltip("РРЅС‚РµРЅСЃРёРІРЅРѕСЃС‚СЊ РїРѕСЏРІР»РµРЅРёСЏ С‚РµРєСЃС‚Р°")]
     [SerializeField] float appearanceIntence;
-    [Tooltip("Интенсивность исчезновения текста")]
+    [Tooltip("РРЅС‚РµРЅСЃРёРІРЅРѕСЃС‚СЊ РёСЃС‡РµР·РЅРѕРІРµРЅРёСЏ С‚РµРєСЃС‚Р°")]
     [SerializeField] float disappearanceIntence;
-    [Tooltip("Список текстовых фрагментов")]
+    [Tooltip("РЎРїРёСЃРѕРє С‚РµРєСЃС‚РѕРІС‹С… С„СЂР°РіРјРµРЅС‚РѕРІ")]
     [TextArea(5,10)]
     [SerializeField] List<string> content = new List<string>();
-    [Tooltip("Всплывающая подсказка")]
+    [Tooltip("Р’СЃРїР»С‹РІР°СЋС‰Р°СЏ РїРѕРґСЃРєР°Р·РєР°")]
     [SerializeField] GameObject tooltip;
     TextMeshProUGUI tMesh;
     int index = 0;
     bool waitAnyKey = false;
 
-    IEnumerator Hide() //Исчезновение текста
+    IEnumerator Hide() //РСЃС‡РµР·РЅРѕРІРµРЅРёРµ С‚РµРєСЃС‚Р°
     {
 
         yield return new WaitForSeconds(disappearanceIntence);
@@ -41,7 +41,7 @@ public class Credits : MonoBehaviour
         }
     }
 
-    IEnumerator Show() //Появление текста
+    IEnumerator Show() //РџРѕСЏРІР»РµРЅРёРµ С‚РµРєСЃС‚Р°
     {
 
         yield return new WaitForSeconds(appearanceIntence);
@@ -57,7 +57,7 @@ public class Credits : MonoBehaviour
         }
     }
 
-    void Next() //Следующая фраза
+    void Next() //РЎР»РµРґСѓСЋС‰Р°СЏ С„СЂР°Р·Р°
     {
         index++;
         if (index < content.Count)
