@@ -856,6 +856,7 @@ GameObject:
   - component: {fileID: 4477656253389115513}
   - component: {fileID: 3720064871914683151}
   - component: {fileID: 3395015565881066679}
+  - component: {fileID: 2046835811}
   m_Layer: 15
   m_Name: SwadsMan
   m_TagString: Untagged
@@ -1233,6 +1234,9 @@ MonoBehaviour:
       - Decision: {fileID: 3395015565881066679}
         TrueState: MoveRandomly
         FalseState: 
+      - Decision: {fileID: 2046835811}
+        TrueState: MoveRandomly
+        FalseState: 
   - StateName: Attack
     Actions:
       array:
@@ -1337,10 +1341,6 @@ MonoBehaviour:
   Label: Distance Lower
   ComparisonMode: 1
   Distance: 1
-  DownDetection: 1
-  ObstacleMask:
-    serializedVersion: 2
-    m_Bits: 520
 --- !u!114 &3395015565881066679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1356,10 +1356,23 @@ MonoBehaviour:
   Label: Distance Greater
   ComparisonMode: 3
   Distance: 11
-  DownDetection: 1
+--- !u!114 &2046835811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3182416858882852340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a21b6b1341866b64b927e930a6a537aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: CheckObstacle
+  Distance: 11
   ObstacleMask:
     serializedVersion: 2
-    m_Bits: 520
+    m_Bits: 512
 --- !u!1 &3182416859976559323
 GameObject:
   m_ObjectHideFlags: 0
