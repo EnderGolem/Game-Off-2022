@@ -58,12 +58,12 @@ public class CameraTracking : MonoBehaviour
                 var rigidbody = trackingObject.GetComponent<Rigidbody2D>();
                 if (rigidbody)
                 {
-                    centerOffset.x += velocityMultX * rigidbody.velocity.x;
+                    centerOffset.x += velocityMultX * rigidbody.velocity.x * Time.deltaTime;
                     centerOffset.x = maxOffsetX < Math.Abs(centerOffset.x)
                         ? (centerOffset.x > 0 ? maxOffsetX : -maxOffsetX)
                         : centerOffset.x;
                     posX += centerOffset.x;
-                    centerOffset.y += velocityMultY * rigidbody.velocity.y;
+                    centerOffset.y += velocityMultY * rigidbody.velocity.y * Time.deltaTime;
                     centerOffset.y = maxOffsetY < Math.Abs(centerOffset.y)
                         ? (centerOffset.y > 0 ? maxOffsetY : -maxOffsetY)
                         : centerOffset.y;
@@ -81,7 +81,7 @@ public class CameraTracking : MonoBehaviour
                     directionToObject = Vector2.zero;
                 }
                 else
-                    transform.position += directionToObject;
+                    transform.position += directionToObject * Time.deltaTime;
                 break;
         }
     }
@@ -89,7 +89,7 @@ public class CameraTracking : MonoBehaviour
     public void SetTrackingObject(Transform trackingObject)
     {
         this.trackingObject = trackingObject;
-        directionToObject = (trackingObject.position - transform.position).normalized;
+        directionToObject = (trackingObject.position - transform.position).normalized ;
         centerOffset = Vector2.zero;
         cameraCondition = CameraEnum.Moving;
     }
