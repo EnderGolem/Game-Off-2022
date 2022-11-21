@@ -69,7 +69,7 @@ public class ShieldBlock : CharacterAbility
 
     protected bool CanBlock()
     {
-        return AbilityAuthorized 
+        return AbilityAuthorized && !owner.IsTired  
                && (owner.AttackingState.CurrentState == CharacterAttackingState.Idle 
                    || owner.AttackingState.CurrentState == CharacterAttackingState.Blocking);
     }

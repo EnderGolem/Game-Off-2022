@@ -31,8 +31,12 @@ public class RangedAttack : CharacterAbility
     protected float timeBetweenAttacks;
     [SerializeField]
     protected float baseDamage;
+    [SerializeField] 
+    protected float baseDamageToEThroughShield;
     [SerializeField]
     protected EffectDescription[] attackEffects;
+    [SerializeField]
+    protected EffectDescription[] throughShieldEffects;
     [Tooltip("Следует ли использовать инвентарь для получения информации о зарядке оружия или делать это самостоятельно")] 
     [SerializeField]
     protected bool UseInventoryToManageAmmo;
@@ -68,6 +72,14 @@ public class RangedAttack : CharacterAbility
     [Tooltip("Скорость перемещние IK оружия")]
     [SerializeField]
     protected float IKMoveSpeed;
+    
+    [Header("Animations")] 
+    protected string AttackPreparingParameter = "RangeAttackPreparing";
+    protected string AttackingParameter = "RangeAttacking";
+
+    protected string AttackSpeedAnimParameter = "RangeAttackSpeed";
+    protected string AttackPreparingSpeedAnimParameter = "RangeAttackPreparingSpeed";
+    
     [Tooltip("Фидбэк, вызываемый при выстреле")]
     [SerializeField]
     protected MMFeedbacks shotFeedback;
@@ -89,6 +101,7 @@ public class RangedAttack : CharacterAbility
     protected Vector2 curTargetPos;
 
     protected ObjectProperty damageProperty;
+    protected ObjectProperty damageToEThroughShieldProperty;
     /// <summary>
     /// Следует ли при рассчете баллистической траектори ориентироваться на фазу подъема или на фазу спуска
     /// </summary>
@@ -112,6 +125,8 @@ public class RangedAttack : CharacterAbility
         base.PreInitialize();
         _inventoryHandler = GetComponent<InventoryHandler>();
         damageProperty=owner.PropertyManager.AddProperty("RangedAttackDamage", baseDamage);
+        damageToEThroughShieldProperty =
+            owner.PropertyManager.AddProperty("RangeDamageToEThroughShield", baseDamageToEThroughShield);
         projStartPosDiff = projStartPos.position - transform.position;
     }
     private void Update()
@@ -176,6 +191,10 @@ public class RangedAttack : CharacterAbility
         for (int i = 0; i < attackEffects.Length; i++)
         {
             eff.AddEffect(new Effect(attackEffects[i],owner.PropertyManager));
+        }
+        for (int i = 0; i < throughShieldEffects.Length; i++)
+        {
+            eff.AddThroughShieldEffect(new Effect(throughShieldEffects[i],owner.PropertyManager));
         }
         
         proj.enabled = true;
@@ -278,10 +297,10 @@ public class RangedAttack : CharacterAbility
     protected override void UpdateAnimator()
     {
         base.UpdateAnimator();
-        owner.Animator.SetBool("RangeAttacking", owner.AttackingState.CurrentState == CharacterAttackingState.RangeAttacking);
-        owner.Animator.SetBool("RangeAttackPreparing", owner.AttackingState.CurrentState == CharacterAttackingState.RangeAttackPreparing);
-        owner.Animator.SetFloat("RangeAttackPreparingSpeed", 1/delayBeforeAttack);
-        owner.Animator.SetFloat("RangeAttackSpeed", 1/attackTime);
+        owner.Animator.SetBool(AttackingParameter, owner.AttackingState.CurrentState == CharacterAttackingState.RangeAttacking);
+        owner.Animator.SetBool(AttackPreparingParameter, owner.AttackingState.CurrentState == CharacterAttackingState.RangeAttackPreparing);
+        owner.Animator.SetFloat(AttackPreparingSpeedAnimParameter, 1/delayBeforeAttack);
+        owner.Animator.SetFloat(AttackSpeedAnimParameter, 1/attackTime);
         
     }
 

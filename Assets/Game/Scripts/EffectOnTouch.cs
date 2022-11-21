@@ -20,6 +20,10 @@ public class EffectOnTouch : MonoBehaviour
     [Tooltip("Эффекты, которые будут заложены изначально, не зависят от характеристик")]
     [SerializeField]
     protected EffectDescription[] startEffects;
+
+    [Tooltip("Эффекты, которые будут заложены изначально, не зависят от характеристик и при этом накладываются сквозь щит")] 
+    [SerializeField]
+    protected EffectDescription[] startThroughShieldEffects;
     [Tooltip("Толчок придаваемый объекту при соприкосновении")]
     [SerializeField]
     protected Vector2 knockBack;
@@ -47,6 +51,8 @@ public class EffectOnTouch : MonoBehaviour
     protected MMFeedbacks hitShieldFeedback;
     
     protected List<Effect> _effects;
+
+    protected List<Effect> throughShieldEffects;
     
     protected Health objectHealth;
     protected Rigidbody2D rigidBody;
@@ -64,10 +70,16 @@ public class EffectOnTouch : MonoBehaviour
         _effects.Add(ef);
     }
 
+    public void AddThroughShieldEffect(Effect ef)
+    {
+        throughShieldEffects.Add(ef);
+    }
+
     protected void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         _effects=new List<Effect>();
+        throughShieldEffects=new List<Effect>();
         collidingObjects = new Dictionary<Collider2D,float>();
        /* if (startEffects != null)
         {
@@ -124,7 +136,15 @@ public class EffectOnTouch : MonoBehaviour
     protected void OnCollideWithShield(Shield shield)
     {
         hitShieldFeedback?.PlayFeedbacks();
-        
+        var propertyManager = shield.OwnerCollider.GetComponent<PropertyManager>();
+        if (propertyManager != null)
+        {
+            for (int i = 0; i < throughShieldEffects.Count; i++)
+            {
+                propertyManager.AddEffect(throughShieldEffects[i]);
+            }
+        }
+
         ApplyKnockback(shield.OwnerCollider.attachedRigidbody,shield.KnockBackModifier);
         
         objectHealth?.DoDamage(900000);
@@ -169,8 +189,9 @@ public class EffectOnTouch : MonoBehaviour
         {
 
             return;
-        }
-            collidingObjects.Add(other,0);
+        } 
+        Debug.Log(other.gameObject.name);
+        collidingObjects.Add(other,0);
     }
 
     protected void HandleCollidedObjects()
@@ -263,6 +284,7 @@ public class EffectOnTouch : MonoBehaviour
     public void ClearEffects()
     {
         _effects.Clear();
+        throughShieldEffects.Clear();
     }
     /// <summary>
     /// Очищаем эффекты, чтобы они не стакались
@@ -290,6 +312,14 @@ public class EffectOnTouch : MonoBehaviour
                 AddEffect(new Effect(startEffects[i]));
             }
             //Debug.Log(gameObject.name + "effects count: "+startEffects.Length);
+        }
+
+        if (startThroughShieldEffects != null)
+        {
+            for (int i = 0; i < startThroughShieldEffects.Length; i++)
+            {
+                AddThroughShieldEffect(new Effect(startThroughShieldEffects[i]));
+            }
         }
     }
 
