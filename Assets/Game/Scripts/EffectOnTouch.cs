@@ -257,7 +257,7 @@ public class EffectOnTouch : MonoBehaviour
 
         if (ignoreOwnerCollision)
         {
-            Physics2D.IgnoreCollision(owner.GetComponent<Collider2D>(),GetComponent<Collider2D>());
+            Physics2D.IgnoreCollision(owner.GetComponent<Collider2D>(),GetComponentInChildren<Collider2D>());
         }
     }
 

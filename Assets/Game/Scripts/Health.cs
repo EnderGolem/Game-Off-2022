@@ -30,6 +30,9 @@ public class Health : PropertyObject
     
     protected ObjectProperty hProperty;
 
+    protected bool isAlive = true;
+
+    public bool IsAlive => isAlive;
 
     public override void Initialize()
     {
@@ -59,6 +62,7 @@ public class Health : PropertyObject
 
     protected void Kill()
     {
+        isAlive = false;
         if (owner != null)
         {
             owner.Kill();
