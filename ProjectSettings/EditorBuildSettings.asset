@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Game/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 0
-    path: Assets/Game/Scenes/TilemapTest.unity
+    path: Assets/Game/Scenes/Forest.unity
     guid: b5270ab37a125564a9b153dc9e3eb929
   - enabled: 0
     path: Assets/Game/Scenes/RagdollTest.unity

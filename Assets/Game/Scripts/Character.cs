@@ -80,6 +80,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     protected MMFeedbacks groundedFeedback;
 
     public float CoyoteTime => coyoteTime;
+    
 
     protected Vector2 curMoveInputDir;
     private void Awake()
@@ -259,5 +260,5 @@ public enum CharacterMovementsStates
 
 public enum CharacterAttackingState
 {
-    Idle, Attacking, RangeAttacking,Blocking, Reloading, AttackPreparing
+    Idle, Attacking, RangeAttacking,Blocking, Reloading, AttackPreparing, RangeAttackPreparing
 }
