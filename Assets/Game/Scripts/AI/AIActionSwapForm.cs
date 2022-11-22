@@ -16,4 +16,4 @@ public class AIActionSwapForm : AIAction
         _swapForm.changeForm();
     }
 }
-}
+
