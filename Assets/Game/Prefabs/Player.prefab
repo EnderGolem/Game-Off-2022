@@ -95,6 +95,37 @@ Transform:
   m_Father: {fileID: 8434176433734082512}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &632695347635564442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2833328791876339821}
+  m_Layer: 8
+  m_Name: CameraTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2833328791876339821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632695347635564442}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8762855600621893994}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &638102532729790343
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +232,7 @@ MonoBehaviour:
   - {fileID: 4357077427084945277}
   - {fileID: 2808659708588828722}
   m_Bounds:
-    m_Center: {x: -0.06835818, y: -0.28875384, z: 0.04}
+    m_Center: {x: -0.06835818, y: -0.28875384, z: 0.029999997}
     m_Extent: {x: 0.51166093, y: 0.35406926, z: 0.029999997}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -4252,7 +4283,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 3402660764577083906}
   m_Bounds:
-    m_Center: {x: -0.003534019, y: -0.28688037, z: 0.03}
+    m_Center: {x: -0.003534019, y: -0.28688037, z: 0.02}
     m_Extent: {x: 0.36519516, y: 0.214239, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -4738,7 +4769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c46e33478be8946a160790080d5c13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  head: {fileID: 8762855600621893994}
+  cameraTarget: {fileID: 2833328791876339821}
 --- !u!1 &6143113599876708462
 GameObject:
   m_ObjectHideFlags: 0
@@ -6231,12 +6262,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7823654941585048528}
   m_LocalRotation: {x: 0, y: 0, z: 0.048591353, w: 0.99881876}
-  m_LocalPosition: {x: 0.8882501, y: -0.00000041414845, z: 0.01}
+  m_LocalPosition: {x: 0.8882501, y: -0.00000041414845, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3742406698737421645}
   - {fileID: 3402660764577083906}
+  - {fileID: 2833328791876339821}
   m_Father: {fileID: 7508191647993292508}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6457,7 +6489,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8219393832730462698}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1.6110842, y: 1.4146272, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7232,7 +7264,7 @@ MonoBehaviour:
   abilityPermitted: 1
   jumpHeight: 3.25
   jumpTimeToApex: 0.5
-  jumpForce: 20
+  jumpForce: 13
   jumpCutGravityMult: 2
   jumpHangGravityMult: 0.882
   jumpHangTimeThreshold: 0

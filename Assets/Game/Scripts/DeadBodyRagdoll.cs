@@ -10,7 +10,7 @@ public class DeadBodyRagdoll : MonoBehaviour
     IKManager2D manager = null;
     Animator    animator = null;
     Character owner;
-    [SerializeField] Transform head;
+    [SerializeField] Transform cameraTarget;
     private void Awake()
     {
         transform.parent?.TryGetComponent(out owner);
@@ -45,7 +45,7 @@ public class DeadBodyRagdoll : MonoBehaviour
             if (owner.gameObject.tag=="Player")
             {
                 var cam = Camera.main.GetComponent<CameraTracking>();
-                cam.SetTrackingObject(head);
+                cam.SetTrackingObject(cameraTarget);
                 cam.SetZoom(4);
                 Time.timeScale = 0.25f;
             }
