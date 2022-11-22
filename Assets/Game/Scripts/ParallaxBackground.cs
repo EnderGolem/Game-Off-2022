@@ -13,10 +13,18 @@ public class ParallaxBackground : MonoBehaviour
     {
         if (!followingTarget)
             followingTarget = Camera.main.transform;
+        
+        targetPreviousPosition = transform.parent.position;
+        var delta = followingTarget.position - targetPreviousPosition;
+        if (disableVertivalParallax)
+            delta.y = 0f;
+
         targetPreviousPosition = followingTarget.position;
+
+        transform.Translate(delta * parallaxStrength);
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         var delta = followingTarget.position - targetPreviousPosition;
 
