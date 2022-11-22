@@ -858,7 +858,7 @@ GameObject:
   - component: {fileID: 3395015565881066679}
   - component: {fileID: 2046835811}
   m_Layer: 15
-  m_Name: SwadsMan
+  m_Name: SwordsMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
