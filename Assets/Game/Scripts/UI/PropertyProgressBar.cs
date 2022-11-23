@@ -14,7 +14,7 @@ namespace MoreMountains.Tools
 		protected string propertyName;
 		protected ObjectProperty property;
 
-		protected virtual void Start()
+		protected virtual void Awake()
 		{
 			_progressBar = GetComponent<MMProgressBar>();
 		}
