@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.U2D.IK;
 
@@ -44,9 +45,9 @@ public class DeadBodyRagdoll : MonoBehaviour
             transform.SetParent(null);
             if (owner.gameObject.tag=="Player")
             {
-                var cam = Camera.main.GetComponent<CameraTracking>();
-                cam.SetTrackingObject(cameraTarget);
-                cam.SetZoom(4);
+                var cam = Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
+                cam.Follow = cameraTarget;
+                (cam as CinemachineVirtualCamera).m_Lens.OrthographicSize = 4;
                 Time.timeScale = 0.25f;
             }
             //dublicate.transform.localScale = transform.parent.localScale;

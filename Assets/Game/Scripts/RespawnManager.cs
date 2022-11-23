@@ -1,3 +1,4 @@
+using Cinemachine;
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
@@ -57,9 +58,9 @@ public class RespawnManager : MonoBehaviour
             healthBar.SetOwner(owner.player);
             enduranceBar.SetOwner(owner.player);
             DeadScreen.SetActive(false);
-            var cam = Camera.main.GetComponent<CameraTracking>();
-            cam.SetTrackingObject(owner.player.cameraTarget);
-            cam.SetZoom(5);
+            var cam = Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
+            cam.Follow = owner.player.cameraTarget;
+            cam.m_Lens.OrthographicSize = 5;
             Time.timeScale = 1f;
         }
     }
