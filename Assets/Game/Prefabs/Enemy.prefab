@@ -78,6 +78,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   startEffects: []
+  startThroughShieldEffects: []
   knockBack: {x: 20, y: -30}
   useAutoDisable: 0
   autoDisableTime: 0
@@ -148,6 +149,7 @@ GameObject:
   - component: {fileID: 1251703485}
   - component: {fileID: 3837762958326460412}
   - component: {fileID: 1251703487}
+  - component: {fileID: 1594003322}
   m_Layer: 15
   m_Name: Enemy
   m_TagString: Untagged
@@ -413,10 +415,13 @@ MonoBehaviour:
   delayBeforeAttacking: 0
   activeDamageZoneTime: 0.2
   delayAfterAttack: 0.3
+  timeBetweenAttacks: 0
   baseDamage: 2
+  baseDamageToEThroughShield: 0
   enduranceCost: 0
   attackEffects:
   - {fileID: 11400000, guid: de9d88e45a44181448792b71ade4e445, type: 2}
+  throughShieldEffects: []
   startAttackFeedback: {fileID: 0}
 --- !u!114 &8531881708087240750
 MonoBehaviour:
@@ -472,14 +477,25 @@ MonoBehaviour:
   projStartPos: {fileID: 5014556020853272764}
   spawnAngleOffset: 30
   delayBeforeAttack: 0
+  attackTime: 0
   delayAfterAttack: 0.3
+  timeBetweenAttacks: 0
   baseDamage: 0
+  baseDamageToEThroughShield: 0
   attackEffects:
   - {fileID: 11400000, guid: 60e37015eeb934e46805e0552551a9a0, type: 2}
+  throughShieldEffects: []
   UseInventoryToManageAmmo: 0
   weaponName: 
   UseBalliscticToTarget: 1
   UseCursorToAimBallistic: 0
+  holdShootToAim: 0
+  aimIK: 0
+  aimAlways: 0
+  aimSolver: {fileID: 0}
+  projStartPosDistToCenter: 0
+  IKtarget: {fileID: 0}
+  IKMoveSpeed: 0
   shotFeedback: {fileID: 0}
 --- !u!114 &2098602738926737887
 MonoBehaviour:
@@ -518,7 +534,7 @@ MonoBehaviour:
     Transitions:
       array:
       - Decision: {fileID: 3837762958326460387}
-        TrueState: Shoot
+        TrueState: Teleport back
         FalseState: 
   - StateName: Shoot
     Actions:
@@ -541,6 +557,12 @@ MonoBehaviour:
       - Decision: {fileID: 1251703486}
         TrueState: 
         FalseState: Shoot
+  - StateName: Teleport back
+    Actions:
+      array:
+      - {fileID: 1594003322}
+    Transitions:
+      array: []
   TimeInThisState: 0
   Target: {fileID: 0}
   _lastKnownTargetPosition: {x: 0, y: 0, z: 0}
@@ -617,8 +639,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ea825ca6ffe21242bbef38bf950c0ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Label: 
-  height: 5
+  Label: Big
+  height: 1
   length: 10
   DownDetection: 0
   DetectionOriginOffset: {x: 0, y: 0, z: 0}
@@ -644,7 +666,7 @@ MonoBehaviour:
   Label: 
   startPos: {x: 0, y: 0}
   isLeft: 0
-  length: 10
+  length: 3
 --- !u!114 &3837762958326460412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,6 +695,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: 
+--- !u!114 &1594003322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4633728839478822852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7747ac6290f938c448d3b07ac1cf43fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationMode: 1
+  Label: TeleportBack
+  offsetRelativeTarget: {x: 1, y: 0}
+  targetMirror: 1
 --- !u!1 &4633728840515905771
 GameObject:
   m_ObjectHideFlags: 0
