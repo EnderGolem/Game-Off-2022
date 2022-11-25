@@ -269,15 +269,14 @@ MonoBehaviour:
   appearanceIntence: 0.05
   disappearanceIntence: 0.05
   content:
-  - <b>THE END</b>
   - '<b>AUTHORS</b>
 
-    Kozlovskii Aleksandr
+    Kozlovsky Aleksandr
 
-    Gorbachenko Grigorii
+    Gorbachenko Grigory
 
     Selina
-    Mariia
+    Maria
 
     CHumakov Viktor
 

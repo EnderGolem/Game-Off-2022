@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Tools;
@@ -70,8 +71,8 @@ public class AIDecisionDetectTargetRectangle : AIDecision
         else
         {
             //FIX странный баг, время от времени, он может не детектить, почему, понять не могу, причем он либо работает за запуск, либо нет.
-            _boxcastDirection = (Vector2)(_detectionCollider.gameObject.MMGetComponentNoAlloc<Collider2D>().bounds.center - _collider.bounds.center);       
-            RaycastHit2D hit = Physics2D.BoxCast(_collider.bounds.center, _collider.bounds.size, 0f, _boxcastDirection.normalized, _boxcastDirection.magnitude, ObstacleMask);
+            _boxcastDirection = (Vector2)(_detectionCollider.gameObject.MMGetComponentNoAlloc<Collider2D>().bounds.center - _collider.bounds.center);
+            RaycastHit2D hit = Physics2D.Linecast(_collider.bounds.center,_detectionCollider.transform.position, ObstacleMask);
          
             if (!hit)
             {   

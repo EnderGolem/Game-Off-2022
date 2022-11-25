@@ -100,6 +100,9 @@ public class DeathConnector : MonoBehaviour
                   wasConnected = true;
                 }
             }
+            var trail = GetComponentInChildren<TrailRenderer>();
+            if (trail != null)
+                trail.emitting = false;
         }
 
         collider.enabled = false;
