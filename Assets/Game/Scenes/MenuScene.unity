@@ -10496,7 +10496,11 @@ MonoBehaviour:
   AudioSect: {fileID: 1424613447}
   screenResolution: {fileID: 366885695}
   screenMode: {fileID: 155834482}
-  sliders: []
+  sliders:
+  - {fileID: 141672983}
+  - {fileID: 972419843}
+  - {fileID: 1893044939}
+  - {fileID: 401538199}
 --- !u!1 &2094625337
 GameObject:
   m_ObjectHideFlags: 0
