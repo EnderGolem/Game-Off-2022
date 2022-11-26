@@ -930,10 +930,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 141672980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac9cfdade7848754f88c32691d471c29, type: 3}
+  m_Script: {fileID: 11500000, guid: 7faf52f997922d048bd57fb1a5615a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   roundType: 2
+  trackType: 2
+  maxTrackVolume: 2
+  maxSliderValue: 100
 --- !u!1 &155834480
 GameObject:
   m_ObjectHideFlags: 0
@@ -2177,10 +2180,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 401538196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac9cfdade7848754f88c32691d471c29, type: 3}
+  m_Script: {fileID: 11500000, guid: 7faf52f997922d048bd57fb1a5615a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   roundType: 2
+  trackType: 3
+  maxTrackVolume: 2
+  maxSliderValue: 100
 --- !u!1 &405214962
 GameObject:
   m_ObjectHideFlags: 0
@@ -4391,10 +4397,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 972419840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac9cfdade7848754f88c32691d471c29, type: 3}
+  m_Script: {fileID: 11500000, guid: 7faf52f997922d048bd57fb1a5615a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   roundType: 2
+  trackType: 0
+  maxTrackVolume: 2
+  maxSliderValue: 100
 --- !u!1 &1004292433
 GameObject:
   m_ObjectHideFlags: 0
@@ -5508,6 +5517,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1258708768}
   m_CullTransparentMesh: 1
+--- !u!1 &1288213186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1288213188}
+  - component: {fileID: 1288213187}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1288213187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288213186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 614edb33c38bcf949846d5675f29f9fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AutomaticallyUnparentOnAwake: 1
+  settingsSo: {fileID: 11400000, guid: 07ea3ff88e1ecb84d91f58aa804badc6, type: 2}
+  AudioSourcePoolSize: 10
+  PoolCanExpand: 1
+--- !u!4 &1288213188
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288213186}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1291375510
 GameObject:
   m_ObjectHideFlags: 0
@@ -9691,10 +9748,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1893044936}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac9cfdade7848754f88c32691d471c29, type: 3}
+  m_Script: {fileID: 11500000, guid: 7faf52f997922d048bd57fb1a5615a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   roundType: 2
+  trackType: 1
+  maxTrackVolume: 2
+  maxSliderValue: 100
 --- !u!1 &1894540109
 GameObject:
   m_ObjectHideFlags: 0
@@ -10436,6 +10496,7 @@ MonoBehaviour:
   AudioSect: {fileID: 1424613447}
   screenResolution: {fileID: 366885695}
   screenMode: {fileID: 155834482}
+  sliders: []
 --- !u!1 &2094625337
 GameObject:
   m_ObjectHideFlags: 0
