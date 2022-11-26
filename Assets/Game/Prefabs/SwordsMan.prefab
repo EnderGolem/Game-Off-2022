@@ -851,6 +851,9 @@ GameObject:
   - component: {fileID: 3720064871914683151}
   - component: {fileID: 3395015565881066679}
   - component: {fileID: 2046835811}
+  - component: {fileID: 6508899974884959173}
+  - component: {fileID: 3126391203962581883}
+  - component: {fileID: 5633177660124798701}
   m_Layer: 15
   m_Name: SwordsMan
   m_TagString: Untagged
@@ -1112,6 +1115,18 @@ MonoBehaviour:
       - Decision: {fileID: 3720064871914683151}
         TrueState: 
         FalseState: MoveToTarget
+      - Decision: {fileID: 6508899974884959173}
+        TrueState: AttackDoNothing
+        FalseState: 
+  - StateName: AttackDoNothing
+    Actions:
+      array:
+      - {fileID: 3126391203962581883}
+    Transitions:
+      array:
+      - Decision: {fileID: 5633177660124798701}
+        TrueState: Attack
+        FalseState: 
   TimeInThisState: 0
   Target: {fileID: 0}
   _lastKnownTargetPosition: {x: 0, y: 0, z: 0}
@@ -1241,6 +1256,50 @@ MonoBehaviour:
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 512
+--- !u!114 &6508899974884959173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3182416858882852340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c784a73dda7d649b0a18abdd9679e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: TimeInAttack
+  AfterTimeMin: 2
+  AfterTimeMax: 3
+--- !u!114 &3126391203962581883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3182416858882852340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58ff72310aaa9444fb9d3217d7f26091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationMode: 0
+  Label: 
+--- !u!114 &5633177660124798701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3182416858882852340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c784a73dda7d649b0a18abdd9679e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: TimeInDoNotnig
+  AfterTimeMin: 1
+  AfterTimeMax: 1
 --- !u!1 &3182416859976559323
 GameObject:
   m_ObjectHideFlags: 0
