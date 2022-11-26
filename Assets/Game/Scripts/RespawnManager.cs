@@ -15,9 +15,11 @@ public class RespawnManager : MonoBehaviour
     [SerializeField] PropertyProgressBar healthBar;
     [SerializeField] PropertyProgressBar enduranceBar;
     [SerializeField] EscMenuUI escMenu;
+    public float fixedDeltaTimeDefault;
     bool canRespawn = false;
     public void Initialize()
     {
+        fixedDeltaTimeDefault = Time.fixedDeltaTime;
         escMenu.OnCryCravenButtonPressed.AddListener(CryCraven);
         owner.player?.OnDead.AddListener(OnPlayerDead);
         if (owner.player != null)
@@ -62,6 +64,7 @@ public class RespawnManager : MonoBehaviour
             cam.Follow = owner.player.cameraTarget;
             cam.m_Lens.OrthographicSize = 5;
             Time.timeScale = 1f;
+            Time.fixedDeltaTime = fixedDeltaTimeDefault;
         }
     }
 }
