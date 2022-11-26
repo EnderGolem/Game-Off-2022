@@ -38,10 +38,13 @@ public class MeleeAttack : CharacterAbility
     protected EffectDescription[] throughShieldEffects;
 
     [Header("Animations")] 
+    [SerializeField]
     protected string AttackPreparingParameter = "AttackPreparing";
+    [SerializeField]
     protected string AttackingParameter = "Attacking";
-
+    [SerializeField]
     protected string AttackSpeedAnimParameter = "AttackSpeed";
+    [SerializeField]
     protected string AttackPreparingSpeedAnimParameter = "AttackPreparingSpeed";
     
     [Header("Feedbacks")]

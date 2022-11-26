@@ -10,6 +10,14 @@ public class AbilityFly : CharacterAbility
     /// </summary>
     protected Vector2 curInputDir = Vector2.zero;
     protected Rigidbody2D rigidbody;
+    [SerializeField] 
+    protected float timeBeforeStartForce;
+    [Tooltip("Какое время физика не контролируется полетом после начала взлета")]
+    [SerializeField]
+    protected float startFlyTime;
+    [Tooltip("Импульс применяемый к телу при взлете")]
+    [SerializeField]
+    protected Vector2 startFlyForce;
     [Tooltip("Скорость до которой персонаж может разогнаться при беге")]
     [SerializeField]
     protected float flyMaxSpeed; //Target speed we want the player to reach.
@@ -25,18 +33,31 @@ public class AbilityFly : CharacterAbility
     [Tooltip("Гравитация персонажа во время полета")]
     [SerializeField]
     protected float flyGravityScale;
+    [SerializeField]
+    protected string flyAnimParameter = "Flying";
+    
+    [Header("Zone")]
+    [SerializeField]
+    protected Collider2D damageZone;
+    
+    protected EffectOnTouch damageZoneOnTouch;
     
     protected ObjectProperty flySpeedProperty;
-    
+    protected float bodyDefaultGravityScale;
     protected override void PreInitialize()
     {
 	    base.PreInitialize();
 	    rigidbody = owner.RigidBody;
+	    bodyDefaultGravityScale = rigidbody.gravityScale;
 	    flySpeedProperty = owner.PropertyManager.AddProperty("FlySpeed", flyMaxSpeed);
+	    damageZoneOnTouch = damageZone.GetComponent<EffectOnTouch>();
+	    damageZone.enabled = false;
+	    damageZoneOnTouch.enabled = false;
     }
 
     private void FixedUpdate()
     {
+	    //Debug.Log(owner.IsOnGround);
 	    if (CanFly())
 	    {
 		    Fly();
@@ -93,5 +114,44 @@ public class AbilityFly : CharacterAbility
     public void ProcessInput(Vector2 input)
     {
         curInputDir = input;
+    }
+
+    public void StartFly()
+    {
+	    StartCoroutine(ProcessStartFly());
+
+    }
+
+    protected IEnumerator ProcessStartFly()
+    {
+	    owner.MovementState.ChangeState(CharacterMovementsStates.Flying);
+	    yield return new WaitForSeconds(timeBeforeStartForce);
+	    rigidbody.AddForce(startFlyForce,ForceMode2D.Impulse);
+	    yield return new WaitForSeconds(startFlyTime);
+	    abilityPermitted = true;
+    }
+
+    public void StopFly()
+    {
+	    abilityPermitted = false;
+	    rigidbody.gravityScale = bodyDefaultGravityScale;
+	    owner.MovementState.ChangeState(CharacterMovementsStates.Idle);
+	    damageZone.enabled = true;
+	    damageZoneOnTouch.enabled = true;
+	    StartCoroutine(ProcessStopFly());
+    }
+
+    protected IEnumerator ProcessStopFly()
+    {
+	    yield return new WaitWhile(()=>!owner.IsOnGround);
+	    damageZone.enabled = false;
+	    damageZoneOnTouch.enabled = false;
+    }
+
+    protected override void UpdateAnimator()
+    {
+	    base.UpdateAnimator();
+	    
+	    owner.Animator.SetBool(flyAnimParameter,owner.MovementState.CurrentState==CharacterMovementsStates.Flying);
     }
 }

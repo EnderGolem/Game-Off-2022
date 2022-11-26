@@ -344,7 +344,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
+                    "name": "MouseScroll",
                     "id": "a9865e13-4999-4dab-abb7-d289991e57d7",
                     "path": "1DAxis",
                     "interactions": "",
@@ -369,6 +369,39 @@
                     "name": "positive",
                     "id": "3a97511c-6afa-4913-85a9-0e58a7908b22",
                     "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "KeyboardScroll",
+                    "id": "448f306f-74a6-455b-8533-f1dd3b524221",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Scroll",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "fe8987d7-3cbf-4816-a9c0-df027e95d968",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "31787842-ec1c-4d49-8acf-3452ffeb8a1f",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",

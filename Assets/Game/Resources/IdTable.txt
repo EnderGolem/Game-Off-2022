@@ -22,3 +22,5 @@ Effects:
 9 - ThroughShieldMeleeAttack
 10 - ThroughShieldRangeAttack
 11 - BarrelExplosionThroughShield
+12 - DragonBite
+13 - DragonBiteThroughShield
