@@ -14,8 +14,9 @@ public class RespawnManager : MonoBehaviour
     [SerializeField] GameObject DeadScreen;
     [SerializeField] PropertyProgressBar healthBar;
     [SerializeField] PropertyProgressBar enduranceBar;
+    [SerializeField] BloodScreen bloodScreen;
     [SerializeField] EscMenuUI escMenu;
-    public float fixedDeltaTimeDefault;
+    float fixedDeltaTimeDefault;
     bool canRespawn = false;
     public void Initialize()
     {
@@ -59,6 +60,7 @@ public class RespawnManager : MonoBehaviour
             owner.player.OnDead.AddListener(OnPlayerDead);
             healthBar.SetOwner(owner.player);
             enduranceBar.SetOwner(owner.player);
+            bloodScreen.SetOwner(owner.player);
             DeadScreen.SetActive(false);
             var cam = Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
             cam.Follow = owner.player.cameraTarget;
