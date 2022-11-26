@@ -14,6 +14,8 @@ public class ShieldBlock : CharacterAbility
              "Используется например для замедления игрока")]
     [SerializeField]
     protected EffectDescription[] effectsInBlock;
+    [SerializeField]
+    protected string blockAnimParameter = "Blocking";
     /// <summary>
     /// Последнее направление ввода
     /// </summary>
@@ -65,6 +67,12 @@ public class ShieldBlock : CharacterAbility
     public void ProcessInput(bool input)
     {
         curInput = input;
+    }
+
+    protected override void UpdateAnimator()
+    {
+        base.UpdateAnimator();
+        owner.Animator.SetBool(blockAnimParameter,owner.AttackingState.CurrentState == CharacterAttackingState.Blocking);
     }
 
     protected bool CanBlock()

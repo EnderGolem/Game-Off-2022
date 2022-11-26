@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using UnityEngine;
 
 public class AbilityDash : CharacterAbility
@@ -11,10 +13,17 @@ public class AbilityDash : CharacterAbility
     public int dashAmount;
     [Tooltip("Скорость персонажа при рывке")]
     public float dashSpeed;
+    [Tooltip("Дополнительный поворот для направления")]
+    [SerializeField]
+    public float dirAttackRotate;
+    [SerializeField]
+    public float dirEndRotate;
     [Tooltip("Время на которое время останавливается при использовании рывка, когда кнопка использования уже нажата, а сам рывок еще не совершен." +
              "Рекомендую устанавливать на крайне маленькое значение, чтобы замедление было почти не заметно" +
              "Но при этом игрок бы успел выбрать направление рывка")]
     public float dashSleepTime; //Duration for which the game freezes when we press dash but before we read directional input and apply a force
+
+    public float timeBeforeDash;
     [Space(5)]
     [Tooltip("Время исполнения дэша")]
     public float dashAttackTime;
@@ -22,7 +31,7 @@ public class AbilityDash : CharacterAbility
     [Tooltip("Время, между рывками из одной серии")]
     public float dashEndTime; //Time after you finish the inital drag phase, smoothing the transition back to idle (or any standard state)
     [Tooltip("Вектор скорости персонажа после завершения дэша относительно вектора его направления")]
-    public Vector2 dashEndSpeed; //Slows down player, makes dash feel more responsive (used in Celeste)
+    public float dashEndSpeed; //Slows down player, makes dash feel more responsive (used in Celeste)
     //[Range(0f, 1f)] public float dashEndRunLerp; //Slows the affect of player movement while dashing
     [Space(5)]
     [Tooltip("Время перезарядки заряда рывка, начиная от момента, когда персонаж касается земли")]
@@ -31,10 +40,16 @@ public class AbilityDash : CharacterAbility
     [Tooltip("Если игрок нажмет на использование рывка чуть раньше, чем это возможно, но при этом попадет в этот буфер," +
              "то рывок будет исполнен, как только это станет возможно")]
     [Range(0.01f, 0.5f)] public float dashInputBufferTime;
+    [SerializeField]
+    protected CharacterMovementsStates[] blockingMovementStates;
     [Tooltip("варианты возможных направлений для рывка")]
     public DashType dashType;
     [Tooltip("Физический слой к которому принадлежит персонаж во время рывка")]
     public string LayerWhileDashing;
+    [SerializeField]
+    protected string dashAnimParameter = "Dashing";
+    [SerializeField] 
+    protected string dashSpeedAnimParameter = "DashingSpeed";
     [SerializeField]
     protected MMFeedbacks dashFeedback;
     /// <summary>
@@ -140,7 +155,7 @@ public class AbilityDash : CharacterAbility
             _lastDashDir = owner.IsFacingRight ? Vector2.right : Vector2.left;
         }
         
-
+        yield return new WaitForSeconds(timeBeforeDash);
         StartCoroutine(nameof(Dash), _lastDashDir);
     }
 
@@ -159,9 +174,16 @@ public class AbilityDash : CharacterAbility
         int layer = gameObject.layer;
         gameObject.layer = LayerMask.NameToLayer(LayerWhileDashing);
         //We keep the player's velocity at the dash speed during the "attack" phase (in celeste the first 0.15s)
+        float rot;
         while (Time.time - startTime <= dashAttackTime)
         {
-            rigidbody.velocity = dir.normalized * dashSpeed;
+            rot = dirAttackRotate;
+            if (owner.IsFacingRight)
+            {
+                rot = -rot;
+            }
+
+            rigidbody.velocity = dir.MMRotate(rot).normalized * dashSpeed;
             //Pauses the loop until the next frame, creating something of a Update loop. 
             //This is a cleaner implementation opposed to multiple timers and this coroutine approach is actually what is used in Celeste :D
             yield return null;
@@ -172,7 +194,12 @@ public class AbilityDash : CharacterAbility
 
         //Begins the "end" of our dash where we return some control to the player but still limit run acceleration (see Update() and Run())
         owner.SetGravityScale(owner.gravityScale);
-        rigidbody.velocity = dashEndSpeed * dir.normalized;
+        rot = dirEndRotate;
+        if (owner.IsFacingRight)
+        {
+            rot = -rot;
+        }
+        rigidbody.velocity = dashEndSpeed * dir.MMRotate(rot).normalized;
         gameObject.layer = layer;
         while (Time.time - startTime <= dashEndTime)
         {
@@ -207,7 +234,16 @@ public class AbilityDash : CharacterAbility
             StartCoroutine(nameof(RefillDash), 1);
         }
 
-        return _dashesLeft > 0 && owner.MovementState.CurrentState != CharacterMovementsStates.Dashing && AbilityAuthorized;
+        return _dashesLeft > 0 && owner.MovementState.CurrentState != CharacterMovementsStates.Dashing
+               && !(blockingMovementStates.Contains(owner.MovementState.CurrentState)) 
+               && owner.AttackingState.CurrentState == CharacterAttackingState.Idle && AbilityAuthorized;
+    }
+
+    protected override void UpdateAnimator()
+    {
+        base.UpdateAnimator();
+        owner.Animator.SetBool(dashAnimParameter,owner.MovementState.CurrentState==CharacterMovementsStates.Dashing);
+        owner.Animator.SetFloat(dashSpeedAnimParameter,1/(timeBeforeDash+dashAttackTime+dashEndTime));
     }
 }
 
