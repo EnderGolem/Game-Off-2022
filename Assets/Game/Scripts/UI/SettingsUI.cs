@@ -12,7 +12,7 @@ public class SettingsUI : MonoBehaviour
     public TMP_Dropdown screenMode;
     public void Show()
     {
-        //Задать для dropdown-элемента текущее разрешение
+        //Р—Р°РґР°С‚СЊ РґР»СЏ dropdown-СЌР»РµРјРµРЅС‚Р° С‚РµРєСѓС‰РµРµ СЂР°Р·СЂРµС€РµРЅРёРµ
         for (int i = 0; i<screenResolution.options.Count; i++)
         {
             if (screenResolution.options[i].text == $"{Screen.width} x {Screen.height}")
@@ -20,7 +20,7 @@ public class SettingsUI : MonoBehaviour
                 screenResolution.value = i;
             }
         }
-        //Задать для dropdown-элемента текущий режим экрана
+        //Р—Р°РґР°С‚СЊ РґР»СЏ dropdown-СЌР»РµРјРµРЅС‚Р° С‚РµРєСѓС‰РёР№ СЂРµР¶РёРј СЌРєСЂР°РЅР°
         for (int i = 0; i < screenMode.options.Count; i++)
         {
             if (screenMode.options[i].text == Screen.fullScreenMode.ToString())

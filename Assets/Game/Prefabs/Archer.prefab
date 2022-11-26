@@ -200,8 +200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d7a3c5c532abff419e87cf70f8b0ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  initialHealth: 3
+  maxHealth: 8
+  initialHealth: 8
   destroyOnDeath: 1
   timeBeforeDestruction: 0
   damageFeedback: {fileID: 0}
@@ -299,6 +299,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: de9d88e45a44181448792b71ade4e445, type: 2}
   throughShieldEffects:
   - {fileID: 11400000, guid: 5cac96bea02f43c42a7e27c0117e1601, type: 2}
+  AttackPreparingParameter: AttackPreparing
+  AttackingParameter: Attacking
+  AttackSpeedAnimParameter: AttackSpeed
+  AttackPreparingSpeedAnimParameter: AttackPreparingSpeed
   startAttackFeedback: {fileID: 0}
 --- !u!114 &8392162823263601579
 MonoBehaviour:
@@ -390,6 +394,7 @@ MonoBehaviour:
   TargetLayer:
     serializedVersion: 2
     m_Bits: 256
+  fixTarget: 1
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 0
@@ -461,6 +466,7 @@ MonoBehaviour:
   TargetLayer:
     serializedVersion: 2
     m_Bits: 256
+  fixTarget: 1
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 0
@@ -484,6 +490,7 @@ MonoBehaviour:
   TargetLayer:
     serializedVersion: 2
     m_Bits: 256
+  fixTarget: 1
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 0
@@ -544,6 +551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: 
+  _meleeAttack: {fileID: 0}
 --- !u!114 &4744905264382212903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -809,7 +817,7 @@ MonoBehaviour:
     m_Bits: 33609
   startEffects: []
   startThroughShieldEffects: []
-  knockBack: {x: 20, y: 30}
+  knockBack: {x: 20, y: 0}
   useAutoDisable: 0
   autoDisableTime: 0
   ignoreOwnerCollision: 0
