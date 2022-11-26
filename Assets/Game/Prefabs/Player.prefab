@@ -888,7 +888,7 @@ GameObject:
   - component: {fileID: 5011387088138078729}
   - component: {fileID: 8020736320919202553}
   - component: {fileID: 643976645052513550}
-  m_Layer: 8
+  m_Layer: 17
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}

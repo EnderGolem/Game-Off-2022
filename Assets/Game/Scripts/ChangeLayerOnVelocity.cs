@@ -21,13 +21,14 @@ public class ChangeLayerOnVelocity : MonoBehaviour
     [SerializeField] private float minTimeBetweenChanges = 1f;
     // Update is called once per frame
     private Rigidbody2D _rigidbody2D;
-
+    private Collider2D _collider;
     private bool hasChanged;
 
     private float lastChangeTime;
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
         lastChangeTime = Time.time;
     }
 
@@ -38,6 +39,7 @@ public class ChangeLayerOnVelocity : MonoBehaviour
             if (_rigidbody2D.velocity.sqrMagnitude > velocityThreshold 
                 || (useAngularVelocity && _rigidbody2D.angularVelocity> angularVelocityThreshold))
             {
+                _collider.usedByEffector = false;
                 gameObject.layer = LayerMask.NameToLayer(new_layer);
                 hasChanged = true;
                 lastChangeTime = Time.time;

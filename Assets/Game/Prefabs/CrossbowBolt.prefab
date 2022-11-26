@@ -125,7 +125,7 @@ MonoBehaviour:
   DamageTakenNonDamageable: 0
   targetLayer:
     serializedVersion: 2
-    m_Bits: 33609
+    m_Bits: 164681
   startEffects: []
   startThroughShieldEffects: []
   knockBack: {x: 25, y: 0}
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mask:
     serializedVersion: 2
-    m_Bits: 33353
+    m_Bits: 164425
 --- !u!61 &8804747611538193576
 BoxCollider2D:
   m_ObjectHideFlags: 0
