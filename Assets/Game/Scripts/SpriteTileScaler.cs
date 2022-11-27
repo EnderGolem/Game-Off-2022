@@ -70,7 +70,7 @@ public class SpriteTileScaler : MonoBehaviour
         }
         else
         {
-            ResetScaling();
+           ResetScaling();
         }
 #endif
     }
@@ -79,7 +79,10 @@ public class SpriteTileScaler : MonoBehaviour
     public void ResetScaling()
     {
         _renderer = GetComponent<SpriteRenderer>();
-        ownStartScale = transform.localScale;
-        scalableStartScale = scalableObject.transform.localScale;
+        //ownStartScale = transform.localScale;
+        ownStartScale = new Vector3(1,0.75f,1);
+        //scalableStartScale = scalableObject.transform.localScale;
+        scalableStartScale = new Vector3(1,1,1);
     }
+    
 }
