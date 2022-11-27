@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ReloadAbility : CharacterAbility
 {
@@ -80,5 +81,10 @@ public class ReloadAbility : CharacterAbility
    {
       return AbilityAuthorized && owner.AttackingState.CurrentState == CharacterAttackingState.Idle
          && _inventoryHandler.CanReload(weaponName);
+   }
+
+   public void EndReloading()
+   {
+      owner.onReload?.Invoke();
    }
 }

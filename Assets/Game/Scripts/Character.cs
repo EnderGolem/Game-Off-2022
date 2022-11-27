@@ -15,6 +15,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
 
     public UnityEvent<Character> OnCreate;
     public UnityEvent<Character> OnDead;
+    public UnityEvent onReload;
     public Transform cameraTarget;
 
     public Animator Animator => animator;
