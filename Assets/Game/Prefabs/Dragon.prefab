@@ -139,14 +139,14 @@ GameObject:
   - component: {fileID: 5843004107085466582}
   - component: {fileID: 7481477596896945696}
   - component: {fileID: 6899074368805352016}
-  - component: {fileID: 4348043141863841066}
   - component: {fileID: 680657226592841707}
   - component: {fileID: 6621027854959470351}
   - component: {fileID: 5359828218568129931}
   - component: {fileID: 9123021093433241962}
-  - component: {fileID: 8593021570330400455}
   - component: {fileID: 3920081254786680281}
   - component: {fileID: 5324289837384784270}
+  - component: {fileID: 7079025817470421080}
+  - component: {fileID: 437499875079425320}
   m_Layer: 15
   m_Name: Dragon
   m_TagString: Untagged
@@ -335,7 +335,7 @@ MonoBehaviour:
       - Decision: {fileID: 6899074368805352016}
         TrueState: Biting
         FalseState: 
-      - Decision: {fileID: 4348043141863841066}
+      - Decision: {fileID: 437499875079425320}
         TrueState: Flying
         FalseState: 
       - Decision: {fileID: 5324289837384784270}
@@ -353,7 +353,7 @@ MonoBehaviour:
       - {fileID: 7481477596896945696}
     Transitions:
       array:
-      - Decision: {fileID: 4348043141863841066}
+      - Decision: {fileID: 0}
         TrueState: DoNothing
         FalseState: 
   - StateName: Flying
@@ -362,7 +362,7 @@ MonoBehaviour:
       - {fileID: 9123021093433241962}
     Transitions:
       array:
-      - Decision: {fileID: 8593021570330400455}
+      - Decision: {fileID: 437499875079425320}
         TrueState: DoNothing
         FalseState: 
       - Decision: {fileID: 3920081254786680281}
@@ -435,20 +435,6 @@ MonoBehaviour:
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 9
---- !u!114 &4348043141863841066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1239921514505421187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 536d6ab77db54d24098f2bdde2503305, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Label: BiteTime
-  maxTimeInState: 1.3
 --- !u!114 &680657226592841707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,20 +588,6 @@ MonoBehaviour:
   InitializationMode: 0
   Label: FlyAlign
   flyDir: {x: 1, y: 0}
---- !u!114 &8593021570330400455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1239921514505421187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 536d6ab77db54d24098f2bdde2503305, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Label: FlyMaxTime
-  maxTimeInState: 30
 --- !u!114 &3920081254786680281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -664,6 +636,36 @@ MonoBehaviour:
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &7079025817470421080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239921514505421187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c784a73dda7d649b0a18abdd9679e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: BiteTime
+  AfterTimeMin: 1.3
+  AfterTimeMax: 1.3
+--- !u!114 &437499875079425320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239921514505421187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c784a73dda7d649b0a18abdd9679e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: FlyTime
+  AfterTimeMin: 8
+  AfterTimeMax: 12
 --- !u!1 &2332639396269511058
 GameObject:
   m_ObjectHideFlags: 0
