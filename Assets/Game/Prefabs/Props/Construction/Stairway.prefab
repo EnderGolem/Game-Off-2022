@@ -378,6 +378,7 @@ MonoBehaviour:
   useAngularVelocity: 1
   angularVelocityThreshold: 10
   angularVelocityLowerThreshold: 0.5
+  changeChildrenLayer: 1
   minTimeBetweenChanges: 1
 --- !u!114 &5826838069966579730
 MonoBehaviour:

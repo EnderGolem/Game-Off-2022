@@ -41,6 +41,7 @@ public class ChangeLayerOnVelocity : MonoBehaviour
             if (_rigidbody2D.velocity.sqrMagnitude > velocityThreshold 
                 || (useAngularVelocity && _rigidbody2D.angularVelocity> angularVelocityThreshold))
             {
+                if(_collider!=null)
                 _collider.usedByEffector = false;
                 gameObject.layer = LayerMask.NameToLayer(new_layer);
                 if (changeChildrenLayer)
@@ -50,6 +51,7 @@ public class ChangeLayerOnVelocity : MonoBehaviour
                         transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer(new_layer);
                     }   
                 }
+                Debug.Log("Change");
                 hasChanged = true;
                 lastChangeTime = Time.time;
             }
