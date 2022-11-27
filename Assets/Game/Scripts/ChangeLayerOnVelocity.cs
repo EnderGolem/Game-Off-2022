@@ -17,6 +17,8 @@ public class ChangeLayerOnVelocity : MonoBehaviour
     private float angularVelocityThreshold=10;
     [SerializeField] 
     private float angularVelocityLowerThreshold=0.5f;
+    [SerializeField]
+    private bool changeChildrenLayer;
 
     [SerializeField] private float minTimeBetweenChanges = 1f;
     // Update is called once per frame
@@ -39,8 +41,17 @@ public class ChangeLayerOnVelocity : MonoBehaviour
             if (_rigidbody2D.velocity.sqrMagnitude > velocityThreshold 
                 || (useAngularVelocity && _rigidbody2D.angularVelocity> angularVelocityThreshold))
             {
+                if(_collider!=null)
                 _collider.usedByEffector = false;
                 gameObject.layer = LayerMask.NameToLayer(new_layer);
+                if (changeChildrenLayer)
+                {
+                    for (int i = 0; i < transform.childCount; i++)
+                    {
+                        transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer(new_layer);
+                    }   
+                }
+                Debug.Log("Change");
                 hasChanged = true;
                 lastChangeTime = Time.time;
             }
@@ -50,6 +61,13 @@ public class ChangeLayerOnVelocity : MonoBehaviour
                            && (_rigidbody2D.angularVelocity < angularVelocityLowerThreshold || !useAngularVelocity))
             {
                 gameObject.layer = LayerMask.NameToLayer("BackgroundInteractables");
+                if (changeChildrenLayer)
+                {
+                    for (int i = 0; i < transform.childCount; i++)
+                    {
+                        transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer("BackgroundInteractables");
+                    }   
+                }
                 lastChangeTime = Time.time;
             }
         }
