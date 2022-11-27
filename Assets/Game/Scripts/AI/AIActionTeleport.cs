@@ -30,6 +30,8 @@ public class AIActionTeleport : AIAction
         _character = _brain.Target.GetComponent<Character>();
         var newPosition = (Vector2)_brain.Target.position;
         int direction = 1;
+        if(_character == null)
+            return;
         if (!_character.IsFacingRight)
             direction *= -1;
         if(targetMirror)

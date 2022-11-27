@@ -9,6 +9,7 @@ public class Overlay : MonoBehaviour
     PauseGame pauseGame;
     RespawnManager respawnManager;
     public BloodScreen bloodScreen;
+    public BoltsCounter boltsCounter;
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class Overlay : MonoBehaviour
         pauseGame.Initialize();
         respawnManager.Initialize();
         bloodScreen.SetOwner(player);
+        boltsCounter.SetOwner(player);
         var bars = GetComponentsInChildren<PropertyProgressBar>();
         foreach (var x in bars)
         {
