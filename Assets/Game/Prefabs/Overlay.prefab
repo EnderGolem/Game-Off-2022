@@ -6644,7 +6644,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b27d5b302feaf8a4c9c41e4c7e13e5a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overlay: {fileID: -8586507644018081295}
   owner: {fileID: 0}
   propertyName: Endurance
 --- !u!1 &5959810876959164579
@@ -6663,6 +6662,7 @@ GameObject:
   - component: {fileID: -8586507644018081295}
   - component: {fileID: 5959810876959164605}
   - component: {fileID: 5959810876959164604}
+  - component: {fileID: 1681092943331347127}
   m_Layer: 0
   m_Name: Overlay
   m_TagString: Untagged
@@ -6902,6 +6902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  bloodScreen: {fileID: 1681092943331347127}
 --- !u!114 &5959810876959164605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6934,7 +6935,20 @@ MonoBehaviour:
   DeadScreen: {fileID: 7444538036392104201}
   healthBar: {fileID: 5959810878214567533}
   enduranceBar: {fileID: 5884104067449820106}
+  bloodScreen: {fileID: 1681092943331347127}
   escMenu: {fileID: 1461413770118359133}
+--- !u!114 &1681092943331347127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5959810876959164579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a432d84666df1d34e9035b65a0a01adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5959810877173596370
 GameObject:
   m_ObjectHideFlags: 0
@@ -7442,7 +7456,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b27d5b302feaf8a4c9c41e4c7e13e5a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overlay: {fileID: -8586507644018081295}
   owner: {fileID: 0}
   propertyName: Health
 --- !u!1 &6059524990688971016
@@ -9517,7 +9530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.1254902}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.0627451}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
