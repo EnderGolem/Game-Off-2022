@@ -67,6 +67,7 @@ public class RespawnManager : MonoBehaviour
             cam.m_Lens.OrthographicSize = 5;
             Time.timeScale = 1f;
             Time.fixedDeltaTime = fixedDeltaTimeDefault;
+            RecoverableObjects.instance?.Recovery();
         }
     }
 }

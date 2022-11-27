@@ -128,6 +128,11 @@ public class InventoryHandler : MonoBehaviour
             ammunition[ammoName] += count;
         }
     }
+
+    public int GetCount(string item)
+    {
+        return ammunition[item];
+    }
 }
 [Serializable]
 public class Ammunition
