@@ -115,6 +115,7 @@ public class EffectOnTouch : MonoBehaviour
     {
         for (int i = 0; i < _effects.Count; i++)
         {
+            Debug.Log(_effects.Count + " "+gameObject.name);
             propertyManager.AddEffect(_effects[i]);
         }
         var body = propertyManager.GetComponent<Rigidbody2D>();

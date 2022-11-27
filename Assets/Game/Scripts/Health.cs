@@ -83,6 +83,7 @@ public class Health : PropertyObject
     protected void OnHealthChanged(float oldCurValue, float newCurValue, float oldValue, float newValue)
     {
         damageFeedback?.PlayFeedbacks();
+        //Debug.Log($"Damage: {oldCurValue - newCurValue}");
         OnDamage?.Invoke(oldCurValue - newCurValue);
         CheckDeath();
     }

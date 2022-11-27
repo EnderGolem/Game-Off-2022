@@ -28,3 +28,7 @@ Effects:
 15 - DragonTailHitThroughShield
 16 - DragonCloseAttack
 17 - DragonCloseAttackThroughShield
+18 - DragonFireball
+19 - DragonFireballThroughShield
+20 - VampireDashEffect
+21 - VampireDashThroughShield

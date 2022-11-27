@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 188732072717986306}
   - component: {fileID: 188732072717986307}
   - component: {fileID: 9062165416485910411}
-  - component: {fileID: 4452396882366527592}
   m_Layer: 12
   m_Name: FireBall
   m_TagString: Untagged
@@ -54,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1
   initialHealth: 1
-  destroyOnDeath: 0
+  destroyOnDeath: 1
   timeBeforeDestruction: 0
   damageFeedback: {fileID: 0}
   OnKillFeedback: {fileID: 0}
@@ -73,7 +72,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0.4
+  m_GravityScale: 0.05
   m_Material: {fileID: 0}
   m_Interpolate: 2
   m_SleepingMode: 0
@@ -125,8 +124,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 164681
   startEffects:
-  - {fileID: 11400000, guid: 60e37015eeb934e46805e0552551a9a0, type: 2}
-  startThroughShieldEffects: []
+  - {fileID: 11400000, guid: 51c002b722c8c594d891d3576b3b3499, type: 2}
+  startThroughShieldEffects:
+  - {fileID: 11400000, guid: b2265ca87d902e54eb7157547a292738, type: 2}
   knockBack: {x: 10, y: 0}
   useAutoDisable: 0
   autoDisableTime: 0
@@ -150,21 +150,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TimeDestructionMode: 0
   TimeBeforeDestruction: 20
---- !u!114 &4452396882366527592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 188732072717986314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0e93864a3251fe4785373b76e718dde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mask:
-    serializedVersion: 2
-    m_Bits: 131913
 --- !u!1 &1631572947853324541
 GameObject:
   m_ObjectHideFlags: 0
