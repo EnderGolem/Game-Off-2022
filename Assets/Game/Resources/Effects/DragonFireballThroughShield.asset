@@ -20,7 +20,7 @@ MonoBehaviour:
   impacts:
   - targetId: 1
     type: 0
-    defaultValue: 10
+    defaultValue: 0
     propertyId: -1
   - targetId: 2
     type: 0
