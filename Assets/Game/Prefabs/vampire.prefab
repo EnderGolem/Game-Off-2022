@@ -153,7 +153,7 @@ MonoBehaviour:
   objectsToTurn:
   - {fileID: 3944921902189497389}
   - {fileID: 5034705917930345378}
-  animator: {fileID: 0}
+  animator: {fileID: 2425321312082082332}
   groundedFeedback: {fileID: 0}
 --- !u!114 &3703694354313313114
 MonoBehaviour:
@@ -192,7 +192,7 @@ MonoBehaviour:
   doConserveMomentum: 1
   blockAttackingStates: 
   attackingSpeedModifier: 0.4
-  actualWalkAnimationTime: 0
+  actualWalkAnimationTime: 1
   walkFeedback: {fileID: 0}
 --- !u!114 &3703694354313313118
 MonoBehaviour:
@@ -873,7 +873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08834d73ba6e4994482e81df0c00c5ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageTakenEveryTime: 5
+  DamageTakenEveryTime: 0
   DamageTakenDamageable: 0
   DamageTakenNonDamageable: 0
   targetLayer:
@@ -974,7 +974,7 @@ MonoBehaviour:
   autoDisableTime: 0
   ignoreOwnerCollision: 0
   knockbackDirDefinition: 0
-  repeatedEffectApplicationTime: 1
+  repeatedEffectApplicationTime: 2
   hitDamageableFeedback: {fileID: 0}
   hitNonDamageableFeedback: {fileID: 0}
   hitShieldFeedback: {fileID: 0}
@@ -1263,6 +1263,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d77b9f68b8046bd499dce40fb64ecf6f, type: 3}
+--- !u!95 &2425321312082082332 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1673470963022515591, guid: d77b9f68b8046bd499dce40fb64ecf6f, type: 3}
+  m_PrefabInstance: {fileID: 3931963649600878491}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2493806688769979697 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1444217195202986666, guid: d77b9f68b8046bd499dce40fb64ecf6f, type: 3}
