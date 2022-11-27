@@ -17,6 +17,7 @@ namespace MoreMountains.Tools
 		protected virtual void Awake()
 		{
 			_progressBar = GetComponent<MMProgressBar>();
+			SetOwner(owner);
 		}
 		void OnValueChanged(float oldCurValue, float newCurValue, float oldValue, float newValue)
         {
@@ -24,10 +25,17 @@ namespace MoreMountains.Tools
 		}
 		public void SetOwner(Character character)
         {
-			owner = character;
-			property = owner.PropertyManager.GetPropertyByName(propertyName);
-			property.RegisterChangeCallback(OnValueChanged);
-			_progressBar.UpdateBar(property.Value, 0, property.BaseValue);
+			if (_progressBar==null)
+				_progressBar = GetComponent<MMProgressBar>();
+			if (character!=null)
+			{
+				if (property!=null)	
+					property.UnRegisterCallback(OnValueChanged);
+				owner = character;
+				property = owner.PropertyManager.GetPropertyByName(propertyName);
+				property.RegisterChangeCallback(OnValueChanged);
+				_progressBar.UpdateBar(property.Value, 0, property.BaseValue);
+			}
 		}
 	}
 }

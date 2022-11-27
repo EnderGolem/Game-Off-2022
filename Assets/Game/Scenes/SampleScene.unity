@@ -822,7 +822,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -1595,6 +1595,7 @@ GameObject:
   - component: {fileID: 807683866}
   - component: {fileID: 807683865}
   - component: {fileID: 807683864}
+  - component: {fileID: 807683867}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -1678,6 +1679,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &807683867
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807683862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 1
+  m_FrequencyGain: 0
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &810785103
 GameObject:
   m_ObjectHideFlags: 0
@@ -2483,6 +2501,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1124911940}
   - component: {fileID: 1124911939}
+  - component: {fileID: 1124911941}
+  - component: {fileID: 1124911942}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -2544,6 +2564,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1124911941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124911938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449ef5ebbe24720439ec31d15f7b6f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FocusTracksTarget: 0
+  m_FocusTracking: 0
+  m_FocusTarget: {fileID: 0}
+  m_FocusOffset: 0
+  m_Profile: {fileID: 11400000, guid: 5abfcc8f393f56842855eebeba1c8044, type: 2}
+--- !u!114 &1124911942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124911938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21ccb3a3a5b72946921b41b9a71d453, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vcam: {fileID: 1124911939}
 --- !u!1 &1147955297
 GameObject:
   m_ObjectHideFlags: 0
@@ -5261,6 +5311,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2384559869391390128, guid: 4376987bb0368254aad2b480962dd228, type: 3}
+      propertyPath: Timing.InitialDelay
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8896064299356952561, guid: 4376987bb0368254aad2b480962dd228, type: 3}
       propertyPath: m_RootOrder
       value: 18

@@ -10,6 +10,12 @@ public class EscMenuUI : MonoBehaviour
 
     [HideInInspector] public UnityEvent OnContinueButtonPressed;
     [HideInInspector] public UnityEvent OnCryCravenButtonPressed;
+
+    float fixedDeltaTimeDefault;
+
+    private void Awake() {
+        fixedDeltaTimeDefault = Time.fixedDeltaTime;
+    }
     
     public bool Close()
     {
@@ -40,6 +46,7 @@ public class EscMenuUI : MonoBehaviour
     public void ButtonExitToMainMenu()
     {
         Time.timeScale = 1f;
+        Time.fixedDeltaTime = fixedDeltaTimeDefault;
         SceneManager.LoadScene("MenuScene");
     }
     public void ButtonCryCraven()

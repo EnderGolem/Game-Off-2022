@@ -49,6 +49,7 @@ public class DeadBodyRagdoll : MonoBehaviour
                 cam.Follow = cameraTarget;
                 (cam as CinemachineVirtualCamera).m_Lens.OrthographicSize = 4;
                 Time.timeScale = 0.25f;
+                Time.fixedDeltaTime = Time.timeScale * 0.02f;
             }
             //dublicate.transform.localScale = transform.parent.localScale;
             //dublicate.Kill();

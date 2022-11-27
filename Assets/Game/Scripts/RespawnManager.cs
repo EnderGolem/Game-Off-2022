@@ -14,10 +14,13 @@ public class RespawnManager : MonoBehaviour
     [SerializeField] GameObject DeadScreen;
     [SerializeField] PropertyProgressBar healthBar;
     [SerializeField] PropertyProgressBar enduranceBar;
+    [SerializeField] BloodScreen bloodScreen;
     [SerializeField] EscMenuUI escMenu;
+    float fixedDeltaTimeDefault;
     bool canRespawn = false;
     public void Initialize()
     {
+        fixedDeltaTimeDefault = Time.fixedDeltaTime;
         escMenu.OnCryCravenButtonPressed.AddListener(CryCraven);
         owner.player?.OnDead.AddListener(OnPlayerDead);
         if (owner.player != null)
@@ -57,11 +60,13 @@ public class RespawnManager : MonoBehaviour
             owner.player.OnDead.AddListener(OnPlayerDead);
             healthBar.SetOwner(owner.player);
             enduranceBar.SetOwner(owner.player);
+            bloodScreen.SetOwner(owner.player);
             DeadScreen.SetActive(false);
             var cam = Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
             cam.Follow = owner.player.cameraTarget;
             cam.m_Lens.OrthographicSize = 5;
             Time.timeScale = 1f;
+            Time.fixedDeltaTime = fixedDeltaTimeDefault;
         }
     }
 }
