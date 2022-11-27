@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Tools;
 using UnityEngine;
 using TMPro;
 
@@ -10,9 +12,13 @@ public class SettingsUI : MonoBehaviour
 
     public TMP_Dropdown screenResolution;
     public TMP_Dropdown screenMode;
+
+    public SoundSettingSliderController[] sliders;
+    
+
     public void Show()
     {
-        //Задать для dropdown-элемента текущее разрешение
+        //Р—Р°РґР°С‚СЊ РґР»СЏ dropdown-СЌР»РµРјРµРЅС‚Р° С‚РµРєСѓС‰РµРµ СЂР°Р·СЂРµС€РµРЅРёРµ
         for (int i = 0; i<screenResolution.options.Count; i++)
         {
             if (screenResolution.options[i].text == $"{Screen.width} x {Screen.height}")
@@ -20,7 +26,7 @@ public class SettingsUI : MonoBehaviour
                 screenResolution.value = i;
             }
         }
-        //Задать для dropdown-элемента текущий режим экрана
+        //Р—Р°РґР°С‚СЊ РґР»СЏ dropdown-СЌР»РµРјРµРЅС‚Р° С‚РµРєСѓС‰РёР№ СЂРµР¶РёРј СЌРєСЂР°РЅР°
         for (int i = 0; i < screenMode.options.Count; i++)
         {
             if (screenMode.options[i].text == Screen.fullScreenMode.ToString())
@@ -29,6 +35,8 @@ public class SettingsUI : MonoBehaviour
                 break;
             }
         }
+        
+        LoadSettings();
         gameObject.SetActive(true);
     }
     public void ButtonApply()
@@ -41,6 +49,13 @@ public class SettingsUI : MonoBehaviour
             case 1: Screen.fullScreenMode = FullScreenMode.MaximizedWindow; break;
             case 2: Screen.fullScreenMode = FullScreenMode.Windowed; break;
         }
+
+        for (int i = 0; i < sliders.Length; i++)
+        {
+            sliders[i].ApplySetting();
+        }
+        
+        SaveSettings();
     }
     public void ButtonCancel()
     {
@@ -60,5 +75,19 @@ public class SettingsUI : MonoBehaviour
     {
         AudioSect.SetActive(true);
         GraphicsSect.SetActive(false);
+    }
+
+    protected void SaveSettings()
+    {
+        MMSoundManagerEvent.Trigger(MMSoundManagerEventTypes.SaveSettings);
+    }
+
+    protected void LoadSettings()
+    {
+        MMSoundManagerEvent.Trigger(MMSoundManagerEventTypes.LoadSettings);
+        for (int i = 0; i < sliders.Length; i++)
+        {
+            sliders[i].Load();
+        }
     }
 }

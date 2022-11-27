@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 266016696948135050}
   - component: {fileID: 5689745477757012189}
   - component: {fileID: 6596543365973811202}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: EatApple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 2231797213859697661}
   - component: {fileID: 3408612583709118747}
   - component: {fileID: 3408612583709118740}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: HealApple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,6 +362,7 @@ MonoBehaviour:
     m_Bits: 256
   startEffects:
   - {fileID: 11400000, guid: 6d9ba319e2c01cb4c863d45f8b02241c, type: 2}
+  startThroughShieldEffects: []
   knockBack: {x: 0, y: 0}
   useAutoDisable: 0
   autoDisableTime: 0
@@ -381,7 +382,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5707169823754887560}
   - component: {fileID: 4154680927548335788}
-  m_Layer: 3
+  m_Layer: 12
   m_Name: Feedbacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -140,3 +140,5 @@ MonoBehaviour:
   initialHealth: 5
   destroyOnDeath: 1
   timeBeforeDestruction: 0
+  damageFeedback: {fileID: 0}
+  OnKillFeedback: {fileID: 0}

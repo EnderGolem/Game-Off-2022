@@ -52,6 +52,12 @@ public class AbilityDash : CharacterAbility
     protected string dashSpeedAnimParameter = "DashingSpeed";
     [SerializeField]
     protected MMFeedbacks dashFeedback;
+    
+    [Header("Zone")]
+    [SerializeField]
+    protected Collider2D damageZone;
+    
+    protected EffectOnTouch damageZoneOnTouch;
     /// <summary>
     /// Последнее направление ввода
     /// </summary>
@@ -69,6 +75,12 @@ public class AbilityDash : CharacterAbility
         base.PreInitialize();
         rigidbody = owner.RigidBody;
         LastPressedDashTime = -100000;
+        if (damageZone != null)
+        {
+            damageZoneOnTouch = damageZone.GetComponent<EffectOnTouch>();
+            damageZone.enabled = false;
+            damageZoneOnTouch.enabled = false;
+        }
     }
 
     protected override void Initialize()
@@ -173,6 +185,12 @@ public class AbilityDash : CharacterAbility
 
         int layer = gameObject.layer;
         gameObject.layer = LayerMask.NameToLayer(LayerWhileDashing);
+        if (damageZone != null)
+        {
+            damageZone.enabled = true;
+            damageZoneOnTouch.enabled = true;
+        }
+
         //We keep the player's velocity at the dash speed during the "attack" phase (in celeste the first 0.15s)
         float rot;
         while (Time.time - startTime <= dashAttackTime)
@@ -190,7 +208,11 @@ public class AbilityDash : CharacterAbility
         }
 
         startTime = Time.time;
-        
+        if (damageZone != null)
+        {
+            damageZone.enabled = false;
+            damageZoneOnTouch.enabled = false;
+        }
 
         //Begins the "end" of our dash where we return some control to the player but still limit run acceleration (see Update() and Run())
         owner.SetGravityScale(owner.gravityScale);

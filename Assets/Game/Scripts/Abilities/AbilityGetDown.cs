@@ -26,6 +26,13 @@ public class AbilityGetDown : CharacterAbility
     /// </summary>
     protected Vector2 curMoveInputDir;
     protected Rigidbody2D rigidbody;
+    protected Collider2D collider;
+
+    private HashSet<Collider2D> collidingPlatforms;
+    private HashSet<Collider2D> collidingStairways;
+    
+    private HashSet<Collider2D> ignoringPlatforms;
+    private HashSet<Collider2D> ignoringStairways;
 
     protected ObjectProperty enduranceProperty;
     public float LastPressedGetdownTime { get; private set; }
@@ -35,6 +42,11 @@ public class AbilityGetDown : CharacterAbility
         rigidbody = owner.RigidBody;
         enduranceProperty = owner.PropertyManager.GetPropertyByName("Endurance");
         LastPressedGetdownTime = -100000;
+        collidingPlatforms = new HashSet<Collider2D>();
+        collidingStairways = new HashSet<Collider2D>();
+        ignoringPlatforms = new HashSet<Collider2D>();
+        ignoringStairways = new HashSet<Collider2D>();
+        collider = GetComponent<Collider2D>();
     }
     private bool started = false;
     private void FixedUpdate()
@@ -63,8 +75,19 @@ public class AbilityGetDown : CharacterAbility
         #region Perform Getdown
         //TODO
         started = true;
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), true);
+        //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), true);
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Stairway"), true);
+        foreach (var platform in collidingPlatforms)
+        {
+            //Debug.Log(platform.gameObject.name);
+            ignoringPlatforms.Add(platform);
+            Physics2D.IgnoreCollision(collider,platform,true);
+        }
+        foreach (var stairway in collidingStairways)
+        {
+            ignoringStairways.Add(stairway);
+            //Physics2D.IgnoreCollision(collider,stairway,true);
+        }
         owner.MovementState.ChangeState(CharacterMovementsStates.Jumping);
 
         #endregion
@@ -72,7 +95,17 @@ public class AbilityGetDown : CharacterAbility
     protected void EndOfGetDown()
     {
         started = false;
-        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), false);
+        foreach (var platform in ignoringPlatforms)
+        {
+            Physics2D.IgnoreCollision(collider,platform,false);
+        }
+        foreach (var stairway in ignoringStairways)
+        {
+            //Physics2D.IgnoreCollision(collider,stairway,false);
+        }
+        ignoringPlatforms.Clear();
+        ignoringStairways.Clear();
+        //Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), false);
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Stairway"), false);
     }
     
@@ -96,6 +129,31 @@ public class AbilityGetDown : CharacterAbility
     public virtual void SetMoveInput(Vector2 input)
     {
         curMoveInputDir = input;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Platform"))
+        {
+            collidingPlatforms.Add(other.collider);
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Stairway"))
+        {
+            collidingStairways.Add(other.collider);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        //Physics2D.IgnoreCollision(collider,other.collider,false);
+        if (other.gameObject.layer == LayerMask.NameToLayer("Platform"))
+        {
+            collidingPlatforms.Remove(other.collider);
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Stairway"))
+        {
+            collidingStairways.Remove(other.collider);
+        }
     }
 
     protected void OnValidate()
