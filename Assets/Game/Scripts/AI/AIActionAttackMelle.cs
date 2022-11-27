@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class AIActionAttackMelle : AIAction
 {
+    [SerializeField]
     protected MeleeAttack _meleeAttack;
-
+    
 
     public override void Initialization()
     {
+        if(_meleeAttack==null)
         _meleeAttack = GetComponent<MeleeAttack>();
     }
     public override void PerformAction()
