@@ -61,6 +61,10 @@ public class MeleeAttack : CharacterAbility
     protected bool curInput;
 
     protected float lastAttackStart;
+    /// <summary>
+    /// Означает что способность в данный момент испольуется
+    /// </summary>
+    protected bool isUsing = false;
 
     protected override void PreInitialize()
     {
@@ -81,12 +85,12 @@ public class MeleeAttack : CharacterAbility
             StartAttack();
         }
 
-        if (owner.AttackingState.CurrentState == CharacterAttackingState.AttackPreparing)
+        if (isUsing && owner.AttackingState.CurrentState == CharacterAttackingState.AttackPreparing)
         {
             HandleAttackPreparing();
         }
 
-        if (owner.AttackingState.CurrentState == CharacterAttackingState.Attacking)
+        if (isUsing && owner.AttackingState.CurrentState == CharacterAttackingState.Attacking)
         {
             HandleAttacking();
         }
@@ -123,6 +127,7 @@ public class MeleeAttack : CharacterAbility
     {
         owner.AttackingState.ChangeState(CharacterAttackingState.AttackPreparing);
         lastAttackStart = Time.time;
+        isUsing = true;
     }
 
     protected void HandleAttackPreparing()
@@ -155,6 +160,7 @@ public class MeleeAttack : CharacterAbility
             owner.AttackingState.ChangeState(CharacterAttackingState.Idle);
             
             lastAttackStart = Time.time;
+            isUsing = false;
         }
         else if (delta > activeDamageZoneTime + delayBeforeAttacking)
         {
@@ -173,8 +179,8 @@ public class MeleeAttack : CharacterAbility
     protected override void UpdateAnimator()
     {
         base.UpdateAnimator();
-        owner.Animator.SetBool(AttackPreparingParameter, owner.AttackingState.CurrentState == CharacterAttackingState.AttackPreparing);
-        owner.Animator.SetBool(AttackingParameter, owner.AttackingState.CurrentState == CharacterAttackingState.Attacking);
+        owner.Animator.SetBool(AttackPreparingParameter, isUsing && owner.AttackingState.CurrentState == CharacterAttackingState.AttackPreparing);
+        owner.Animator.SetBool(AttackingParameter, isUsing && owner.AttackingState.CurrentState == CharacterAttackingState.Attacking);
         
         owner.Animator.SetFloat(AttackSpeedAnimParameter,1/(activeDamageZoneTime+delayBeforeAttacking+delayAfterAttack));
         owner.Animator.SetFloat(AttackPreparingSpeedAnimParameter,1/maxAttackPreparingTime);
