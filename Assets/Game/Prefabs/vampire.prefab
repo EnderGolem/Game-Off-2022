@@ -61,6 +61,14 @@ GameObject:
   - component: {fileID: 5073899419156075373}
   - component: {fileID: 8297994120378697262}
   - component: {fileID: 8297994120034137067}
+  - component: {fileID: 5514015620980893195}
+  - component: {fileID: 2222186989024172435}
+  - component: {fileID: 7693242927844658007}
+  - component: {fileID: 1694327815288569212}
+  - component: {fileID: 97492211383623816}
+  - component: {fileID: 2593055341175901885}
+  - component: {fileID: -6325043742379894392}
+  - component: {fileID: -5739484909569327066}
   m_Layer: 15
   m_Name: vampire
   m_TagString: Untagged
@@ -82,6 +90,7 @@ Transform:
   m_Children:
   - {fileID: 3703694353274131579}
   - {fileID: 5356160302518072128}
+  - {fileID: 6667882745555784976}
   - {fileID: 5034705917930345378}
   - {fileID: 3944921902189497389}
   - {fileID: 2493806688769979697}
@@ -244,6 +253,7 @@ MonoBehaviour:
   dashAnimParameter: Dashing
   dashSpeedAnimParameter: DashingSpeed
   dashFeedback: {fileID: 0}
+  damageZone: {fileID: 4805040638282657278}
 --- !u!114 &3649673225862904215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,6 +298,10 @@ MonoBehaviour:
   attackEffects:
   - {fileID: 11400000, guid: de9d88e45a44181448792b71ade4e445, type: 2}
   throughShieldEffects: []
+  AttackPreparingParameter: AttackPreparing
+  AttackingParameter: Attacking
+  AttackSpeedAnimParameter: AttackSpeed
+  AttackPreparingSpeedAnimParameter: AttackPreparingSpeed
   startAttackFeedback: {fileID: 0}
 --- !u!114 &382577845229704383
 MonoBehaviour:
@@ -400,20 +414,20 @@ MonoBehaviour:
     Transitions:
       array:
       - Decision: {fileID: 5073899419156075378}
-        TrueState: Teleport back
+        TrueState: Move To Target
         FalseState: 
-  - StateName: Shoot
+  - StateName: Move To Target
     Actions:
       array:
-      - {fileID: 5073899419156075373}
+      - {fileID: 5514015620980893195}
     Transitions:
       array:
-      - Decision: {fileID: 5073899419156075378}
-        TrueState: 
-        FalseState: Nothing
       - Decision: {fileID: 8297994120378697263}
         TrueState: Melle
         FalseState: 
+      - Decision: {fileID: 5073899419156075378}
+        TrueState: 
+        FalseState: Nothing
   - StateName: Melle
     Actions:
       array:
@@ -422,13 +436,43 @@ MonoBehaviour:
       array:
       - Decision: {fileID: 8297994120378697263}
         TrueState: 
-        FalseState: Shoot
-  - StateName: Teleport back
+        FalseState: Move To Target
+      - Decision: {fileID: 1694327815288569212}
+        TrueState: Melle
+        FalseState: 
+      - Decision: {fileID: 2222186989024172435}
+        TrueState: Teleport Back
+        FalseState: 
+      - Decision: {fileID: -5739484909569327066}
+        TrueState: Before Dash
+        FalseState: 
+  - StateName: Teleport Back
     Actions:
       array:
       - {fileID: 8297994120034137067}
     Transitions:
-      array: []
+      array:
+      - Decision: {fileID: 7693242927844658007}
+        TrueState: Melle
+        FalseState: 
+  - StateName: Before Dash
+    Actions:
+      array:
+      - {fileID: -6325043742379894392}
+    Transitions:
+      array:
+      - Decision: {fileID: 2593055341175901885}
+        TrueState: Dash
+        FalseState: 
+  - StateName: Dash
+    Actions:
+      array:
+      - {fileID: 97492211383623816}
+    Transitions:
+      array:
+      - Decision: {fileID: 2593055341175901885}
+        TrueState: Move To Target
+        FalseState: 
   TimeInThisState: 0
   Target: {fileID: 0}
   _lastKnownTargetPosition: {x: 0, y: 0, z: 0}
@@ -490,6 +534,7 @@ MonoBehaviour:
   TargetLayer:
     serializedVersion: 2
     m_Bits: 256
+  fixTarget: 1
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 512
@@ -513,6 +558,7 @@ MonoBehaviour:
   TargetLayer:
     serializedVersion: 2
     m_Bits: 256
+  fixTarget: 1
   ObstacleMask:
     serializedVersion: 2
     m_Bits: 512
@@ -561,6 +607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: 
+  _meleeAttack: {fileID: 0}
 --- !u!114 &8297994120034137067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,6 +624,122 @@ MonoBehaviour:
   Label: TeleportBack
   offsetRelativeTarget: {x: 1, y: 0}
   targetMirror: 1
+--- !u!114 &5514015620980893195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703694354313313109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e319e4417dbbf6046827dc171a17b4e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationMode: 0
+  Label: 
+  moveOppositeDirection: 0
+--- !u!114 &2222186989024172435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703694354313313109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e145f161b3e00a84d88afc8805dbfd84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: RandomToTeleport
+  TotalChance: 10
+  Odds: 4
+--- !u!114 &7693242927844658007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703694354313313109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad7d08509be9b346b1c6b67edab2934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: 
+--- !u!114 &1694327815288569212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703694354313313109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c784a73dda7d649b0a18abdd9679e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: TimeInStateMelle
+  AfterTimeMin: 2
+  AfterTimeMax: 3
+--- !u!114 &97492211383623816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703694354313313109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa9d5a0ad68c5b4585614a97b27371f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationMode: 0
+  Label: 
+--- !u!114 &2593055341175901885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703694354313313109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c784a73dda7d649b0a18abdd9679e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: TimeInStateDash
+  AfterTimeMin: 4
+  AfterTimeMax: 4
+--- !u!114 &-6325043742379894392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703694354313313109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58ff72310aaa9444fb9d3217d7f26091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationMode: 0
+  Label: 
+--- !u!114 &-5739484909569327066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3703694354313313109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e145f161b3e00a84d88afc8805dbfd84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: RandomToDash
+  TotalChance: 10
+  Odds: 1
 --- !u!1 &3781681763855215971
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,8 +800,96 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3703694354313313113}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7298773323177810402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6667882745555784976}
+  - component: {fileID: 4805040638282657278}
+  - component: {fileID: 872145617582921943}
+  m_Layer: 15
+  m_Name: Dash Zone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6667882745555784976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7298773323177810402}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.02, y: 0.96, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3703694354313313113}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &4805040638282657278
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7298773323177810402}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &872145617582921943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7298773323177810402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08834d73ba6e4994482e81df0c00c5ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageTakenEveryTime: 5
+  DamageTakenDamageable: 0
+  DamageTakenNonDamageable: 0
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  startEffects: []
+  startThroughShieldEffects: []
+  knockBack: {x: 20, y: -30}
+  useAutoDisable: 0
+  autoDisableTime: 0
+  ignoreOwnerCollision: 0
+  knockbackDirDefinition: 0
+  repeatedEffectApplicationTime: 1
+  hitDamageableFeedback: {fileID: 0}
+  hitNonDamageableFeedback: {fileID: 0}
+  hitShieldFeedback: {fileID: 0}
 --- !u!1 &8897181364424835364
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,7 +921,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3703694354313313113}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &5948439526674019540
 BoxCollider2D:
@@ -715,7 +966,7 @@ MonoBehaviour:
   DamageTakenNonDamageable: 0
   targetLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   startEffects: []
   startThroughShieldEffects: []
   knockBack: {x: 20, y: -30}
@@ -776,7 +1027,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1444217195202986666, guid: d77b9f68b8046bd499dce40fb64ecf6f, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1444217195202986666, guid: d77b9f68b8046bd499dce40fb64ecf6f, type: 3}
       propertyPath: m_LocalScale.x
