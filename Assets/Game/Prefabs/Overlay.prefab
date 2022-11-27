@@ -7719,6 +7719,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   bloodScreen: {fileID: 1681092943331347127}
+  boltsCounter: {fileID: 3795550543130223614}
 --- !u!114 &5959810876959164605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7752,6 +7753,7 @@ MonoBehaviour:
   healthBar: {fileID: 5959810878214567533}
   enduranceBar: {fileID: 5884104067449820106}
   bloodScreen: {fileID: 1681092943331347127}
+  boltsCounter: {fileID: 3795550543130223614}
   escMenu: {fileID: 1461413770118359133}
 --- !u!114 &1681092943331347127
 MonoBehaviour:
@@ -11168,6 +11170,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c615c1682b3816a4192114d2a74f5698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  count: {fileID: 3334116248930717424}
+  item_name: Bolt
 --- !u!1 &8659892683055010621
 GameObject:
   m_ObjectHideFlags: 0

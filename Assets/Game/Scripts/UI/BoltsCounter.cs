@@ -6,17 +6,21 @@ using TMPro;
 public class BoltsCounter : MonoBehaviour
 {
     InventoryHandler inventory;
-    TextMeshProUGUI count;
+    public TextMeshProUGUI count;
+    public string item_name;
     Character owner;
-    // Start is called before the first frame update
-    void Start()
+
+    public void SetOwner(Character character)
     {
-        
+        if (character == null) return;
+        owner = character;
+        owner.TryGetComponent<InventoryHandler>(out inventory);
+        owner.onReload.AddListener(OnValueChanged);
+        count.text = 'x'+inventory.GetCount(item_name).ToString();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnValueChanged()
     {
-        
+        count.text = 'x'+inventory.GetCount(item_name).ToString();
     }
 }
