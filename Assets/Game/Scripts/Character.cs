@@ -119,6 +119,7 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
         StayOnStairway = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _stairwayLayer);
         StayOnPlatform = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _platformLayer);
         StayOnGround = Physics2D.OverlapBox(_groundCheckPoint.position, _groundCheckSize, 0, _groundLayer);
+        
     }
 
     private void LateUpdate()

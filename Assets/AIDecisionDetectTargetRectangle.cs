@@ -18,6 +18,9 @@ public class AIDecisionDetectTargetRectangle : AIDecision
     public Vector3 DetectionOriginOffset = new Vector3(0, 0, 0);
     [Tooltip("Слой на котором ищем")]
     public LayerMask TargetLayer;
+    [Tooltip("Следует ли захватывать цель при обнаружении" +
+             "Если нет то можно использовать для простой проверки препятствий")]
+    public bool fixTarget=true;
     
     [Tooltip("the layer(s) to look for obstacles on")]
     public LayerMask ObstacleMask ;
@@ -28,6 +31,7 @@ public class AIDecisionDetectTargetRectangle : AIDecision
     protected Vector2 _raycastOrigin;
     protected Color _gizmoColor = Color.yellow;
     protected Vector2 _boxcastDirection;
+    
 
     /// <summary>
     /// On init we grab our Character component
@@ -48,8 +52,8 @@ public class AIDecisionDetectTargetRectangle : AIDecision
     protected virtual bool DetectTarget()
     {
         _detectionCollider = null;
-        _raycastOrigin = transform.position +  DetectionOriginOffset;
-
+        _raycastOrigin = transform.position +  ((_character.IsFacingRight)?DetectionOriginOffset:-DetectionOriginOffset);
+         
         var pointA = _raycastOrigin;
         pointA.y = (float)(pointA.y - height / 2);
         pointA.x = (float)(pointA.x + length / 2);
@@ -65,6 +69,7 @@ public class AIDecisionDetectTargetRectangle : AIDecision
 
         if (DownDetection)
         {
+            if(fixTarget)
             _brain.Target = _detectionCollider.gameObject.transform;
             return true;
         }
@@ -76,6 +81,7 @@ public class AIDecisionDetectTargetRectangle : AIDecision
          
             if (!hit)
             {   
+                if(fixTarget)
                 _brain.Target = _detectionCollider.gameObject.transform;
                 return true;
             }
@@ -98,7 +104,7 @@ public class AIDecisionDetectTargetRectangle : AIDecision
         pointB.x = (float)(pointB.x - length / 2);
         
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(_raycastOrigin, new Vector3(length,height));
+        Gizmos.DrawWireCube(transform.position+DetectionOriginOffset, new Vector3(length,height));
         /*if (_init)
         {
             Gizmos.color = _gizmoColor;

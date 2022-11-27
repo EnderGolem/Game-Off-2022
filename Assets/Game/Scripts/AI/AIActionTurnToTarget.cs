@@ -15,6 +15,7 @@ public class AIActionTurnToTarget : AIAction
 
     public override void PerformAction()
     {
+        if(_brain.Target!=null)
         owner.SetMoveInput(_brain.Target.transform.position - transform.position); 
     }
 }
