@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 3415790947078425052}
   - component: {fileID: 7861240585303717983}
   - component: {fileID: 4744905264382212903}
+  - component: {fileID: 4806899409953988459}
   m_Layer: 15
   m_Name: Archer
   m_TagString: Untagged
@@ -167,6 +168,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnDead:
+    m_PersistentCalls:
+      m_Calls: []
+  onReload:
     m_PersistentCalls:
       m_Calls: []
   cameraTarget: {fileID: 0}
@@ -270,6 +274,10 @@ MonoBehaviour:
   projStartPosDistToCenter: 1
   IKtarget: {fileID: 1869100033308359049}
   IKMoveSpeed: 0.01
+  AttackPreparingParameter: RangeAttackPreparing
+  AttackingParameter: RangeAttacking
+  AttackSpeedAnimParameter: RangeAttackSpeed
+  AttackPreparingSpeedAnimParameter: RangeAttackPreparingSpeed
   shotFeedback: {fileID: 0}
 --- !u!114 &6130452466658635320
 MonoBehaviour:
@@ -333,6 +341,9 @@ MonoBehaviour:
       - {fileID: 939544918361092605}
     Transitions:
       array:
+      - Decision: {fileID: 4806899409953988459}
+        TrueState: 
+        FalseState: DoNothing
       - Decision: {fileID: 3415790947078425052}
         TrueState: Escaping
         FalseState: 
@@ -345,6 +356,9 @@ MonoBehaviour:
       - {fileID: 6340285701289461504}
     Transitions:
       array:
+      - Decision: {fileID: 4806899409953988459}
+        TrueState: 
+        FalseState: DoNothing
       - Decision: {fileID: 4080784511553158177}
         TrueState: 
         FalseState: Shooting
@@ -357,6 +371,9 @@ MonoBehaviour:
       - {fileID: 7861240585303717983}
     Transitions:
       array:
+      - Decision: {fileID: 4806899409953988459}
+        TrueState: 
+        FalseState: DoNothing
       - Decision: {fileID: 2037443743787277216}
         TrueState: 
         FalseState: Shooting
@@ -570,6 +587,19 @@ MonoBehaviour:
   - {fileID: 2037443743787277216}
   _logicalOperation: 00000000
   inverseDecisions: 0100
+--- !u!114 &4806899409953988459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2461082524816807636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2bfd0c9734138c4cb68d582f06f7d58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: TargetIsAlive
 --- !u!1 &2775097661754258436
 GameObject:
   m_ObjectHideFlags: 0
