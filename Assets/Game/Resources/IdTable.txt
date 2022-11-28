@@ -24,3 +24,11 @@ Effects:
 11 - BarrelExplosionThroughShield
 12 - DragonBite
 13 - DragonBiteThroughShield
+14 - DragonTailHit
+15 - DragonTailHitThroughShield
+16 - DragonCloseAttack
+17 - DragonCloseAttackThroughShield
+18 - DragonFireball
+19 - DragonFireballThroughShield
+20 - VampireDashEffect
+21 - VampireDashThroughShield

@@ -63,7 +63,7 @@ public class RangedAttack : CharacterAbility
     protected bool aimAlways;
     [Tooltip("Тот солвер, что нам надо наводить")]
     [SerializeField]
-    protected LimbSolver2D aimSolver;
+    protected Solver2D aimSolver;
     [Tooltip("Расстояние от точки спавна пули до воображаемого центра вращения оружия")]
     [SerializeField]
     protected float projStartPosDistToCenter;
@@ -74,10 +74,13 @@ public class RangedAttack : CharacterAbility
     protected float IKMoveSpeed;
     
     [Header("Animations")] 
+    [SerializeField]
     protected string AttackPreparingParameter = "RangeAttackPreparing";
+    [SerializeField]
     protected string AttackingParameter = "RangeAttacking";
-
+    [SerializeField]
     protected string AttackSpeedAnimParameter = "RangeAttackSpeed";
+    [SerializeField]
     protected string AttackPreparingSpeedAnimParameter = "RangeAttackPreparingSpeed";
     
     [Tooltip("Фидбэк, вызываемый при выстреле")]
@@ -251,7 +254,7 @@ public class RangedAttack : CharacterAbility
                     out angle, useDirectFire);
                 if (f)
                 {
-
+                    MMDebug.DrawPoint(curSpawnPosition,Color.red, 1);
                     var diff = (Vector2) (projStartPos.right * projStartPosDistToCenter);
                     if (projStartPos.right.x < 0)
                     {
@@ -264,7 +267,7 @@ public class RangedAttack : CharacterAbility
                         (Vector2)(projStartPos.right * projStartPosDistToCenter) + diff;
                     MMDebug.DebugDrawArrow((Vector2) projStartPos.position - 
                                            (Vector2)(projStartPos.right * projStartPosDistToCenter),
-                        diff,Color.magenta);
+                        diff*100,Color.magenta);
                 }
             }
 

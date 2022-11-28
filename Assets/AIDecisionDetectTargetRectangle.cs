@@ -52,15 +52,10 @@ public class AIDecisionDetectTargetRectangle : AIDecision
     protected virtual bool DetectTarget()
     {
         _detectionCollider = null;
-        _raycastOrigin = transform.position +  ((_character.IsFacingRight)?DetectionOriginOffset:-DetectionOriginOffset);
-         
-        var pointA = _raycastOrigin;
-        pointA.y = (float)(pointA.y - height / 2);
-        pointA.x = (float)(pointA.x + length / 2);
-        var pointB = _raycastOrigin;
-        pointB.y = (float)(pointB.y + height / 2);
-        pointB.x = (float)(pointB.x - length / 2);
-        _detectionCollider = Physics2D.OverlapArea(pointA, pointB, TargetLayer);
+        _raycastOrigin = transform.position +  ((_character.IsFacingRight)?DetectionOriginOffset:new Vector3(-DetectionOriginOffset.x, DetectionOriginOffset.y));
+        
+        _detectionCollider = Physics2D.OverlapBox(_raycastOrigin, new Vector2(length, height), 0, TargetLayer);
+       // Debug.Log($"col: {gameObject.name}, {_detectionCollider}");
 
         if (_detectionCollider == null)
         {
@@ -92,6 +87,7 @@ public class AIDecisionDetectTargetRectangle : AIDecision
         }
         return false;
     }
+    
     protected virtual void OnDrawGizmosSelected()
     {
        
