@@ -43,6 +43,12 @@ public class AIActionBowShoot : AIAction
     protected void StartAttack()
     {
         lastAttackTime = Time.time;
+        if (!_brain.Target)
+        {
+            Debug.Log(gameObject.name + " Нет цели у мозга ИИ" );
+            return;
+        }
+
         bowAttack.SetTargetPos(_brain.Target.position);
         bowAttack.ProcessInput(true);
         isAiming = true;

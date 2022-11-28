@@ -6707,46 +6707,6 @@ ScriptedImporter:
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: belts
-    spriteName: belts
-    isGroup: 0
-    parentIndex: -1
-    spriteID: e2bb0f2aec3868841b6ea39754f2f17e
-    layerID: 18
-    mosaicPosition: {x: 180, y: 293}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: left arm
-    spriteName: left arm
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 497341a4547e8644e82c9d360b0564a0
-    layerID: 20
-    mosaicPosition: {x: 198, y: 349}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: left shouder1
-    spriteName: left shouder1
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 7cc3ecc11ef9d0841baaa4f180c54b5f
-    layerID: 9
-    mosaicPosition: {x: 199, y: 197}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: left shouder2
-    spriteName: left shouder2
-    isGroup: 0
-    parentIndex: -1
-    spriteID: 36122143c85426841bd4c5933919a1cf
-    layerID: 8
-    mosaicPosition: {x: 196, y: 4}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
   - name: right leg
     spriteName: right leg
     isGroup: 0
@@ -6797,16 +6757,6 @@ ScriptedImporter:
     flatten: 0
     isImported: 1
     isVisible: 1
-  - name: shild
-    spriteName: shild
-    isGroup: 0
-    parentIndex: -1
-    spriteID: f911fb240a894f74b8481ae13ffffe0b
-    layerID: 7
-    mosaicPosition: {x: 99, y: 243}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
   - name: crossbow
     spriteName: crossbow
     isGroup: 0
@@ -6814,6 +6764,56 @@ ScriptedImporter:
     spriteID: 6519c034342b8af4ea25eb494d3a9995
     layerID: 22
     mosaicPosition: {x: 99, y: 426}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: belts
+    spriteName: belts
+    isGroup: 0
+    parentIndex: -1
+    spriteID: e2bb0f2aec3868841b6ea39754f2f17e
+    layerID: 18
+    mosaicPosition: {x: 180, y: 293}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: left arm
+    spriteName: left arm
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 497341a4547e8644e82c9d360b0564a0
+    layerID: 20
+    mosaicPosition: {x: 198, y: 349}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: left shouder1
+    spriteName: left shouder1
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 7cc3ecc11ef9d0841baaa4f180c54b5f
+    layerID: 9
+    mosaicPosition: {x: 199, y: 197}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: left shouder2
+    spriteName: left shouder2
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 36122143c85426841bd4c5933919a1cf
+    layerID: 8
+    mosaicPosition: {x: 196, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: shild
+    spriteName: shild
+    isGroup: 0
+    parentIndex: -1
+    spriteID: f911fb240a894f74b8481ae13ffffe0b
+    layerID: 7
+    mosaicPosition: {x: 99, y: 243}
     flatten: 0
     isImported: 1
     isVisible: 1
