@@ -18,7 +18,11 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     public UnityEvent onReload;
     public Transform cameraTarget;
 
-    public Animator Animator => animator;
+    public Animator Animator
+    {
+        get => animator;
+        set => animator = value;
+    }
 
     public Rigidbody2D RigidBody { get; protected set; }
     private CapsuleCollider2D _Collider;

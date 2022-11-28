@@ -4146,14 +4146,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2593055341175901885, guid: 8711493d094ac664e9891b887d2f16ee, type: 3}
-      propertyPath: AfterTimeMax
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2593055341175901885, guid: 8711493d094ac664e9891b887d2f16ee, type: 3}
-      propertyPath: AfterTimeMin
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3703694354313313109, guid: 8711493d094ac664e9891b887d2f16ee, type: 3}
       propertyPath: m_Name
       value: vampire (1)
@@ -4205,10 +4197,6 @@ PrefabInstance:
     - target: {fileID: 3905473815121937035, guid: 8711493d094ac664e9891b887d2f16ee, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5073899419156075372, guid: 8711493d094ac664e9891b887d2f16ee, type: 3}
-      propertyPath: States.Array.data[2].Transitions.array.Array.size
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8711493d094ac664e9891b887d2f16ee, type: 3}

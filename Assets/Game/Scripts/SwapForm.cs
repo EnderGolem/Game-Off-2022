@@ -27,11 +27,14 @@ public class SwapForm : MonoBehaviour
     public Vector3 position2;
     private bool startForm = true;
 
+    protected Character _character;
+
     //Здесь должен быть старт, потому что, как я понял, inizialization вызывается до создания модельки и локаньные размеры будут 0 0 0 
     public void Start()
     {
         scale1 = transform.Find(nameForm1).localScale;
         position1 = transform.Find(nameForm1).localPosition;
+        _character = GetComponent<Character>();
     }
     public void changeForm()
     {
@@ -44,6 +47,7 @@ public class SwapForm : MonoBehaviour
             obj.transform.localPosition = position2;
             Destroy(transform.Find(nameForm1).gameObject);
             startForm = !startForm;
+            _character.Animator = transform.Find(nameForm2).GetComponent<Animator>();
         }
         else
         {
@@ -54,6 +58,7 @@ public class SwapForm : MonoBehaviour
             obj.transform.localPosition = position1;
             Destroy(transform.Find(nameForm2).gameObject);
             startForm = !startForm;
+            _character.Animator  = transform.Find(nameForm1).GetComponent<Animator>();
         }
     }
 }
