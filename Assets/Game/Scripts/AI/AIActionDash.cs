@@ -14,6 +14,11 @@ public class AIActionDash : AIAction
     }
     public override void PerformAction()
     {
+        if (!_brain.Target)
+        {
+            Debug.Log(gameObject.name + "не имеет цели в мозге");
+            return;
+        }
         Dash();
     }
 
