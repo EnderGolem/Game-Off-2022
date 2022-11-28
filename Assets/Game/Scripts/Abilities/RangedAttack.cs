@@ -247,7 +247,7 @@ public class RangedAttack : CharacterAbility
             float angle;
             var p = projectile.GetComponent<Projectile>();
             Vector2 curSpawnPosition = projStartPos.position;
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 4; i++)
             {
                 var f = p.CalculateAngleToHitDesignatedPosition(
                     curTargetPos, curSpawnPosition,
