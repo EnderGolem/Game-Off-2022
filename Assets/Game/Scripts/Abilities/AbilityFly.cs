@@ -99,7 +99,7 @@ public class AbilityFly : CharacterAbility
 
 		Vector2 movement = speedDif * accelRate;
 		//Convert this to a vector and apply to rigidbody
-		rigidbody.AddForce(movement, ForceMode2D.Force);
+		rigidbody.AddForce(movement*rigidbody.mass, ForceMode2D.Force);
 
 		owner.MovementState.ChangeState(CharacterMovementsStates.Flying);
 

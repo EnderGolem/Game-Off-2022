@@ -1618,7 +1618,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.27431476, y: 0.000027883778}
+  m_ConnectedAnchor: {x: 0.27429944, y: -0.00010565663}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1746,7 +1746,7 @@ MonoBehaviour:
     Quantized: 0
     TargetBPM: 120
   DebugActive: 0
-  Sfx: {fileID: 8300000, guid: f6ab044088180434289122e41199a631, type: 3}
+  Sfx: {fileID: 8300000, guid: 8507a9d96ef487d41a7d2998ea1c365f, type: 3}
   RandomSfx: []
   TestButton: 0
   TestStopButton: 0
@@ -2271,7 +2271,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.2834168, y: -0.038941547}
+  m_ConnectedAnchor: {x: 0.28452098, y: -0.0064941067}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -4559,12 +4559,15 @@ MonoBehaviour:
     Quantized: 0
     TargetBPM: 120
   DebugActive: 0
-  Sfx: {fileID: 8300000, guid: c95074a23f4d5e04d80c9daa2e015c1e, type: 3}
-  RandomSfx: []
+  Sfx: {fileID: 0}
+  RandomSfx:
+  - {fileID: 8300000, guid: 71b7913dad6809245869aa1ec2f14233, type: 3}
+  - {fileID: 8300000, guid: cde51b36b300bb34eb8a2e1945ef9d36, type: 3}
+  - {fileID: 8300000, guid: 4d44bea9d29a0ab43a32ad90fb1d0eaf, type: 3}
   TestButton: 0
   TestStopButton: 0
-  MinVolume: 1
-  MaxVolume: 1
+  MinVolume: 0.5
+  MaxVolume: 0.5
   MinPitch: 1
   MaxPitch: 1
   MmSoundManagerTrack: 0
@@ -5273,7 +5276,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.22639275, y: 0.0068359203}
+  m_ConnectedAnchor: {x: 0.23012248, y: 0.0062531573}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -6130,7 +6133,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.21457438, y: 0.076864734}
+  m_ConnectedAnchor: {x: 0.23276486, y: -0.0005562453}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -6615,7 +6618,7 @@ MonoBehaviour:
     Quantized: 0
     TargetBPM: 120
   DebugActive: 0
-  Sfx: {fileID: 8300000, guid: c50c5d1f319c8a44bb2c49c454fd0d13, type: 3}
+  Sfx: {fileID: 8300000, guid: ee1ab74f9c84d694d92f5c5d555a6e8a, type: 3}
   RandomSfx: []
   TestButton: 0
   TestStopButton: 0
@@ -7339,7 +7342,7 @@ MonoBehaviour:
   fastFallGravityMult: 1
   maxFastFallSpeed: 20
   jumpAlways: 0
-  enduranceCost: 25
+  enduranceCost: 12
   jumpFeedback: {fileID: 573759583701737762}
 --- !u!114 &8434176433734082518
 MonoBehaviour:
@@ -7435,9 +7438,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c01587090b3d2e429f0765a33f73a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseEndurance: 2000
+  baseEndurance: 120
   tirednessThreshold: 25
-  recoverSpeed: 20
+  recoverSpeed: 25
   recoverDelay: 1
   fizzleOutFeedback: {fileID: 4255539298841341615}
   tirednessFeedback: {fileID: 8723909591755479522}
@@ -7453,8 +7456,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d7a3c5c532abff419e87cf70f8b0ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  initialHealth: 10
+  maxHealth: 100000
+  initialHealth: 100000
   destroyOnDeath: 1
   timeBeforeDestruction: 0
   damageFeedback: {fileID: 1807630348805740511}
