@@ -22,9 +22,9 @@ public class AIActionTeleport : AIAction
 
     protected virtual void Teleport()
     {
-        if (_brain.Target == null)
+        if (!_brain.Target)
         {
-            Debug.Log(gameObject.name + "не имеет таргета для телепорта");
+            Debug.Log(gameObject.name + "не имеет цели в мозге");
             return;
         }
         _character = _brain.Target.GetComponent<Character>();

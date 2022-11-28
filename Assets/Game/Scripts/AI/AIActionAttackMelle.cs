@@ -16,6 +16,12 @@ public class AIActionAttackMelle : AIAction
     }
     public override void PerformAction()
     {
+        if (!_brain.Target)
+        { 
+            Debug.Log(gameObject.name + "не имеет цели в мозге");
+            return;
+        }
+
         Attack();
     }
 

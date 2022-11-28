@@ -24,6 +24,9 @@ public class AIActionMoveToTarget : AIAction
 
     protected virtual void Move()
     {
+        if (!_brain.Target)
+            return;
+        
         var direction = _brain.Target.transform.position - transform.position;
         direction.y = 0;
         if (moveOppositeDirection)
