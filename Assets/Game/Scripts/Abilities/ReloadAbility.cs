@@ -83,7 +83,7 @@ public class ReloadAbility : CharacterAbility
    protected bool CanReload()
    {
       return AbilityAuthorized && owner.AttackingState.CurrentState == CharacterAttackingState.Idle
-         && _inventoryHandler.CanReload(weaponName);
+         && owner.IsOnGround && _inventoryHandler.CanReload(weaponName);
    }
   
    public void EndReloading()
