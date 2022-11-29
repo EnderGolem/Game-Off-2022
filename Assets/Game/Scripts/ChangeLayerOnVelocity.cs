@@ -51,7 +51,9 @@ public class ChangeLayerOnVelocity : MonoBehaviour
                         transform.GetChild(i).gameObject.layer = LayerMask.NameToLayer(new_layer);
                     }   
                 }
-                Debug.Log("Change");
+                Debug.Log("Change " + gameObject.name + 
+                          "velocity: "+_rigidbody2D.velocity.sqrMagnitude
+                          +"angv: "+_rigidbody2D.angularVelocity);
                 hasChanged = true;
                 lastChangeTime = Time.time;
             }

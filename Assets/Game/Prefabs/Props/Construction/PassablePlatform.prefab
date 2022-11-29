@@ -156,6 +156,7 @@ MonoBehaviour:
   useAngularVelocity: 1
   angularVelocityThreshold: 10
   angularVelocityLowerThreshold: 0.5
+  changeChildrenLayer: 0
   minTimeBetweenChanges: 1
 --- !u!114 &1676265213268505343
 MonoBehaviour:
@@ -200,7 +201,7 @@ PlatformEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 33024
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0

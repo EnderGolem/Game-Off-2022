@@ -1002,7 +1002,7 @@ MonoBehaviour:
   DamageTakenNonDamageable: 0
   targetLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 131328
   startEffects:
   - {fileID: 11400000, guid: 95f8d123375eb51428ff4cf1265b3340, type: 2}
   startThroughShieldEffects:
@@ -1092,7 +1092,7 @@ MonoBehaviour:
   DamageTakenNonDamageable: 0
   targetLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 131328
   startEffects: []
   startThroughShieldEffects: []
   knockBack: {x: 20, y: -30}
