@@ -3806,9 +3806,9 @@ MonoBehaviour:
   projStartPos: {fileID: 8130458793347639460}
   spawnAngleOffset: 30
   delayBeforeAttack: 0
-  attackTime: 0
-  delayAfterAttack: 0.3
-  timeBetweenAttacks: 0
+  attackTime: 0.1
+  delayAfterAttack: 0
+  timeBetweenAttacks: 0.4
   baseDamage: 10
   baseDamageToEThroughShield: 0
   attackEffects:
@@ -3918,6 +3918,8 @@ MonoBehaviour:
   needHoldToUse: 1
   reloadingFeedback: {fileID: 646752576378756499}
   stopReloadFeedback: {fileID: 7514454581536640572}
+  reloadAnimParam: Reloading
+  reloadSpeedAnimParam: ReloadSpeed
 --- !u!114 &880104770058250211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4193,27 +4195,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5630661562394931073, guid: d660c59ac2c44184488f2121918bc92f, type: 3}
       propertyPath: m_Bounds.m_Center.x
-      value: -0.80253696
+      value: 0.4998389
       objectReference: {fileID: 0}
     - target: {fileID: -5630661562394931073, guid: d660c59ac2c44184488f2121918bc92f, type: 3}
       propertyPath: m_Bounds.m_Center.y
-      value: -1.2826586
+      value: -0.5666692
       objectReference: {fileID: 0}
     - target: {fileID: -5630661562394931073, guid: d660c59ac2c44184488f2121918bc92f, type: 3}
       propertyPath: m_Bounds.m_Center.z
-      value: 0.29157108
+      value: 0.023636982
       objectReference: {fileID: 0}
     - target: {fileID: -5630661562394931073, guid: d660c59ac2c44184488f2121918bc92f, type: 3}
       propertyPath: m_Bounds.m_Extent.x
-      value: 0.81762683
+      value: 0.6389971
       objectReference: {fileID: 0}
     - target: {fileID: -5630661562394931073, guid: d660c59ac2c44184488f2121918bc92f, type: 3}
       propertyPath: m_Bounds.m_Extent.y
-      value: 0.32714796
+      value: 0.59601617
       objectReference: {fileID: 0}
     - target: {fileID: -5630661562394931073, guid: d660c59ac2c44184488f2121918bc92f, type: 3}
       propertyPath: m_Bounds.m_Extent.z
-      value: 0.13917804
+      value: 0.153826
       objectReference: {fileID: 0}
     - target: {fileID: -5473687889089054851, guid: d660c59ac2c44184488f2121918bc92f, type: 3}
       propertyPath: m_RootOrder
@@ -5435,7 +5437,7 @@ Animator:
   m_GameObject: {fileID: 1148259096283569021}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d010847454bafd84495fd51cf486d17d, type: 2}
+  m_Controller: {fileID: 9100000, guid: a7c60ff001de6534c8110168cf8f6786, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
