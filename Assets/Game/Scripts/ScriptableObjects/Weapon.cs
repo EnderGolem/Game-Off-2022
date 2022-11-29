@@ -15,10 +15,14 @@ public class Weapon : ScriptableObject
    [Tooltip("Тип заряжаемых боеприпасов")]
    [SerializeField]
    protected string ammunitionType;
+   [SerializeField]
+   protected RuntimeAnimatorController animatorController;
 
    public string ItemName => itemName;
    public int MaxAmmoCount => maxAmmoCount;
 
    public string AmmunitionType => ammunitionType;
    public string[] ActiveAbilities => activeAbilities;
+
+   public RuntimeAnimatorController AnimatorController => animatorController;
 }

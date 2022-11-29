@@ -22,7 +22,10 @@ public class ReloadAbility : CharacterAbility
    [Tooltip("Фидбэк, вызываемый, когда перезарядка завершена")]
    [SerializeField]
    protected MMFeedbacks stopReloadFeedback;
-
+   [SerializeField]
+   protected string reloadAnimParam = "Reloading";
+   [SerializeField]
+   protected string reloadSpeedAnimParam = "ReloadSpeed";
    protected Coroutine curReloadRoutine;
 
    protected bool curInput;
@@ -82,9 +85,16 @@ public class ReloadAbility : CharacterAbility
       return AbilityAuthorized && owner.AttackingState.CurrentState == CharacterAttackingState.Idle
          && _inventoryHandler.CanReload(weaponName);
    }
-
+  
    public void EndReloading()
    {
       owner.onReload?.Invoke();
+   }
+
+   protected override void UpdateAnimator()
+   {
+      base.UpdateAnimator();
+      owner.Animator.SetBool(reloadAnimParam,owner.AttackingState.CurrentState==CharacterAttackingState.Reloading);
+      owner.Animator.SetFloat(reloadSpeedAnimParam,1/reloadTime);
    }
 }

@@ -75,6 +75,7 @@ public class WeaponHandler : CharacterAbility
     {
         if (currentWeapon != null)
         {
+
             for (int i = 0; i < currentWeapon.ActiveAbilities.Length; i++)
             {
                 var t = abilities.Where((CharacterAbility ab) => ab.AbilityName == currentWeapon.ActiveAbilities[i]);
@@ -89,6 +90,10 @@ public class WeaponHandler : CharacterAbility
         
         if (currentWeapon != null)
         {
+            if (currentWeapon.AnimatorController != null)
+            {
+                owner.Animator.runtimeAnimatorController = currentWeapon.AnimatorController;
+            }
             for (int i = 0; i < currentWeapon.ActiveAbilities.Length; i++)
             {
                 var t = abilities.Where((CharacterAbility ab) => ab.AbilityName == currentWeapon.ActiveAbilities[i]);

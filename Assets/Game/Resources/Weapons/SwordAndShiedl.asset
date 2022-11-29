@@ -18,3 +18,4 @@ MonoBehaviour:
   - ShieldBlock
   maxAmmoCount: 0
   ammunitionType: 
+  animatorController: {fileID: 9100000, guid: d010847454bafd84495fd51cf486d17d, type: 2}

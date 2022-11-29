@@ -72,6 +72,8 @@ public class RangedAttack : CharacterAbility
     [Tooltip("Скорость перемещние IK оружия")]
     [SerializeField]
     protected float IKMoveSpeed;
+    [SerializeField]
+    protected AdditionalIKPar[] additionalIKTargets;
     
     [Header("Animations")] 
     [SerializeField]
@@ -139,9 +141,14 @@ public class RangedAttack : CharacterAbility
             StartCoroutine(Attack());
         }
 
-        if (aimIK)
+        if (aimIK && AbilityAuthorized)
         {
             AimIK();
+        }
+
+        if (aimIK && isAiming && !AbilityAuthorized)
+        {
+            StopAimIK();
         }
     }
 
@@ -238,12 +245,25 @@ public class RangedAttack : CharacterAbility
 
     protected void AimIK()
     {
+        if (!(owner.AttackingState.CurrentState == CharacterAttackingState.RangeAttacking
+                           || owner.AttackingState.CurrentState == CharacterAttackingState.RangeAttackPreparing
+                           || owner.AttackingState.CurrentState == CharacterAttackingState.Idle))
+        {
+            StopAimIK();
+            return;
+        }
+        
         if ((shouldAim || aimAlways) && !isAiming)
         {
             StartAimIK();
         }
         else if(isAiming && (shouldAim || aimAlways))
         {
+            Debug.Log("Aim");
+            if (UseCursorToAimBallistic && owner.IsPlayer)
+            {
+                SetTargetPos(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
+            }
             float angle;
             var p = projectile.GetComponent<Projectile>();
             Vector2 curSpawnPosition = projStartPos.position;
@@ -274,11 +294,16 @@ public class RangedAttack : CharacterAbility
             IKtarget.position =
                 (Vector2)IKtarget.position + (curSpawnPosition - (Vector2) IKtarget.position).normalized 
                 * Mathf.Min(IKMoveSpeed,(curSpawnPosition - (Vector2) IKtarget.position).magnitude);
+            for (int i = 0; i < additionalIKTargets.Length; i++)
+            {
+                additionalIKTargets[i].target.position = IKtarget.position;
+            }
         }
         else if((!shouldAim && !aimAlways) && isAiming)
         {
             StopAimIK();
         }
+        
     }
 
     protected void StartAimIK()
@@ -287,12 +312,24 @@ public class RangedAttack : CharacterAbility
         IKtarget.position = projStartPos.position;
         //aimSolver.constrainRotation = true;
         aimSolver.GetChain(0).target = IKtarget;
+        for (int i = 0; i < additionalIKTargets.Length; i++)
+        {
+            additionalIKTargets[i].memorizedTarget = additionalIKTargets[i].solver.GetChain(0).target;
+            additionalIKTargets[i].target.position = projStartPos.position;
+            additionalIKTargets[i].solver.GetChain(0).target = additionalIKTargets[i].target;
+        }
         isAiming = true;
     }
 
     protected void StopAimIK()
     {
         aimSolver.GetChain(0).target = memorizedSolverTarget;
+        
+        for (int i = 0; i < additionalIKTargets.Length; i++)
+        {
+            additionalIKTargets[i].solver.GetChain(0).target = additionalIKTargets[i].memorizedTarget;
+        }
+        
         isAiming = false;
         //aimSolver.constrainRotation = false;
     }
@@ -339,4 +376,12 @@ public class RangedAttack : CharacterAbility
             }
         }
     }
+}
+[Serializable]
+public class AdditionalIKPar
+{
+    public Solver2D solver;
+    public Transform target;
+    [NonSerialized]
+    public Transform memorizedTarget;
 }
