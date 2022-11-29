@@ -45,9 +45,8 @@ public class DeadBodyRagdoll : MonoBehaviour
             transform.SetParent(null);
             if (owner.gameObject.tag=="Player")
             {
-                var cam = Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera;
-                cam.Follow = cameraTarget;
-                (cam as CinemachineVirtualCamera).m_Lens.OrthographicSize = 4;
+                CameraParams.SetFollowTarget(cameraTarget);
+                CameraParams.SetOrthoSizeOnDead();
                 Time.timeScale = 0.25f;
                 Time.fixedDeltaTime = Time.timeScale * 0.02f;
             }

@@ -64,12 +64,12 @@ public class RespawnManager : MonoBehaviour
             bloodScreen.SetOwner(owner.player);
             boltsCounter.SetOwner(owner.player);
             DeadScreen.SetActive(false);
-            var cam = Camera.main.GetComponent<CinemachineBrain>().ActiveVirtualCamera as CinemachineVirtualCamera;
-            cam.Follow = owner.player.cameraTarget;
-            cam.m_Lens.OrthographicSize = 5;
+            CameraParams.SetFollowTarget(owner.player.cameraTarget);
+            CameraParams.SetOrthoSizeDefault();
             Time.timeScale = 1f;
             Time.fixedDeltaTime = fixedDeltaTimeDefault;
-            RecoverableObjects.instance?.Recovery();
+            if (RecoverableObjects.instance != null)
+                RecoverableObjects.instance.Recovery();
         }
     }
 }
