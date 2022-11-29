@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b65c917cce37d40b5f548944696335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialVelocity: 18
+  initialVelocity: 25
   rotateModelToVelocityDir: 1
   model: {fileID: 1492637619743227455}
 --- !u!114 &188732072717986306
