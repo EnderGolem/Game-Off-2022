@@ -4694,7 +4694,7 @@ MonoBehaviour:
   DamageTakenNonDamageable: 0
   targetLayer:
     serializedVersion: 2
-    m_Bits: 164681
+    m_Bits: 131913
   startEffects: []
   startThroughShieldEffects: []
   knockBack: {x: 60, y: 0}
