@@ -3962,7 +3962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startAmmunition:
   - name: Bolt
-    count: 8
+    count: 5
   startWeapons:
   - {fileID: 11400000, guid: 9f8f7a7db12900943bd80041beb0b39b, type: 2}
   - {fileID: 11400000, guid: c251781710f568e4d8849979b0c2ce8e, type: 2}
