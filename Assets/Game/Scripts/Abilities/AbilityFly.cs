@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 public class AbilityFly : CharacterAbility
@@ -39,6 +40,8 @@ public class AbilityFly : CharacterAbility
     [Header("Zone")]
     [SerializeField]
     protected Collider2D damageZone;
+    [SerializeField]
+    protected MMFeedbacks flyFeedback;
     
     protected EffectOnTouch damageZoneOnTouch;
     
@@ -129,6 +132,7 @@ public class AbilityFly : CharacterAbility
 	    rigidbody.AddForce(startFlyForce,ForceMode2D.Impulse);
 	    yield return new WaitForSeconds(startFlyTime);
 	    abilityPermitted = true;
+	    flyFeedback?.PlayFeedbacks();
     }
 
     public void StopFly()
@@ -138,6 +142,7 @@ public class AbilityFly : CharacterAbility
 	    owner.MovementState.ChangeState(CharacterMovementsStates.Idle);
 	    damageZone.enabled = true;
 	    damageZoneOnTouch.enabled = true;
+	    flyFeedback?.StopFeedbacks();
 	    StartCoroutine(ProcessStopFly());
     }
 
