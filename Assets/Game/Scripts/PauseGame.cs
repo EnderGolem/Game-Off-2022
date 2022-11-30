@@ -7,6 +7,7 @@ public class PauseGame : MonoBehaviour
 {
     [SerializeField] EscMenuUI escMenuUI;
     [HideInInspector] public Overlay owner;
+    public PlayerInput playerInput;
     bool onPause = false;
     float oldTimeScale = 1f;
 
@@ -31,12 +32,14 @@ public class PauseGame : MonoBehaviour
             {
                 Time.timeScale = oldTimeScale;
                 onPause = false;
+                playerInput.enabled=true;
             }
         }
         else
         {
             if (escMenuUI.Open())
             {
+                playerInput.enabled=false;
                 oldTimeScale = Time.timeScale;
                 Time.timeScale = 0f;
                 onPause = true;
