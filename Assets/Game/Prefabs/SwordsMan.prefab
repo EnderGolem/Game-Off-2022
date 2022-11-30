@@ -104,7 +104,7 @@ MonoBehaviour:
     m_Center: {x: 0.0962058, y: 0.061924815, z: 0}
     m_Extent: {x: 0.31861466, y: 0.35720998, z: 0}
   m_UseBatching: 1
-  m_AlwaysUpdate: 1
+  m_AlwaysUpdate: 0
   m_AutoRebind: 0
 --- !u!1 &95463053325817634
 GameObject:
@@ -1892,7 +1892,7 @@ MonoBehaviour:
     m_Center: {x: 0.060416877, y: 0.04930736, z: 0}
     m_Extent: {x: 0.13613787, y: 0.21627185, z: 0}
   m_UseBatching: 1
-  m_AlwaysUpdate: 1
+  m_AlwaysUpdate: 0
   m_AutoRebind: 0
 --- !u!1 &2306530083170983986
 GameObject:
@@ -2231,7 +2231,7 @@ MonoBehaviour:
     m_Center: {x: 0.05251474, y: 0.0642958, z: 0}
     m_Extent: {x: 0.13394451, y: 0.2140396, z: 0}
   m_UseBatching: 1
-  m_AlwaysUpdate: 1
+  m_AlwaysUpdate: 0
   m_AutoRebind: 0
 --- !u!1 &3020731019732873695
 GameObject:
@@ -3777,7 +3777,7 @@ MonoBehaviour:
     m_Center: {x: 0.043149337, y: 0.07295063, z: 0}
     m_Extent: {x: 0.18498093, y: 0.31424087, z: 0}
   m_UseBatching: 1
-  m_AlwaysUpdate: 1
+  m_AlwaysUpdate: 0
   m_AutoRebind: 0
 --- !u!1 &5472907914175360037
 GameObject:
@@ -4193,7 +4193,7 @@ MonoBehaviour:
     m_Center: {x: 0.049881876, y: 0.042530656, z: 0}
     m_Extent: {x: 0.20525947, y: 0.3383812, z: 0}
   m_UseBatching: 1
-  m_AlwaysUpdate: 1
+  m_AlwaysUpdate: 0
   m_AutoRebind: 0
 --- !u!1 &5635096067680364239
 GameObject:
@@ -4543,7 +4543,7 @@ MonoBehaviour:
     m_Center: {x: -0.035188645, y: 0.11382002, z: 0}
     m_Extent: {x: 0.26363015, y: 0.346351, z: 0}
   m_UseBatching: 1
-  m_AlwaysUpdate: 1
+  m_AlwaysUpdate: 0
   m_AutoRebind: 0
 --- !u!1 &6516347369078608927
 GameObject:
@@ -4650,7 +4650,7 @@ MonoBehaviour:
     m_Center: {x: -0.037207395, y: 0.048141986, z: 0}
     m_Extent: {x: 0.21910915, y: 0.3806937, z: 0}
   m_UseBatching: 1
-  m_AlwaysUpdate: 1
+  m_AlwaysUpdate: 0
   m_AutoRebind: 0
 --- !u!1 &6598595476680859498
 GameObject:
@@ -4822,7 +4822,7 @@ MonoBehaviour:
     m_Center: {x: -0.0022557378, y: 0.04546635, z: 0}
     m_Extent: {x: 0.30788714, y: 0.29328114, z: 0}
   m_UseBatching: 1
-  m_AlwaysUpdate: 1
+  m_AlwaysUpdate: 0
   m_AutoRebind: 0
 --- !u!1 &7165658118115258650
 GameObject:
@@ -5022,7 +5022,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6526493741775072515
 Transform:
   m_ObjectHideFlags: 0
@@ -5197,7 +5197,7 @@ MonoBehaviour:
     m_Center: {x: 0.024303615, y: 0.059222758, z: 0}
     m_Extent: {x: 0.42362905, y: 0.5437867, z: 0}
   m_UseBatching: 1
-  m_AlwaysUpdate: 1
+  m_AlwaysUpdate: 0
   m_AutoRebind: 0
 --- !u!1 &7562393133399851889
 GameObject:
@@ -5304,7 +5304,7 @@ MonoBehaviour:
     m_Center: {x: 0.0036166012, y: 0.03057012, z: 0}
     m_Extent: {x: 0.27885967, y: 0.2866485, z: 0}
   m_UseBatching: 1
-  m_AlwaysUpdate: 1
+  m_AlwaysUpdate: 0
   m_AutoRebind: 0
 --- !u!1 &7933791299509357621
 GameObject:
@@ -5591,7 +5591,7 @@ MonoBehaviour:
     m_Center: {x: -0.02636838, y: 0.45738322, z: 0}
     m_Extent: {x: 0.7616102, y: 0.3745063, z: 0}
   m_UseBatching: 1
-  m_AlwaysUpdate: 1
+  m_AlwaysUpdate: 0
   m_AutoRebind: 0
 --- !u!1 &8767611190246777116
 GameObject:

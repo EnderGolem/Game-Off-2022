@@ -914,6 +914,7 @@ MonoBehaviour:
   projStartPosDistToCenter: 1.5
   IKtarget: {fileID: 5629836415941123269}
   IKMoveSpeed: 0.03
+  additionalIKTargets: []
   AttackPreparingParameter: FireballPreparing
   AttackingParameter: Fireballing
   AttackSpeedAnimParameter: FireballSpeed
@@ -2530,6 +2531,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 5398529664037324385}
     m_Modifications:
     - target: {fileID: -8870217498325721676, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8870217498325721676, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
       propertyPath: m_Bounds.m_Center.x
       value: 0.61009
       objectReference: {fileID: 0}
@@ -2548,6 +2553,10 @@ PrefabInstance:
     - target: {fileID: -8653719598885068355, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
       propertyPath: m_Name
       value: DragonModel
+      objectReference: {fileID: 0}
+    - target: {fileID: -8387937810010203111, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8387937810010203111, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
       propertyPath: m_Bounds.m_Center.x
@@ -2682,6 +2691,10 @@ PrefabInstance:
       value: -9.389
       objectReference: {fileID: 0}
     - target: {fileID: -5599870516095012707, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5599870516095012707, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
       propertyPath: m_Bounds.m_Center.x
       value: -0.047471046
       objectReference: {fileID: 0}
@@ -2742,6 +2755,10 @@ PrefabInstance:
       value: -107.915
       objectReference: {fileID: 0}
     - target: {fileID: -3566069061688673351, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3566069061688673351, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
       propertyPath: m_Bounds.m_Center.x
       value: -0.14687169
       objectReference: {fileID: 0}
@@ -2756,6 +2773,10 @@ PrefabInstance:
     - target: {fileID: -3566069061688673351, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
       propertyPath: m_Bounds.m_Extent.y
       value: 2.5181656
+      objectReference: {fileID: 0}
+    - target: {fileID: -2849051525662762275, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2849051525662762275, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
       propertyPath: m_Bounds.m_Center.x
@@ -2782,6 +2803,10 @@ PrefabInstance:
       value: 0.6610415
       objectReference: {fileID: 0}
     - target: {fileID: -1431625618345358286, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1431625618345358286, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
       propertyPath: m_Bounds.m_Center.x
       value: 0.0032901764
       objectReference: {fileID: 0}
@@ -2800,6 +2825,10 @@ PrefabInstance:
     - target: {fileID: -1125081754167440450, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
       propertyPath: m_Layer
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -587020401536548690, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -587020401536548690, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
       propertyPath: m_Bounds.m_Center.x
@@ -2904,6 +2933,10 @@ PrefabInstance:
     - target: {fileID: 3068497414730025045, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.83857
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104898846891809989, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3104898846891809989, guid: 7d779f75ec16cef4aab40aaf20fc1a4f, type: 3}
       propertyPath: m_Bounds.m_Center.x
