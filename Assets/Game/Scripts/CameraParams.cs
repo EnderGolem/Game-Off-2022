@@ -31,7 +31,6 @@ public class CameraParams : MonoBehaviour
     }
     public static void SetFollowTarget(Transform tr)
     {
-        Debug.Log("SETFOOLOWTARGET");
         CameraParams.instance.vcam.m_Follow = tr;
     }
 }

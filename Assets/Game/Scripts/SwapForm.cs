@@ -51,8 +51,9 @@ public class SwapForm : MonoBehaviour
     {
         if (startForm)
         {
-            var obj = Instantiate(form2, transform.position, transform.rotation);
-            obj.transform.SetParent(transform);
+            var obj = Instantiate(form2, transform);
+            //var obj = Instantiate(form2, transform.position, transform.rotation);
+            //obj.transform.SetParent(transform);
             obj.name = nameForm2;
             obj.transform.localScale = scale2;
             obj.transform.localPosition = position2;
@@ -64,8 +65,9 @@ public class SwapForm : MonoBehaviour
         }
         else
         {
-            var obj = Instantiate(form1, transform.position, transform.rotation);
-            obj.transform.SetParent(transform);
+            var obj = Instantiate(form2, transform);
+            //var obj = Instantiate(form1, transform.position, transform.rotation);
+            //obj.transform.SetParent(transform);
             obj.name = nameForm1;
             obj.transform.localScale = scale1;
             obj.transform.localPosition = position1;

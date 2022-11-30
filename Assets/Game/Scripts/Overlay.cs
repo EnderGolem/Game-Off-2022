@@ -2,6 +2,7 @@ using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Overlay : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Overlay : MonoBehaviour
         respawnManager.Initialize();
         bloodScreen.SetOwner(player);
         boltsCounter.SetOwner(player);
+        pauseGame.playerInput = player.GetComponent<PlayerInput>();
         var bars = GetComponentsInChildren<PropertyProgressBar>();
         foreach (var x in bars)
         {

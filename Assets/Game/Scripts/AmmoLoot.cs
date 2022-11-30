@@ -23,6 +23,8 @@ public class AmmoLoot : MonoBehaviour
             {
                 inventory.AddAmmunition(ammoToAdd[i].name, ammoToAdd[i].count);   
             }
+            var character = other.GetComponent<Character>();
+            character.onReload?.Invoke();
 
             isUsed = true;
             onAddFeedback.PlayFeedbacks();
