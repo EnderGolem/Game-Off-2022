@@ -56,7 +56,7 @@ public class SceneLoader : MonoBehaviour
         f.allowSceneActivation = false;
         while (!f.isDone)
         {
-            if (f.progress >= 0.95f && !f.allowSceneActivation)
+            if (f.progress >= 0.90f && !f.allowSceneActivation)
             {
                 textLoader.text = "Press Any Button";
                 if (Input.anyKeyDown)
@@ -66,7 +66,7 @@ public class SceneLoader : MonoBehaviour
             {
                 textLoader.text = "Loading " + f.progress * 100 + "%";
             }
-
+            Debug.Log("Loading " + f.progress * 100);
             yield return null;
         }
 
