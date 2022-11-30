@@ -137,6 +137,8 @@ public class MeleeAttack : CharacterAbility
         {
             for (int i = 0; i < attackEffects.Length; i++)
             {
+                Debug.Log($"zone{attackEffects[i]}");
+                Debug.Log($"owner{owner}");
                 damageZoneOnTouch.AddEffect(new Effect(attackEffects[i],owner.PropertyManager));
             }
             for (int i = 0; i < throughShieldEffects.Length; i++)
