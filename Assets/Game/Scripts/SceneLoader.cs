@@ -1,11 +1,16 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+
+// Для того, чтобы менялась надпись, она должны быть задана в правильном формате
 
 public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance { get; private set; }
-
+    
+    protected TextMeshProUGUI textLoader;
     public void Awake()
     {
         if (Instance == null)
@@ -26,6 +31,7 @@ public class SceneLoader : MonoBehaviour
     IEnumerator Load(string loadableScene, string loadingScene, string[] unloadableScenes)
     {
         yield return LoadableAscync(unloadableScenes, loadableScene);
+        textLoader = GameObject.Find("TextLoader").GetComponentInChildren<TextMeshProUGUI>();
         yield return LoadingAscync(loadableScene, loadingScene);
     }
 
@@ -50,9 +56,17 @@ public class SceneLoader : MonoBehaviour
         f.allowSceneActivation = false;
         while (!f.isDone)
         {
-            if (f.progress >= 0.9f && !f.allowSceneActivation)
+            if (f.progress >= 0.90f && !f.allowSceneActivation)
+            {
+                textLoader.text = "Press Any Button";
                 if (Input.anyKeyDown)
                     f.allowSceneActivation = true;
+            }
+            else
+            {
+                textLoader.text = "Loading " + f.progress * 100 + "%";
+            }
+            Debug.Log("Loading " + f.progress * 100);
             yield return null;
         }
 

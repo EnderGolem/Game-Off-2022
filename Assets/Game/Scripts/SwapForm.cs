@@ -25,6 +25,9 @@ public class SwapForm : MonoBehaviour
     public Vector2 scalecollider2;
     [Tooltip("Оффсет 2 обьекта")] 
     public Vector2 offsetcollider2;
+    
+    [Tooltip("Отключаемый обьект")] 
+    public GameObject offGameObject;
 
     protected Vector2 scalecollider1;
     protected Vector2 offsetcollider1;
@@ -62,6 +65,7 @@ public class SwapForm : MonoBehaviour
             _character.Animator = transform.Find(nameForm2).GetComponent<Animator>();
             _collider.size = scalecollider2;
             _collider.offset = offsetcollider2;
+            offGameObject.SetActive(false);
         }
         else
         {
@@ -76,6 +80,7 @@ public class SwapForm : MonoBehaviour
             _character.Animator  = transform.Find(nameForm1).GetComponent<Animator>();
             _collider.size = scalecollider1;
             _collider.offset = offsetcollider1;
+            offGameObject.SetActive(true);
         }
     }
 }
