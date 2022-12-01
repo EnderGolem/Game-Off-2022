@@ -56,17 +56,20 @@ public class AIActionBowShoot : AIAction
 
     protected void Aiming()
     {
-        bowAttack.SetTargetPos(_brain.Target.position);
-        var dist = _brain.Target.position - bowAttack.ProjStartPosition.position;
-        var hit = Physics2D.Raycast(bowAttack.ProjStartPosition.position,
-            _brain.Target.position - bowAttack.ProjStartPosition.position, dist.magnitude, obstacleMask);
-        if (hit)
+        if (_brain.Target != null)
         {
-            bowAttack.SetUseDirectFire(false);
-        }
-        else
-        {
-            bowAttack.SetUseDirectFire(true);
+            bowAttack.SetTargetPos(_brain.Target.position);
+            var dist = _brain.Target.position - bowAttack.ProjStartPosition.position;
+            var hit = Physics2D.Raycast(bowAttack.ProjStartPosition.position,
+                _brain.Target.position - bowAttack.ProjStartPosition.position, dist.magnitude, obstacleMask);
+            if (hit)
+            {
+                bowAttack.SetUseDirectFire(false);
+            }
+            else
+            {
+                bowAttack.SetUseDirectFire(true);
+            }
         }
     }
 
