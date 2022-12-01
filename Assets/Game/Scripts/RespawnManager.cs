@@ -37,7 +37,7 @@ public class RespawnManager : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            if (canRespawn)
+            if (canRespawn&&!pauseGame.onPause)
             {
                 Respawn();
             }
