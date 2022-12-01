@@ -19,8 +19,10 @@ public class CircleRandomSpawner : MonoBehaviour
     {
         float x = Random.Range(0, radius);
         float y = Mathf.Sqrt(radius * radius - x * x);
-
-        return Instantiate(objectToSpawn,spawnCenter.position+new Vector3(x,y,0),Quaternion.identity);
+        var res = Instantiate(objectToSpawn,spawnCenter.position+new Vector3(x,y,0),Quaternion.identity);
+        //Нужно для того, чтобы упавшие яблоки удалялись после рестарта
+        res.transform.SetParent(transform.parent);
+        return res;
     }
 
     private void OnDrawGizmos()
