@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class DetonationTrigger : MonoBehaviour
 {
-    public GameObject detonationTimeline;
+    public GameObject detonator;
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag=="Player")
         {
             gameObject.SetActive(false);
-            detonationTimeline.SetActive(true);
+            detonator.SetActive(true);
         }
     }
 }

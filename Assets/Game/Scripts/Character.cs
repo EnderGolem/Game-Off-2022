@@ -10,6 +10,8 @@ using UnityEngine.Events;
 /// </summary>
 public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<CharacterMovementsStates>>
 {
+    public static Character player;
+
     public MMStateMachine<CharacterMovementsStates> MovementState;
     public MMStateMachine<CharacterAttackingState> AttackingState;
 
@@ -90,6 +92,8 @@ public class Character : MonoBehaviour, MMEventListener<MMStateChangeEvent<Chara
     protected Vector2 curMoveInputDir;
     private void Awake()
     {
+        if (IsPlayer)
+            Character.player = this;
         Debug.Log("Character");
         PropertyManager = GetComponent<PropertyManager>();
         if (PropertyManager == null)//гарантия того что объекты с компонентом health имеют PropertyManager
