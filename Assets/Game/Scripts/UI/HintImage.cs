@@ -6,6 +6,8 @@ public class HintImage : MonoBehaviour
 {
     public float disappearanceIntence;
     public float appearanceIntence;
+    bool shownEarlier = false;
+    GameObject player = null;
     CanvasGroup canvasGroup;
     private void Awake() {
         TryGetComponent(out canvasGroup);
@@ -14,6 +16,17 @@ public class HintImage : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player")
         {
+            //Если игрок уже видел это подсказку, то при новой игре, она не будет высвечиваться
+            if (shownEarlier&&(other.gameObject!=player))
+            {
+                Destroy(gameObject);
+                return;
+            }
+            if (player==null)
+            {
+                player=other.gameObject;
+                shownEarlier = true;
+            }
             StopAllCoroutines();
             StartCoroutine(Show());
         }
