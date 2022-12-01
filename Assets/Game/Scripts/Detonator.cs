@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class Detonator : MonoBehaviour
 {
-    PropertyManager _propertyManager;
-    ObjectProperty health;
-    void Start()
+    public List<Killer> killers = new List<Killer>();
+    public float delay = .5f;
+
+    void Awake()
     {
-        _propertyManager = GetComponent<PropertyManager>();
-        ObjectProperty health = _propertyManager.GetPropertyByName("Health");
+        StartCoroutine(Detonate());
     }
 
-    public void Kill()
+    IEnumerator Detonate()
     {
-        health.ChangeCurValue(-9999);
+        foreach(var obj in killers)
+        {
+            yield return new WaitForSeconds(delay);
+            obj.Kill();
+        }
+        Destroy(gameObject);
     }
 }
